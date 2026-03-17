@@ -7,8 +7,8 @@ model RefreshToken {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   deviceId   String?
-  userAgent  String
-  ipAddress  String
+  userAgent  String?
+  ipAddress  String?
 
   lastUsedAt DateTime? @default(now())
   expiresAt  DateTime

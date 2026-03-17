@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { SeederService } from './core/seed/seed.service';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -40,6 +41,13 @@ async function bootstrap() {
       persistAuthorization: true,
     },
   });
+
+  // 
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    transform: true,
+    transformOptions: { enableImplicitConversion: true },
+  }));
 
   await app.listen(port, '0.0.0.0');
   console.log(`Server running on http://localhost:${port}/docs`);

@@ -11,9 +11,7 @@ import {
 } from '@nestjs/common';
 import type { Response, Request } from 'express';
 import { AuthService } from '../service/auth.service';
-import { RegisterDto } from '../dto/register.dto';
 import { LoginDto } from '../dto/login.dto';
-import { Throttle } from '@nestjs/throttler';
 import { GetUser } from 'src/core/jwt/get-user.decorator';
 import { JwtAuthGuard } from 'src/core/jwt/jwt-auth.guard';
 import { DeviceInfo, GetDeviceInfo } from '../utils/device-info.decorator';
@@ -23,9 +21,6 @@ import { Public } from 'src/core/jwt/public.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
-
-
- @Throttle({ user: { limit: 6, ttl: 60000 } })
   @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
@@ -40,7 +35,6 @@ export class AuthController {
   }
 
   //-------refresh token
-  @Throttle({ auth: { limit: 6, ttl: 60000 } })
   @Post('refresh')
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -71,15 +65,6 @@ export class AuthController {
     return { message: 'Logged out successfully' };
   }
 
-  //logout all -------
-  // @UseGuards(JwtAuthGuard)
-  // @Post('logout-all')
-  // @HttpCode(HttpStatus.OK)
-  // async logoutAll(@GetUser('id') userId: string, @Res({ passthrough: true }) res: Response) {
-  //   await this.authService.logoutAll(userId);
-  //   this.clearCookies(res);
-  //   return { message: 'Logged out from all devices' };
-  // }
 
   @UseGuards(JwtAuthGuard)
   @Post('logout-all')
@@ -91,8 +76,6 @@ export class AuthController {
   }
 
   
-
-
 
   //prod mode 
   private setCookies(res: Response, access: string, refresh: string) {

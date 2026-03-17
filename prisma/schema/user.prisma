@@ -4,25 +4,17 @@ model User {
   email    String @unique
   name     String
   password String
-
   mobile  String?
   profile String?
+
   role    UserRole
-
-  language Language   @default(English)
   status   UserStatus @default(PENDING)
-
-  mfaEnabled      Boolean    @default(false)
-
   refreshTokens RefreshToken[]
 
   failedLoginAttempts Int       @default(0)
   lastFailedAttempt   DateTime?
   lockUntil           DateTime?
 
-
-  notificationProvisions NotificationRecipient[]
-  notificationPermission NotificationPreference?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -31,9 +23,6 @@ model User {
   @@index([email, status, deletedAt])
 }
 
-enum Language {
-  English
-}
 
 enum UserStatus {
   PENDING
@@ -43,7 +32,6 @@ enum UserStatus {
 }
 
 enum UserRole {
-  USER
   ADMIN
   SUPER_ADMIN
 }

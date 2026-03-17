@@ -9,52 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const NotificationType = {
-  INFO: 'INFO',
-  WARNING: 'WARNING',
-  ALERT: 'ALERT',
-  MESSAGE: 'MESSAGE',
-  TASK: 'TASK',
-  SYSTEM: 'SYSTEM',
-  PROMOTION: 'PROMOTION'
-} as const
-
-export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
-
-
-export const NotificationResourceType = {
-  EMERGENCY_CONTACT: 'EMERGENCY_CONTACT',
-  SECURITY_ALERT: 'SECURITY_ALERT',
-  IDEATED_VERIFIED: 'IDEATED_VERIFIED',
-  MEMBERSHIP_RENEWS: 'MEMBERSHIP_RENEWS',
-  PHONE_REPLACEMENT: 'PHONE_REPLACEMENT',
-  SAFE: 'SAFE',
-  DOCUMENT: 'DOCUMENT',
-  PROFILE_UPDATE: 'PROFILE_UPDATE',
-  DELIVERY: 'DELIVERY',
-  DELIVERY_RECEIVE: 'DELIVERY_RECEIVE',
-  OTHER: 'OTHER'
-} as const
-
-export type NotificationResourceType = (typeof NotificationResourceType)[keyof typeof NotificationResourceType]
-
-
-export const NotificationActorType = {
-  USER: 'USER',
-  SYSTEM: 'SYSTEM',
-  DEVICE: 'DEVICE'
-} as const
-
-export type NotificationActorType = (typeof NotificationActorType)[keyof typeof NotificationActorType]
-
-
-export const Language = {
-  English: 'English'
-} as const
-
-export type Language = (typeof Language)[keyof typeof Language]
-
-
 export const UserStatus = {
   PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',
@@ -66,7 +20,6 @@ export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
 export const UserRole = {
-  USER: 'USER',
   ADMIN: 'ADMIN',
   SUPER_ADMIN: 'SUPER_ADMIN'
 } as const

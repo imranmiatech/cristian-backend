@@ -3,9 +3,6 @@ import {
   ConflictException,
   UnauthorizedException,
   ForbiddenException,
-  BadRequestException,
-  InternalServerErrorException,
-  Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -15,23 +12,6 @@ import { RegisterDto } from '../dto/register.dto';
 import { LoginDto } from '../dto/login.dto';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { DeviceInfo } from '../utils/device-info.decorator';
-import {
-  RekognitionClient,
-  IndexFacesCommand,
-  SearchFacesByImageCommand,
-  InvalidImageFormatException,
-  ProvisionedThroughputExceededException,
-  InternalServerError,
-  DeleteCollectionCommand,
-  CreateCollectionCommand,
-  RekognitionServiceException,
-  GetFaceLivenessSessionResultsCommand,
-  CreateFaceLivenessSessionCommand,
-  DeleteFacesCommand
-} from "@aws-sdk/client-rekognition";
-import { NodeHttpHandler } from "@smithy/node-http-handler";
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { NotificationGateway } from 'src/modules/notification/gateway/notification.gateway';
 import { UserRole, UserStatus } from 'prisma/generated/prisma/enums';
 import { Prisma, User } from 'prisma/generated/prisma/client';
 
@@ -43,25 +23,25 @@ export class AuthService {
     private readonly config: ConfigService,
   ) {}
 
-  async register(payload: RegisterDto, device: DeviceInfo) {
-    const existing = await this.prisma.user.findUnique({ where: { email: payload.email } });
-    if (existing) throw new ConflictException('Email already registered');
+  // async register(payload: RegisterDto, device: DeviceInfo) {
+  //   const existing = await this.prisma.user.findUnique({ where: { email: payload.email } });
+  //   if (existing) throw new ConflictException('Email already registered');
 
-    const rounds = this.config.get<number>('security.bcrypt_salt_rounds') || 12;
-    const hashedPassword = await SecurityUtil.hashData(payload.password, rounds);
-    return this.prisma.$transaction(async (tx) => {
-      const user = await tx.user.create({
-        data: {
-          email: payload.email,
-          name: payload.name,
-          password: hashedPassword,
-          status: UserStatus.ACTIVE,
-          role: UserRole.USER,
-        },
-      });
-      return this.issueTokens(user, device, tx);
-    });
-  }
+  //   const rounds = this.config.get<number>('security.bcrypt_salt_rounds') || 12;
+  //   const hashedPassword = await SecurityUtil.hashData(payload.password, rounds);
+  //   return this.prisma.$transaction(async (tx) => {
+  //     const user = await tx.user.create({
+  //       data: {
+  //         email: payload.email,
+  //         name: payload.name,
+  //         password: hashedPassword,
+  //         status: UserStatus.ACTIVE,
+  //         role: UserRole.ADMIN,
+  //       },
+  //     });
+  //     return this.issueTokens(user, device, tx);
+  //   });
+  // }
 
   async login(payload: LoginDto, device: DeviceInfo) {
     if (!payload.email || !payload.password) throw new UnauthorizedException('Missing credentials');
@@ -169,7 +149,6 @@ export class AuthService {
   private async clearUserSessions(userId: string) {
     await this.prisma.refreshToken.deleteMany({ where: { userId } });
   }
-
 
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)

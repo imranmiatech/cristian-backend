@@ -1,19 +1,19 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateUserDto } from '../dto/user.update.dto';
 import { UpdatePasswordDto } from '../dto/update.password.dto';
 import { SecurityUtil } from 'src/modules/auth/utils/security.util';
-import { SafetyStatus, SendEmailDto, SendEmailResponseDto, EmailSendResult } from '../dto/send-email.dto';
 import { EmailService } from 'src/lib/email/email.service';
 import { NotificationGateway } from 'src/modules/notification/gateway/notification.gateway';
-import { NotificationResourceType, NotificationType, UserStatus } from 'prisma/generated/prisma/enums';
+import { UserRole, UserStatus } from 'prisma/generated/prisma/enums';
+import { CreateAdminDto } from '../dto/CreateAdminDto';
+import { UserQueryDto } from '../dto/user-query.dto';
+
 
 @Injectable()
 export class UserService {
     constructor(
         private readonly prisma: PrismaService,
-        private readonly emailService: EmailService,
-        private readonly notificationGateway: NotificationGateway,
     ) { }
 
     async getMe(userId: string) {
@@ -32,7 +32,6 @@ export class UserService {
             data: {
                 name: data.name,
                 mobile: data.mobile,
-                language: data.language,
                 ...(profilePath && { profile: profilePath }),
             },
             select: {
@@ -40,7 +39,6 @@ export class UserService {
                 name: true,
                 profile: true,
                 mobile: true,
-                language: true,
             },
         });
         return updatedUser;
@@ -70,9 +68,90 @@ export class UserService {
         return { message: 'Password updated successfully. All other devices logged out.' };
     }
 
+    async createAdmin(requesterId: string, data: CreateAdminDto) {
+        const requester = await this.prisma.user.findUnique({
+            where: { id: requesterId }
+        });
+
+        if (!requester || requester.role !== UserRole.SUPER_ADMIN) {
+            throw new ForbiddenException('Only Super Admins can create Admin accounts');
+        }
+
+        const existingUser = await this.prisma.user.findUnique({
+            where: { email: data.email },
+        });
+
+        if (existingUser) {
+            throw new ConflictException('Email already in use');
+        }
+
+        const hashedPassword = await SecurityUtil.hashData(data.password);
+        const newAdmin = await this.prisma.user.create({
+            data: {
+                name: data.name,
+                email: data.email,
+                password: hashedPassword,
+                mobile: data.mobile,
+                role: UserRole.ADMIN,
+                status: UserStatus.ACTIVE,
+            },
+        });
+        const { password, ...result } = newAdmin;
+        return result;
+    }
 
 
-   
-  
+
+async getAllUsers(query: UserQueryDto) {
+    const { search, status, role } = query;
+    
+    const page = Number(query.page ?? 1);
+    const limit = Number(query.limit ?? 10);
+    const skip = (page - 1) * limit;
+    const andFilters: any[] = [];
+
+    if (status) andFilters.push({ status });
+    if (role) andFilters.push({ role });
+
+    if (search) {
+        andFilters.push({
+            OR: [
+                { name: { contains: search, mode: 'insensitive' } },
+                { email: { contains: search, mode: 'insensitive' } },
+            ],
+        });
+    }
+
+    const where = andFilters.length > 0 ? { AND: andFilters } : {};
+
+    const [users, total] = await Promise.all([
+        this.prisma.user.findMany({
+            where,
+            skip,
+            take: limit,
+            orderBy: { createdAt: 'desc' },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                role: true,
+                status: true,
+                createdAt: true,
+            },
+        }),
+        this.prisma.user.count({ where }),
+    ]);
+
+    return {
+        users,
+        meta: {
+            total,
+            page,
+            limit,
+            lastPage: total > 0 ? Math.ceil(total / limit) : 0,
+        },
+    };
+}
 
 }
+

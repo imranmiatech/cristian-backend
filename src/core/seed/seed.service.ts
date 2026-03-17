@@ -10,8 +10,8 @@ export class SeederService {
     constructor(private readonly prisma: PrismaService) { }
 
     async seedAdmin() {
-        const adminEmail = process.env.ADMIN_EMAIL || 'recoopmb21@gmail.com';
-        const adminPassword = process.env.ADMIN_PASSWORD || 'recoopmb21';
+        const adminEmail = process.env.ADMIN_EMAIL ;
+        const adminPassword = process.env.ADMIN_PASSWORD;
 
         const existingAdmin = await this.prisma.user.findUnique({
             where: { email: adminEmail },
@@ -23,19 +23,19 @@ export class SeederService {
             return existingAdmin;
         }
 
-        const hashedPassword = await SecurityUtil.hashData(adminPassword);
+        const hashedPassword = await SecurityUtil.hashData(adminPassword as any);
 
         const admin = await this.prisma.user.create({
             data: {
-                email: adminEmail,
-                name: 'Admin',
+                email: adminEmail as string,
+                name: 'SUPER ADMIN',
                 password: hashedPassword,
-                role: UserRole.ADMIN,
+                role: UserRole.SUPER_ADMIN,
                 status: UserStatus.ACTIVE,
             },
         });
 
-        this.logger.log(`Admin user created: ${adminEmail}`);
+        this.logger.log(` SUPER ADMIN user created: ${adminEmail}`);
         console.log("admin", admin.name, "created")
         return admin;
     }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../service/user.service';
@@ -11,10 +11,10 @@ import { MulterService } from 'src/lib/file/service/multer.service';
 import { FileType } from 'src/lib/file/utils/file-type.enum';
 import { UpdatePasswordDto } from '../dto/update.password.dto';
 import { Roles } from 'src/core/jwt/roles.decorator';
-import { UserRole, UserStatus } from 'prisma/generated/prisma/enums';
-import { SendEmailDto, SendEmailResponseDto } from '../dto/send-email.dto';
-import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
-// import { CustomThrottlerGuard } from 'src/core/rateLimiting/custom-throttler.guard';
+import { UserRole } from 'prisma/generated/prisma/enums';
+import { CreateAdminDto } from '../dto/CreateAdminDto';
+import { UserQueryDto } from '../dto/user-query.dto';
+
 
 
 @ApiTags('User Information')
@@ -36,9 +36,8 @@ export class UserController {
             data: result
         };
     }
-    @Throttle({ user: { limit: 20, ttl: 60000 } })
     @Patch('update-me')
-    @UseGuards(JwtAuthGuard,RoleGuard)
+    @UseGuards(JwtAuthGuard, RoleGuard)
     @ApiConsumes('multipart/form-data')
     @UseInterceptors(FileInterceptor('profile', new MulterService().singleUpload(FileType.image)))
     async updateMe(
@@ -68,7 +67,6 @@ export class UserController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Throttle({ user: { limit: 5, ttl: 60000 } })
     @Patch('update-password')
     @ApiOperation({ summary: 'Update user password & logout other devices' })
     @ApiBody({ type: UpdatePasswordDto })
@@ -80,7 +78,35 @@ export class UserController {
         return await this.userService.updatePassword(userId, dto, jti);
     }
 
+    @Post('create-admin')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(UserRole.SUPER_ADMIN)
+    @ApiOperation({ summary: 'Create a new admin (Super Admin only)' })
+    async createAdmin(
+        @GetUser('id') userId: string,
+        @Body() createAdminDto: CreateAdminDto
+    ) {
+        const result = await this.userService.createAdmin(userId, createAdminDto);
+        return {
+            message: "Admin account created successfully",
+            data: result
+        };
+    }
 
 
-}  
+    @Get('all')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(UserRole.SUPER_ADMIN)
+    @ApiOperation({ summary: 'Get all users with filters and pagination' })
+    async getAllUsers(@Query() query: UserQueryDto) {
+        const result = await this.userService.getAllUsers(query);
+        return {
+            message: "Users retrieved successfully",
+            data: result.users,
+            meta: result.meta
+        };
+    }
+
+
+}
 

@@ -51,9 +51,6 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Notification: 'Notification',
-  NotificationRecipient: 'NotificationRecipient',
-  NotificationPreference: 'NotificationPreference',
   RefreshToken: 'RefreshToken',
   User: 'User'
 } as const
@@ -72,52 +69,6 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-export const NotificationScalarFieldEnum = {
-  id: 'id',
-  actorType: 'actorType',
-  actorId: 'actorId',
-  senderId: 'senderId',
-  receiverId: 'receiverId',
-  title: 'title',
-  body: 'body',
-  type: 'type',
-  resourceType: 'resourceType',
-  resourceId: 'resourceId',
-  isGlobal: 'isGlobal',
-  metadata: 'metadata',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
-} as const
-
-export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
-
-
-export const NotificationRecipientScalarFieldEnum = {
-  userId: 'userId',
-  notificationId: 'notificationId',
-  isRead: 'isRead',
-  readAt: 'readAt',
-  isDelivered: 'isDelivered'
-} as const
-
-export type NotificationRecipientScalarFieldEnum = (typeof NotificationRecipientScalarFieldEnum)[keyof typeof NotificationRecipientScalarFieldEnum]
-
-
-export const NotificationPreferenceScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  inApp: 'inApp',
-  systemAlerts: 'systemAlerts',
-  safe: 'safe',
-  UnSafe: 'UnSafe',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type NotificationPreferenceScalarFieldEnum = (typeof NotificationPreferenceScalarFieldEnum)[keyof typeof NotificationPreferenceScalarFieldEnum]
 
 
 export const RefreshTokenScalarFieldEnum = {
@@ -145,9 +96,7 @@ export const UserScalarFieldEnum = {
   mobile: 'mobile',
   profile: 'profile',
   role: 'role',
-  language: 'language',
   status: 'status',
-  mfaEnabled: 'mfaEnabled',
   failedLoginAttempts: 'failedLoginAttempts',
   lastFailedAttempt: 'lastFailedAttempt',
   lockUntil: 'lockUntil',
@@ -167,29 +116,12 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const NullableJsonNullValueInput = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull'
-} as const
-
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const JsonNullValueFilter = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull',
-  AnyNull: 'AnyNull'
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 export const NullsOrder = {
