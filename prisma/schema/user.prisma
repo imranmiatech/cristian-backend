@@ -1,20 +1,23 @@
-
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  name     String
-  password String
-  mobile  String?
-  profile String?
-
-  role    UserRole
-  status   UserStatus @default(PENDING)
+  id           String         @id @default(uuid())
+  email        String         @unique
+  name         String
+  password     String
+  mobile       String?
+  profile      String?
+  role         UserRole
+  status       UserStatus     @default(PENDING)
+  
+  // Missing back-relations
   refreshTokens RefreshToken[]
+  notes         Note[]         // Added: The notes this admin has written
 
   failedLoginAttempts Int       @default(0)
   lastFailedAttempt   DateTime?
   lockUntil           DateTime?
 
+  //relations 
+  assignedCompanies Company[] @relation("AdminCompanies")
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

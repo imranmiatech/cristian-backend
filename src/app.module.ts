@@ -16,7 +16,6 @@ import { EmailModule } from './lib/email/email.module';
 
 @Module({
   imports: [
-
     ScheduleModule.forRoot(),
     FileModule,
     ConfigurationModule,

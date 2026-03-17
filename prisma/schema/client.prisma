@@ -1,0 +1,27 @@
+model Company {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  PhoneNumber String
+  logo        String?
+  tags        String[]
+  notTitle    String?
+  noteComment String?
+  notTags     String[]
+  attachment  String[]
+
+  status      CompanyStatus @default(ACTIVE)
+
+  //relation 
+  assignedAdmins User[] @relation("AdminCompanies")
+  notes          Note[]
+  document       Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum CompanyStatus {
+  ACTIVE
+  PENDING
+}
