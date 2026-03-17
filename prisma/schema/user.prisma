@@ -1,0 +1,58 @@
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  name     String
+  password String
+
+  mobile  String?
+  profile String?
+  role    UserRole
+
+  language Language   @default(English)
+  status   UserStatus @default(PENDING)
+
+  mfaEnabled      Boolean    @default(false)
+  preferredMethod AuthMethod @default(PASSWORD)
+
+  faceBiometric FaceBiometric?
+  refreshTokens RefreshToken[]
+
+  failedLoginAttempts Int       @default(0)
+  lastFailedAttempt   DateTime?
+  lockUntil           DateTime?
+
+  emergencyContact EmContact[]
+  document         Document[]
+
+  notificationProvisions NotificationRecipient[]
+  notificationPermission NotificationPreference?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([email, status, deletedAt])
+}
+
+enum Language {
+  English
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum AuthMethod {
+  PASSWORD
+  FACE_ID
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
