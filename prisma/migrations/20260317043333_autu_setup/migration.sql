@@ -7,6 +7,15 @@ CREATE TYPE "NotificationResourceType" AS ENUM ('EMERGENCY_CONTACT', 'SECURITY_A
 -- CreateEnum
 CREATE TYPE "NotificationActorType" AS ENUM ('USER', 'SYSTEM', 'DEVICE');
 
+-- CreateEnum
+CREATE TYPE "Language" AS ENUM ('English');
+
+-- CreateEnum
+CREATE TYPE "UserStatus" AS ENUM ('PENDING', 'ACTIVE', 'SUSPENDED', 'DELETED');
+
+-- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('USER', 'ADMIN', 'SUPER_ADMIN');
+
 -- CreateTable
 CREATE TABLE "Notification" (
     "id" TEXT NOT NULL,
@@ -44,21 +53,71 @@ CREATE TABLE "notification_preferences" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "inApp" BOOLEAN NOT NULL DEFAULT true,
-    "email" BOOLEAN NOT NULL DEFAULT true,
-    "push" BOOLEAN NOT NULL DEFAULT true,
-    "deviceAlerts" BOOLEAN NOT NULL DEFAULT true,
-    "videoUpload" BOOLEAN NOT NULL DEFAULT true,
-    "scheduleUpdates" BOOLEAN NOT NULL DEFAULT true,
     "systemAlerts" BOOLEAN NOT NULL DEFAULT true,
-    "promotions" BOOLEAN NOT NULL DEFAULT true,
+    "safe" BOOLEAN NOT NULL DEFAULT true,
+    "UnSafe" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "notification_preferences_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "RefreshToken" (
+    "id" TEXT NOT NULL,
+    "jti" TEXT NOT NULL,
+    "tokenHash" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "deviceId" TEXT,
+    "userAgent" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+    "lastUsedAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "isRevoked" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "RefreshToken_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "mobile" TEXT,
+    "profile" TEXT,
+    "role" "UserRole" NOT NULL,
+    "language" "Language" NOT NULL DEFAULT 'English',
+    "status" "UserStatus" NOT NULL DEFAULT 'PENDING',
+    "mfaEnabled" BOOLEAN NOT NULL DEFAULT false,
+    "failedLoginAttempts" INTEGER NOT NULL DEFAULT 0,
+    "lastFailedAttempt" TIMESTAMP(3),
+    "lockUntil" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "notification_preferences_userId_key" ON "notification_preferences"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "RefreshToken_jti_key" ON "RefreshToken"("jti");
+
+-- CreateIndex
+CREATE INDEX "RefreshToken_userId_idx" ON "RefreshToken"("userId");
+
+-- CreateIndex
+CREATE INDEX "RefreshToken_userId_deviceId_isRevoked_idx" ON "RefreshToken"("userId", "deviceId", "isRevoked");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE INDEX "User_email_status_deletedAt_idx" ON "User"("email", "status", "deletedAt");
 
 -- AddForeignKey
 ALTER TABLE "notification_recipients" ADD CONSTRAINT "notification_recipients_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -68,3 +127,6 @@ ALTER TABLE "notification_recipients" ADD CONSTRAINT "notification_recipients_no
 
 -- AddForeignKey
 ALTER TABLE "notification_preferences" ADD CONSTRAINT "notification_preferences_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "RefreshToken" ADD CONSTRAINT "RefreshToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -51,9 +51,6 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Document: 'Document',
-  EmContact: 'EmContact',
-  FaceBiometric: 'FaceBiometric',
   Notification: 'Notification',
   NotificationRecipient: 'NotificationRecipient',
   NotificationPreference: 'NotificationPreference',
@@ -75,48 +72,6 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-export const DocumentScalarFieldEnum = {
-  id: 'id',
-  label: 'label',
-  value: 'value',
-  category: 'category',
-  documentPhoto: 'documentPhoto',
-  userId: 'userId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
-
-
-export const EmContactScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  relationship: 'relationship',
-  phoneNumber: 'phoneNumber',
-  email: 'email',
-  userId: 'userId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type EmContactScalarFieldEnum = (typeof EmContactScalarFieldEnum)[keyof typeof EmContactScalarFieldEnum]
-
-
-export const FaceBiometricScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  faceDescriptor: 'faceDescriptor',
-  rekognitionId: 'rekognitionId',
-  version: 'version',
-  lastUsedAt: 'lastUsedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type FaceBiometricScalarFieldEnum = (typeof FaceBiometricScalarFieldEnum)[keyof typeof FaceBiometricScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {
@@ -193,7 +148,6 @@ export const UserScalarFieldEnum = {
   language: 'language',
   status: 'status',
   mfaEnabled: 'mfaEnabled',
-  preferredMethod: 'preferredMethod',
   failedLoginAttempts: 'failedLoginAttempts',
   lastFailedAttempt: 'lastFailedAttempt',
   lockUntil: 'lockUntil',
@@ -229,14 +183,6 @@ export const QueryMode = {
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
 export const JsonNullValueFilter = {
   DbNull: 'DbNull',
   JsonNull: 'JsonNull',
@@ -244,4 +190,12 @@ export const JsonNullValueFilter = {
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

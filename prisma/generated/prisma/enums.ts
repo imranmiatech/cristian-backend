@@ -65,14 +65,6 @@ export const UserStatus = {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
-export const AuthMethod = {
-  PASSWORD: 'PASSWORD',
-  FACE_ID: 'FACE_ID'
-} as const
-
-export type AuthMethod = (typeof AuthMethod)[keyof typeof AuthMethod]
-
-
 export const UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN',

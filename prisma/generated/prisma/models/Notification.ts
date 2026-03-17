@@ -531,8 +531,16 @@ export type NotificationScalarRelationFilter = {
   isNot?: Prisma.NotificationWhereInput
 }
 
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
 export type EnumNotificationActorTypeFieldUpdateOperationsInput = {
   set?: $Enums.NotificationActorType
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type EnumNotificationTypeFieldUpdateOperationsInput = {
@@ -545,6 +553,14 @@ export type NullableEnumNotificationResourceTypeFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type NotificationCreateNestedOneWithoutRecipientsInput = {

@@ -19,11 +19,6 @@ export class UserService {
     async getMe(userId: string) {
         const user = await this.prisma.user.findUnique({
             where: { id: userId },
-            include: {
-                faceBiometric: true,
-                emergencyContact: true,
-                document: true,
-            },
         });
 
         if (!user) throw new NotFoundException('User not found');
@@ -48,8 +43,6 @@ export class UserService {
                 language: true,
             },
         });
-
-        await this.sendProfileUpdateNotification(userId);
         return updatedUser;
     }
 
@@ -77,90 +70,6 @@ export class UserService {
         return { message: 'Password updated successfully. All other devices logged out.' };
     }
 
-    async sendEmailToContacts(userId: string, dto: SendEmailDto): Promise<SendEmailResponseDto> {
-        const user = await this.prisma.user.findUnique({ where: { id: userId } });
-        if (!user) throw new UnauthorizedException('User not found');
-
-        const contacts = await this.prisma.emContact.findMany({
-            where: { id: { in: dto.contactIds }, userId },
-        });
-
-        if (!contacts.length) throw new NotFoundException('No valid contacts found');
-
-        // Queue the emergency broadcast
-        await this.emailService.queueEmergencyBroadcast({ userId, dto });
-
-        // Send internal system notification immediately
-        await this.sendEmergencyNotification(userId, dto.status, contacts.length);
-
-        return { 
-            message: 'Emergency broadcast initiated in the background', 
-            results: contacts.map(c => ({ contactId: c.id, name: c.name, status: 'success' })) 
-        };
-    }
-
-    private async sendEmergencyNotification(userId: string, status: SafetyStatus, count: number) {
-        const isSafe = status === SafetyStatus.SAFE;
-        const title = isSafe ? 'Safety Status Sent' : 'Emergency Alert Dispatched';
-        const body = isSafe
-            ? `We've notified ${count} contacts that you are safe.`
-            : `URGENT: ${count} emergency contacts have been notified of your location.`;
-
-        try {
-            const notification = await this.prisma.notification.create({
-                data: {
-                    title,
-                    body,
-                    type: NotificationType.SYSTEM,
-                    resourceType: NotificationResourceType.EMERGENCY_CONTACT,
-                    actorType: 'SYSTEM',
-                    metadata: { status, contactCount: count, timestamp: new Date().toISOString() },
-                    recipients: { create: { userId, isRead: false } },
-                },
-            });
-
-            this.notificationGateway.sendNotificationToUser(userId, {
-                notificationId: notification.id,
-                title,
-                body,
-                type: notification.type,
-                metadata: notification.metadata,
-                createdAt: notification.createdAt,
-            });
-        } catch (error) {
-            console.error(`[Emergency Notification Error]`, error);
-        }
-    }
-
-    private async sendProfileUpdateNotification(userId: string) {
-        const title = 'Profile Updated';
-        const body = 'Your profile information has been successfully updated.';
-
-        try {
-            const notification = await this.prisma.notification.create({
-                data: {
-                    title,
-                    body,
-                    type: NotificationType.SYSTEM,
-                    resourceType: NotificationResourceType.IDEATED_VERIFIED,
-                    actorType: 'SYSTEM',
-                    metadata: { action: 'profile_update', timestamp: new Date().toISOString() },
-                    recipients: { create: { userId, isRead: false } },
-                },
-            });
-
-            this.notificationGateway.sendNotificationToUser(userId, {
-                notificationId: notification.id,
-                title,
-                body,
-                type: notification.type,
-                metadata: notification.metadata,
-                createdAt: notification.createdAt,
-            });
-        } catch (error) {
-            console.error(`[Profile Update Notification Error]`, error);
-        }
-    }
 
 
    

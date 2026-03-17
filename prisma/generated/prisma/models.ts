@@ -8,9 +8,6 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Document.js'
-export type * from './models/EmContact.js'
-export type * from './models/FaceBiometric.js'
 export type * from './models/Notification.js'
 export type * from './models/NotificationRecipient.js'
 export type * from './models/NotificationPreference.js'

@@ -80,22 +80,6 @@ export class UserController {
         return await this.userService.updatePassword(userId, dto, jti);
     }
 
-    @ApiTags('User Actions')
-    @UseGuards(JwtAuthGuard)
-    @Post('contact/send-email')
-    @ApiOperation({ summary: 'Send email to one or multiple emergency contacts  status="SAFE /DANGER' })
-    @ApiBody({ type: SendEmailDto })
-    async sendEmailToContacts(
-        @GetUser('id') userId: string,
-        @Body() dto: SendEmailDto
-    ): Promise<SendEmailResponseDto> {
-        const data = await this.userService.sendEmailToContacts(userId, dto);
-        return {
-            message: data.message,
-            results: data.results,
-        };
-    }
-
 
 
 }  
