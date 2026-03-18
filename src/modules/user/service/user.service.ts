@@ -102,56 +102,85 @@ export class UserService {
 
 
 
-async getAllUsers(query: UserQueryDto) {
-    const { search, status, role } = query;
-    
-    const page = Number(query.page ?? 1);
-    const limit = Number(query.limit ?? 10);
-    const skip = (page - 1) * limit;
-    const andFilters: any[] = [];
+    async getAllUsers(query: UserQueryDto) {
+        const { search, status, role } = query;
 
-    if (status) andFilters.push({ status });
-    if (role) andFilters.push({ role });
+        const page = Number(query.page ?? 1);
+        const limit = Number(query.limit ?? 10);
+        const skip = (page - 1) * limit;
+        const andFilters: any[] = [];
 
-    if (search) {
-        andFilters.push({
-            OR: [
-                { name: { contains: search, mode: 'insensitive' } },
-                { email: { contains: search, mode: 'insensitive' } },
-            ],
-        });
+        if (status) andFilters.push({ status });
+        if (role) andFilters.push({ role });
+
+        if (search) {
+            andFilters.push({
+                OR: [
+                    { name: { contains: search, mode: 'insensitive' } },
+                    { email: { contains: search, mode: 'insensitive' } },
+                ],
+            });
+        }
+
+        const where = andFilters.length > 0 ? { AND: andFilters } : {};
+
+        const [users, total] = await Promise.all([
+            this.prisma.user.findMany({
+                where,
+                skip,
+                take: limit,
+                orderBy: { createdAt: 'desc' },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true,
+                    status: true,
+                    createdAt: true,
+                },
+            }),
+            this.prisma.user.count({ where }),
+        ]);
+
+        return {
+            users,
+            meta: {
+                total,
+                page,
+                limit,
+                lastPage: total > 0 ? Math.ceil(total / limit) : 0,
+            },
+        };
     }
 
-    const where = andFilters.length > 0 ? { AND: andFilters } : {};
+    async toggleUserStatus(userId: string, targetStatus: keyof typeof UserStatus) {
+        const user = await this.prisma.user.findUnique({
+            where: { id: userId },
+        });
 
-    const [users, total] = await Promise.all([
-        this.prisma.user.findMany({
-            where,
-            skip,
-            take: limit,
-            orderBy: { createdAt: 'desc' },
+        if (!user) throw new NotFoundException('User not found');
+        if (user.role === UserRole.SUPER_ADMIN) {
+            throw new ForbiddenException('Super Admin status cannot be modified');
+        }
+
+        const updatedUser = await this.prisma.user.update({
+            where: { id: userId },
+            data: { status: targetStatus },
             select: {
                 id: true,
                 name: true,
                 email: true,
-                role: true,
                 status: true,
-                createdAt: true,
             },
-        }),
-        this.prisma.user.count({ where }),
-    ]);
+        });
 
-    return {
-        users,
-        meta: {
-            total,
-            page,
-            limit,
-            lastPage: total > 0 ? Math.ceil(total / limit) : 0,
-        },
-    };
-}
+        if (targetStatus === 'SUSPENDED') {
+            await this.prisma.refreshToken.deleteMany({
+                where: { userId },
+            });
+        }
 
+        return updatedUser;
+    }
 }
 

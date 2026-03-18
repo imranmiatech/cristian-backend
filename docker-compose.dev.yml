@@ -17,6 +17,16 @@ services:
       - postgres_data_dev:/var/lib/postgresql/data
     networks:
       - app_network
+  redis_cache:
+    image: redis:7-alpine
+    container_name: christina_redis_server
+    restart: always
+    ports:
+      - "6379:6379" 
+    volumes:
+      - redis_data_dev:/data 
+    networks:
+      - app_network
  
 networks:
   app_network:
@@ -24,3 +34,4 @@ networks:
 
 volumes:
   postgres_data_dev:
+  redis_data_dev:

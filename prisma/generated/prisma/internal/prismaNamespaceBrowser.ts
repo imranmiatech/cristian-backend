@@ -51,6 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Company: 'Company',
+  Note: 'Note',
+  Document: 'Document',
   RefreshToken: 'RefreshToken',
   User: 'User'
 } as const
@@ -69,6 +72,54 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  PhoneNumber: 'PhoneNumber',
+  logo: 'logo',
+  tags: 'tags',
+  notTitle: 'notTitle',
+  noteComment: 'noteComment',
+  notTags: 'notTags',
+  attachment: 'attachment',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const NoteScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  tags: 'tags',
+  companyId: 'companyId',
+  authorId: 'authorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+
+
+export const DocumentScalarFieldEnum = {
+  id: 'id',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
+  noteId: 'noteId',
+  companyId: 'companyId',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
 
 
 export const RefreshTokenScalarFieldEnum = {

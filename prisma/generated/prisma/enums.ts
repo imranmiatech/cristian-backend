@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const CompanyStatus = {
+  ACTIVE: 'ACTIVE',
+  PENDING: 'PENDING'
+} as const
+
+export type CompanyStatus = (typeof CompanyStatus)[keyof typeof CompanyStatus]
+
+
 export const UserStatus = {
   PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',

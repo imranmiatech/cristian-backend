@@ -11,7 +11,7 @@ import { MulterService } from 'src/lib/file/service/multer.service';
 import { FileType } from 'src/lib/file/utils/file-type.enum';
 import { UpdatePasswordDto } from '../dto/update.password.dto';
 import { Roles } from 'src/core/jwt/roles.decorator';
-import { UserRole } from 'prisma/generated/prisma/enums';
+import { UserRole, UserStatus } from 'prisma/generated/prisma/enums';
 import { CreateAdminDto } from '../dto/CreateAdminDto';
 import { UserQueryDto } from '../dto/user-query.dto';
 
@@ -104,6 +104,21 @@ export class UserController {
             message: "Users retrieved successfully",
             data: result.users,
             meta: result.meta
+        };
+    }
+
+    @Patch(':id/status')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(UserRole.SUPER_ADMIN)
+    @ApiOperation({ summary: 'Toggle user status (Active/Suspended/Pending) - Super Admin only' })
+    async updateUserStatus(
+        @Param('id') targetUserId: string,
+        @Body('status') status: keyof typeof UserStatus
+    ) {
+        const result = await this.userService.toggleUserStatus(targetUserId, status);
+        return {
+            message: `User status successfully updated to ${status}`,
+            data: result
         };
     }
 

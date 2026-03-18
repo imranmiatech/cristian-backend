@@ -11,6 +11,9 @@ import { UserModule } from './modules/user/user.module';
 import { FileModule } from './lib/file/file.module';
 import { SeederService } from './core/seed/seed.service';
 import { EmailModule } from './lib/email/email.module';
+import { CompanyModule } from './modules/company/company.module';
+import { NoteModule } from './modules/note/note.module';
+import { DocumentModule } from './modules/document/document.module';
 
 
 
@@ -24,6 +27,9 @@ import { EmailModule } from './lib/email/email.module';
     PrismaModule,
     RedisModule,
     EmailModule,
+    CompanyModule,
+    NoteModule,
+    DocumentModule
   ],
   controllers: [AppController],
   providers: [

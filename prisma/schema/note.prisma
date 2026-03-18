@@ -14,21 +14,49 @@ model Note {
 
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+
+  @@index([companyId])          
+  @@index([createdAt])           
+  @@index([title])             
+  @@index([tags])
 }
+
+// model Document {
+//   id        String   @id @default(uuid())
+//   fileName  String?  
+//   fileUrl   String 
+//   fileType  String?  
+//   fileSize  Int?     
+
+//   noteId    String?
+//   note      Note?    @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+
+//   companyId String?
+//   company   Company? @relation(fields: [companyId], references: [id])
+
+//   createdAt DateTime @default(now())
+// }
 
 model Document {
   id        String   @id @default(uuid())
-  fileName  String?  
-  fileUrl   String 
-  fileType  String?  
-  fileSize  Int?     
+  fileName  String?
+  fileUrl   String
+  fileType  String?
+  fileSize  Int?
 
   noteId    String?
   note      Note?    @relation(fields: [noteId], references: [id], onDelete: Cascade)
 
-
   companyId String?
-  company   Company? @relation(fields: [companyId], references: [id])
+  company   Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+
+  authorId  String?
+  author    User?     @relation(fields: [authorId], references: [id])
 
   createdAt DateTime @default(now())
+
+  @@index([companyId])
+  @@index([authorId])
 }
