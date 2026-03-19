@@ -6,6 +6,12 @@ export default () => ({
     bcrypt_salt_rounds: parseInt(process.env.BCRYPT_SALT_ROUNDS || '12', 10),
   },
 
+  auth: {
+    max_sessions: parseInt(process.env.MAX_SESSIONS || '5', 10),
+    max_login_attempts: parseInt(process.env.MAX_LOGIN_ATTEMPTS || '5', 10),
+    lock_time_minutes: parseInt(process.env.LOCK_TIME_MINUTES || '12', 10),
+  },
+
   jwt: {
     access_secret: process.env.JWT_ACCESS_SECRET,
     access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN || '15m',

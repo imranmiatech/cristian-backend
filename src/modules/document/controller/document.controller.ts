@@ -65,7 +65,7 @@ export class DocumentController {
       message: 'Document metadata updated successfully',
       data,
     };
-  }
+  } 
 
   @Delete(':id')
   @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)

@@ -10,6 +10,7 @@ import {
   UseGuards
 } from '@nestjs/common';
 import type { Response, Request } from 'express';
+import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../service/auth.service';
 import { LoginDto } from '../dto/login.dto';
 import { GetUser } from 'src/core/jwt/get-user.decorator';
@@ -19,7 +20,10 @@ import { Public } from 'src/core/jwt/public.decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly config: ConfigService
+  ) { }
 
   @Public()
   @Post('login')
@@ -30,13 +34,16 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { access_token, refresh_token } = await this.authService.login(dto, device);
-    this.setCookies(res, access_token, refresh_token);
-    return { message: 'Login successful', access_token };
+    this.handleCookies(res, access_token, refresh_token);
+    
+    return { 
+      message: 'Authentication successful. Welcome back!', 
+      access_token 
+    };
   }
 
-  //-------refresh token
-  @Post('refresh')
   @Public()
+  @Post('refresh')
   @HttpCode(HttpStatus.OK)
   async refresh(
     @Req() req: Request,
@@ -44,94 +51,91 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = req.cookies?.['refresh_token'];
-    if (!token) throw new UnauthorizedException('No refresh token provided');
+    
+    if (!token) {
+      throw new UnauthorizedException('Session expired. Please log in again.');
+    }
 
     const { access_token, refresh_token } = await this.authService.refresh(token, device);
-    this.setCookies(res, access_token, refresh_token);
-    return { access_token };
+    this.handleCookies(res, access_token, refresh_token);
+    
+    return { 
+      message: 'Token refreshed successfully',
+      access_token 
+    };
   }
 
-  // logout -----------
   @UseGuards(JwtAuthGuard)
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   async logout(
     @GetUser('id') userId: string,
-    @GetDeviceInfo() device: DeviceInfo,
+    @GetUser('jti') jti: string, 
     @Res({ passthrough: true }) res: Response,
   ) {
-    await this.authService.logout(userId, device.userAgent);
-    this.clearCookies(res);
-    return { message: 'Logged out successfully' };
+    await this.authService.logout(userId, jti);
+    this.handleCookies(res, null, null, true); 
+    return { 
+      message: 'Successfully logged out from this device.'
+    };
   }
-
 
   @UseGuards(JwtAuthGuard)
   @Post('logout-all')
   @HttpCode(HttpStatus.OK)
-  async logoutAll(@GetUser('id') userId: string, @Res({ passthrough: true }) res: Response) {
+  async logoutAll(
+    @GetUser('id') userId: string, 
+    @Res({ passthrough: true }) res: Response
+  ) {
     await this.authService.logoutAll(userId);
-    this.clearCookies(res);
-    return { message: 'Logged out from all devices' };
-  }
-
-  
-
-  //prod mode 
-  private setCookies(res: Response, access: string, refresh: string) {
-    const isProd = process.env.NODE_ENV === 'production';
-    const cookieOptions = {
-      httpOnly: true,
-      secure: true,
-      sameSite: (isProd ? 'strict' : 'lax') as 'strict' | 'lax',
-      path: '/',
-    };
-
-    res.cookie('access_token', access, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
-    res.cookie('refresh_token', refresh, { ...cookieOptions, maxAge: 30 * 24 * 60 * 60 * 1000 });
+    this.handleCookies(res, null, null, true);
+    
+    return { message: 'Successfully logged out from all sessions.' };
   }
 
 
-  //dev mode
-  // private setCookies(res: Response, access: string, refresh: string) {
-  //   const commonOptions = {
-  //     httpOnly: true,
-  //     secure: true,
-  //     sameSite: 'none' as const,
-  //     path: '/',
-  //   };
+  private handleCookies(res: Response, access: string | null, refresh: string | null, clear = false) {
+    const isProd = this.config.get<string>('node_env') === 'production';
+    const accessExp = this.config.get<string>('jwt.access_expires_in') || '15m';
+    const refreshExp = this.config.get<string>('jwt.refresh_expires_in') || '30d';
 
-  //   res.cookie('access_token', access, { ...commonOptions, maxAge: 15 * 60 * 1000 });
-  //   res.cookie('refresh_token', refresh, { ...commonOptions, maxAge: 30 * 24 * 60 * 60 * 1000 });
-  // }
-
-
-  // prod mode
-  // clear all Cookies
-  private clearCookies(res: Response) {
-    const isProd = process.env.NODE_ENV === 'production';
     const commonOptions = {
       httpOnly: true,
-      secure: true,
+      secure: isProd,
       sameSite: (isProd ? 'strict' : 'lax') as 'strict' | 'lax',
       path: '/',
     };
-    res.clearCookie('access_token', commonOptions);
-    res.clearCookie('refresh_token', commonOptions);
+
+    if (clear) {
+      res.clearCookie('access_token', commonOptions);
+      res.clearCookie('refresh_token', commonOptions);
+      return;
+    }
+
+    const accessMaxAge = this.convertToMs(accessExp); 
+    const refreshMaxAge = this.convertToMs(refreshExp);
+
+    res.cookie('access_token', access, { 
+      ...commonOptions, 
+      maxAge: accessMaxAge 
+    });
+
+    res.cookie('refresh_token', refresh, { 
+      ...commonOptions, 
+      maxAge: refreshMaxAge 
+    });
   }
 
-  //dev mode
-  // clear all Cookies
-  // private clearCookies(res: Response) {
-  //   const commonOptions = {
-  //     httpOnly: true,
-  //     secure: true,
-  //     sameSite: 'lax' as 'lax',
-  //     path: '/',
-  //   };
 
-  //   res.clearCookie('access_token', commonOptions);
-  //   res.clearCookie('refresh_token', commonOptions);
-  // }
+  private convertToMs(timeStr: string): number {
+    const unit = timeStr.slice(-1);
+    const value = parseInt(timeStr.slice(0, -1), 10);
+    
+    switch (unit) {
+      case 'm': return value * 60 * 1000;
+      case 'h': return value * 60 * 60 * 1000;
+      case 'd': return value * 24 * 60 * 60 * 1000;
+      default: return value; 
+    }
+  }
 }
-

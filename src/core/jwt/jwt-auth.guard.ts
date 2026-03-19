@@ -1,15 +1,15 @@
-import {
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Reflector } from '@nestjs/core';
+import { RedisService } from 'src/common/redis/services/redis.service';
 import { IS_PUBLIC_KEY } from './jwt.constants';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
+  constructor(
+    private reflector: Reflector,
+    private redis: RedisService,
+  ) {
     super();
   }
 
@@ -20,25 +20,27 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     ]);
 
     if (isPublic) return true;
-    return super.canActivate(context) as Promise<boolean>;
-  }
 
-  handleRequest(err: any, user: any, info: any, context: ExecutionContext) {
-    if (info) {
-      const request = context.switchToHttp().getRequest();
-      const hasCookie = !!request.cookies?.['access_token'];
-      const hasAuthHeader = !!request.headers['authorization'];
-      
-      console.error(`[AuthGuard] Error: ${info.message}`);
-      console.log(`[AuthGuard] Credentials Found - Cookie: ${hasCookie}, Header: ${hasAuthHeader}`);
-    }
-    if (err || !user) {
-      throw (
-        err || 
-        new UnauthorizedException('Authentication failed: Please login to access this resource')
-      );
+    const isValid = await super.canActivate(context);
+    if (!isValid) return false;
+
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+
+    if (!user || !user.jti) {
+      throw new UnauthorizedException('Invalid token payload');
     }
 
-    return user;
+    const isBlacklisted = await this.redis.get(`bl:${user.jti}`);
+    if (isBlacklisted) {
+      throw new UnauthorizedException('Token has been revoked');
+    }
+
+    const isActive = await this.redis.get(`active_session:${user.jti}`);
+    if (!isActive) {
+      throw new UnauthorizedException('Session expired or inactive');
+    }
+
+    return true;
   }
 }

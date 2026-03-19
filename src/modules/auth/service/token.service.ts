@@ -26,18 +26,16 @@ export class TokenService {
     const refreshExpires = this.config.get<string>('jwt.refresh_expires_in');
 
     if (!accessSecret || !refreshSecret) {
-      throw new InternalServerErrorException('JWT secrets are not defined in configuration');
+      throw new InternalServerErrorException('JWT secrets are not defined');
     }
 
-    const commonOptions = {
-      issuer,
-      audience,
-    };
+    const commonOptions = { issuer, audience };
 
     const accessTokenPayload = {
       sub: user.id,
       email: user.email,
       role: user.role,
+      jti, 
     };
 
     const refreshTokenPayload = {
@@ -80,6 +78,4 @@ export class TokenService {
       throw new UnauthorizedException('Session expired or invalid');
     }
   }
-
-  
-}
+} 

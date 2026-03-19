@@ -16,8 +16,14 @@ export class RedisService implements OnModuleInit {
     this.redis = new Redis(redisUrl);
   }
 
-  async set(key: string, value: string) {
-    await this.redis.set(key, value);
+  // --- Basic Key-Value Operations ---
+
+  async set(key: string, value: string, ttl?: number) {
+    if (ttl) {
+      await this.redis.set(key, value, 'EX', ttl);
+    } else {
+      await this.redis.set(key, value);
+    }
   }
 
   async get(key: string) {
@@ -27,6 +33,8 @@ export class RedisService implements OnModuleInit {
   async del(key: string) {
     await this.redis.del(key);
   }
+
+  // --- Hash Operations (Keeping your original names) ---
 
   async hSet(hash: string, key: string, value: string) {
     await this.redis.hset(hash, key, value);
@@ -42,5 +50,12 @@ export class RedisService implements OnModuleInit {
 
   async hGetAll(hash: string) {
     return this.redis.hgetall(hash);
+  }
+
+  // --- Helper for Auth/Security ---
+
+  async exists(key: string): Promise<boolean> {
+    const result = await this.redis.exists(key);
+    return result === 1;
   }
 }

@@ -30,15 +30,15 @@ export class AtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   validate(payload: any) {
-    // console.log(' JWT Verified. Payload:', payload);
-
-    if (!payload) {
-      throw new UnauthorizedException('Invalid or empty token payload');
+    if (!payload || !payload.sub || !payload.jti) {
+      throw new UnauthorizedException('Invalid token payload structure');
     }
+
     return {
       id: payload.sub,
       email: payload.email,
       role: payload.role,
+      jti: payload.jti, 
     };
   }
 }
