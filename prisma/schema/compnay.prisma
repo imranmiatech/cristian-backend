@@ -21,6 +21,7 @@ model Company {
   updatedAt DateTime @updatedAt
 }
 
+
 enum CompanyStatus {
   ACTIVE
   PENDING
