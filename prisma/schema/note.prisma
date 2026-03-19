@@ -21,22 +21,6 @@ model Note {
   @@index([tags])
 }
 
-// model Document {
-//   id        String   @id @default(uuid())
-//   fileName  String?  
-//   fileUrl   String 
-//   fileType  String?  
-//   fileSize  Int?     
-
-//   noteId    String?
-//   note      Note?    @relation(fields: [noteId], references: [id], onDelete: Cascade)
-
-
-//   companyId String?
-//   company   Company? @relation(fields: [companyId], references: [id])
-
-//   createdAt DateTime @default(now())
-// }
 
 model Document {
   id        String   @id @default(uuid())
