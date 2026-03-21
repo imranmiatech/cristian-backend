@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Post,
-  HttpCode,
-  HttpStatus,
-  UnauthorizedException,
-  Req,
-  Res,
-  UseGuards
-} from '@nestjs/common';
+import {Body,Controller,Post,HttpCode,HttpStatus,UnauthorizedException,Req,Res,UseGuards} from '@nestjs/common';
 import type { Response, Request } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../service/auth.service';
@@ -130,7 +120,6 @@ export class AuthController {
   private convertToMs(timeStr: string): number {
     const unit = timeStr.slice(-1);
     const value = parseInt(timeStr.slice(0, -1), 10);
-    
     switch (unit) {
       case 'm': return value * 60 * 1000;
       case 'h': return value * 60 * 60 * 1000;
@@ -138,4 +127,6 @@ export class AuthController {
       default: return value; 
     }
   }
+
+
 }

@@ -10,7 +10,7 @@ model User {
   
   // Missing back-relations
   refreshTokens RefreshToken[]
-  notes         Note[]         // Added: The notes this admin has written
+  notes         Note[]       
   docs          Document[]
 
   failedLoginAttempts Int       @default(0)

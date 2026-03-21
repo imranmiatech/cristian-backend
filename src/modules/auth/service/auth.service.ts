@@ -74,10 +74,13 @@ export class AuthService {
       });
     }
 
-
     return this.prisma.$transaction(async (tx) => {
       if (existingDeviceSession) {
-        await tx.refreshToken.delete({ where: { id: existingDeviceSession.id } });
+        await tx.refreshToken.delete({
+          where: {
+            id: existingDeviceSession.id
+          }
+        });
         await this.redis.del(`active_session:${existingDeviceSession.jti}`);
       }
 
@@ -115,7 +118,7 @@ export class AuthService {
 
     return this.prisma.$transaction(async (tx) => {
       await tx.refreshToken.delete({ where: { id: session.id } });
-      await this.redis.set(`bl:${payload.jti}`, '1', 60); 
+      await this.redis.set(`bl:${payload.jti}`, '1', 60);
       return this.issueTokens(user, device, tx);
     });
   }
@@ -124,7 +127,7 @@ export class AuthService {
   async logout(userId: string, jti: string): Promise<void> {
     await this.prisma.refreshToken.deleteMany({ where: { jti, userId } });
     await this.redis.del(`active_session:${jti}`);
-    await this.redis.set(`bl:${jti}`, '1', 3600); 
+    await this.redis.set(`bl:${jti}`, '1', 3600);
   }
 
 
@@ -195,4 +198,6 @@ export class AuthService {
     }
     await this.prisma.refreshToken.deleteMany({ where: { userId } });
   }
-}
+
+
+}  
