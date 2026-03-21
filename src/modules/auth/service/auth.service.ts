@@ -117,7 +117,11 @@ export class AuthService {
     if (!user || user.status !== UserStatus.ACTIVE) throw new UnauthorizedException();
 
     return this.prisma.$transaction(async (tx) => {
-      await tx.refreshToken.delete({ where: { id: session.id } });
+      await tx.refreshToken.delete({
+        where: {
+          id: session.id
+        }
+      });
       await this.redis.set(`bl:${payload.jti}`, '1', 60);
       return this.issueTokens(user, device, tx);
     });
@@ -199,5 +203,5 @@ export class AuthService {
     await this.prisma.refreshToken.deleteMany({ where: { userId } });
   }
 
+}
 
-}  

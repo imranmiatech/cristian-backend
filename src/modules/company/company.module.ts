@@ -7,3 +7,4 @@ import { CompanyService } from "./service/company.service";
     providers:[CompanyService]
 })
 export class CompanyModule {}
+

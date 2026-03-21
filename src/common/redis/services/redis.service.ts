@@ -59,3 +59,4 @@ export class RedisService implements OnModuleInit {
     return result === 1;
   }
 }
+

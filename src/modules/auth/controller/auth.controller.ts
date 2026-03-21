@@ -83,6 +83,7 @@ export class AuthController {
     return { message: 'Successfully logged out from all sessions.' };
   }
 
+  
 
   private handleCookies(res: Response, access: string | null, refresh: string | null, clear = false) {
     const isProd = this.config.get<string>('node_env') === 'production';

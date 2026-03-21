@@ -97,3 +97,4 @@ export class CompanyController {
         return await this.companyService.hardDeleteCompany(id);
     }
 }
+

@@ -9,3 +9,5 @@ import { MulterService } from "./service/multer.service";
     exports:[S3Service,MulterService]
 })
 export class FileModule {}
+
+
