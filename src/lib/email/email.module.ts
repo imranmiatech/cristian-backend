@@ -1,17 +1,21 @@
+// email.module.ts
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
-import { EmailService } from './email.service';
-// import { EmailProcessor } from './email.processor';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    BullModule.registerQueue({
+    BullModule.registerQueueAsync({
       name: 'email',
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        connection: {
+          host: configService.get<string>('redis.host') || 'redis_cache',
+          port: configService.get<number>('redis.port') || 6379,
+        },
+      }),
     }),
-    PrismaModule,
   ],
-  providers: [EmailService],
-  exports: [EmailService],
+  // ... providers and exports
 })
 export class EmailModule {}

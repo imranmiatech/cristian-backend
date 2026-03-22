@@ -8,14 +8,32 @@ export class RedisService implements OnModuleInit {
 
   constructor(private readonly configService: ConfigService) { }
 
+  // onModuleInit() {
+  //   const redisUrl =
+  //     this.configService.get<string>('redis.url') ||
+  //     `redis://${this.configService.get<string>('redis.host') || 'localhost'}:${this.configService.get<number>('redis.port') || 6379}`;
+
+  //   this.redis = new Redis(redisUrl);
+  // }
   onModuleInit() {
-    const redisUrl =
-      this.configService.get<string>('redis.url') ||
-      `redis://${this.configService.get<string>('redis.host') || 'localhost'}:${this.configService.get<number>('redis.port') || 6379}`;
+    const redisUrl = this.configService.get<string>('redis.url');
+    const host = this.configService.get<string>('redis.host');
+    const port = this.configService.get<number>('redis.port');
 
-    this.redis = new Redis(redisUrl);
+    if (redisUrl) {
+      this.redis = new Redis(redisUrl);
+    } else {
+      this.redis = new Redis({ host, port });
+    }
+
+    this.redis.on('connect', () => {
+      console.log(` Redis Connected via ${redisUrl ? 'URL' : host + ':' + port}`);
+    });
+
+    this.redis.on('error', (err) => {
+      console.error(' Redis Connection Error:', err.message);
+    });
   }
-
   // --- Basic Key-Value Operations ---
 
   async set(key: string, value: string, ttl?: number) {

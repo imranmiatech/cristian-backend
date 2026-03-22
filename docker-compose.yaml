@@ -1,60 +1,53 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: nest-postgres-db-prod
+    container_name: christina-db
     restart: always
-    profiles:
-      - dev
-      - prod
+    profiles: ["dev", "prod"]
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: nest_db_prod
+      POSTGRES_USER: ${DB_USER:-myuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-mypassword}
+      POSTGRES_DB: ${DB_NAME:-christina_db}
     volumes:
       - postgres_data_prod:/var/lib/postgresql/data
     networks:
       - app_network
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   redis_cache:
     image: redis:7-alpine
-    profiles:
-      - dev
-      - prod
-    container_name: redis_cache_uillgus_new
+    container_name: christina-redis
     restart: always
+    profiles: ["dev", "prod"]
     volumes:
       - redis_data:/data
     networks:
       - app_network
     healthcheck:
-      test: ['CMD', 'redis-cli', 'ping']
+      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  api:
+  server:
     platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
-    image: softvence/willgusn-server:latest
-
-    profiles:
-      - dev
-      - prod
-    container_name: willgusn-server
+    image: softvence/christina-server:latest
+    container_name: christina-server
     restart: always
+    profiles: ["dev", "prod"]
     ports:
-      - '9000:9000'
+      - "9999:9999"
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://myuser:mypassword@db:5432/nest_db_prod
+      DATABASE_URL: postgresql://${DB_USER:-myuser}:${DB_PASSWORD:-mypassword}@db:5432/${DB_NAME:-christina_db}
       REDIS_HOST: redis_cache
       REDIS_PORT: 6379
       REDIS_CONNECTION_URL: redis://redis_cache:6379

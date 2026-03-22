@@ -23,5 +23,5 @@ COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma/generated ./prisma/generated
-EXPOSE 9000
+EXPOSE 9099
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/main.js"]
