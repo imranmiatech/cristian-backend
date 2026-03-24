@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { S3Service } from "src/lib/file/service/s3.service";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateDocumentDto, UpdateDocumentDto } from "../dto/document.dto";
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class DocumentService {
@@ -11,37 +13,33 @@ export class DocumentService {
     ) { }
 
     // CREATE
-    async uploadForCompany(authorId: string, dto: CreateDocumentDto, file: Express.Multer.File) {
-        const fileUrl = await this.s3Service.uploadSingle(file, 'company-documents');
+async uploadForCompany(dto: CreateDocumentDto, file: Express.Multer.File) {
+    const { companyId, displayFileName } = dto;
 
-        return await this.prisma.document.create({
-            data: {
-                fileName: dto.displayFileName || file.originalname,
-                fileUrl: fileUrl,
-                fileType: file.mimetype,
-                fileSize: file.size,
-                companyId: dto.companyId,
-                authorId: authorId,
-            },
-            include: { author: { select: { name: true } } },
-        });
-    }
+    return await this.prisma.document.create({
+        data: {
+            fileName: displayFileName || file.originalname,
+            fileUrl: `/uploads/${file.filename}`,
+            fileType: file.mimetype,
+            fileSize: file.size,
+            docId: companyId 
+        },
+    });
+}
 
     // READ (List for Company)
-    async getCompanyDocuments(companyId: string, page = 1, limit = 10) {
+    async getCompanyDocuments(page = 1, limit = 10) {
         const skip = (page - 1) * limit;
-        const [documents, total] = await Promise.all([
+        const [documents] = await Promise.all([
             this.prisma.document.findMany({
-                where: { companyId },
+
                 skip,
                 take: limit,
                 orderBy: { createdAt: 'desc' },
-                include: { author: { select: { name: true, profile: true } } },
             }),
-            this.prisma.document.count({ where: { companyId } }),
         ]);
 
-        return { documents, meta: { total, page, limit } };
+        return { documents, meta: { page, limit } };
     }
 
     async updateMetadata(id: string, dto: UpdateDocumentDto) {
@@ -51,12 +49,28 @@ export class DocumentService {
         });
     }
 
-    async removeDocument(id: string) {
+async removeDocument(id: string) {
         const doc = await this.prisma.document.findUnique({ where: { id } });
-        if (!doc) throw new NotFoundException('Document not found');
-        await this.s3Service.deleteFile(doc.fileUrl);
-        await this.prisma.document.delete({ where: { id } });
+        
+        if (!doc) {
+            throw new NotFoundException('Document not found');
+        }
 
-        return { message: 'Document deleted successfully from storage and database' };
+        const filePath = path.join(process.cwd(), doc.fileUrl);
+
+        try {
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+        } catch (err) {
+            console.error(`Failed to delete physical file: ${filePath}`, err);
+        }
+        await this.prisma.document.delete({ 
+            where: { id } 
+        });
+
+        return { 
+            message: 'Document deleted successfully from local storage and database' 
+        };
     }
 }

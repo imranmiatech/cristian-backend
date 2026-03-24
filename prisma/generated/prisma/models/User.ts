@@ -289,9 +289,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
-  notes?: Prisma.NoteListRelationFilter
-  docs?: Prisma.DocumentListRelationFilter
-  assignedCompanies?: Prisma.CompanyListRelationFilter
+  company?: Prisma.CompanyListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -310,9 +308,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
-  notes?: Prisma.NoteOrderByRelationAggregateInput
-  docs?: Prisma.DocumentOrderByRelationAggregateInput
-  assignedCompanies?: Prisma.CompanyOrderByRelationAggregateInput
+  company?: Prisma.CompanyOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -334,9 +330,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
-  notes?: Prisma.NoteListRelationFilter
-  docs?: Prisma.DocumentListRelationFilter
-  assignedCompanies?: Prisma.CompanyListRelationFilter
+  company?: Prisma.CompanyListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -397,9 +391,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  notes?: Prisma.NoteCreateNestedManyWithoutAuthorInput
-  docs?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyCreateNestedManyWithoutAssignedAdminsInput
+  company?: Prisma.CompanyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -418,9 +410,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutAuthorInput
-  docs?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutAssignedAdminsInput
+  company?: Prisma.CompanyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -439,9 +429,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  notes?: Prisma.NoteUpdateManyWithoutAuthorNestedInput
-  docs?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUpdateManyWithoutAssignedAdminsNestedInput
+  company?: Prisma.CompanyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -460,9 +448,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  notes?: Prisma.NoteUncheckedUpdateManyWithoutAuthorNestedInput
-  docs?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutAssignedAdminsNestedInput
+  company?: Prisma.CompanyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -516,24 +502,9 @@ export type UserUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type UserListRelationFilter = {
-  every?: Prisma.UserWhereInput
-  some?: Prisma.UserWhereInput
-  none?: Prisma.UserWhereInput
-}
-
-export type UserOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
-}
-
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null
-  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -595,72 +566,18 @@ export type UserSumOrderByAggregateInput = {
   failedLoginAttempts?: Prisma.SortOrder
 }
 
-export type UserCreateNestedManyWithoutAssignedCompaniesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompaniesInput, Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput> | Prisma.UserCreateWithoutAssignedCompaniesInput[] | Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput | Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-}
-
-export type UserUncheckedCreateNestedManyWithoutAssignedCompaniesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompaniesInput, Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput> | Prisma.UserCreateWithoutAssignedCompaniesInput[] | Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput | Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-}
-
-export type UserUpdateManyWithoutAssignedCompaniesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompaniesInput, Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput> | Prisma.UserCreateWithoutAssignedCompaniesInput[] | Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput | Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput[]
-  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutAssignedCompaniesInput | Prisma.UserUpsertWithWhereUniqueWithoutAssignedCompaniesInput[]
-  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  update?: Prisma.UserUpdateWithWhereUniqueWithoutAssignedCompaniesInput | Prisma.UserUpdateWithWhereUniqueWithoutAssignedCompaniesInput[]
-  updateMany?: Prisma.UserUpdateManyWithWhereWithoutAssignedCompaniesInput | Prisma.UserUpdateManyWithWhereWithoutAssignedCompaniesInput[]
-  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-}
-
-export type UserUncheckedUpdateManyWithoutAssignedCompaniesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompaniesInput, Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput> | Prisma.UserCreateWithoutAssignedCompaniesInput[] | Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput | Prisma.UserCreateOrConnectWithoutAssignedCompaniesInput[]
-  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutAssignedCompaniesInput | Prisma.UserUpsertWithWhereUniqueWithoutAssignedCompaniesInput[]
-  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  update?: Prisma.UserUpdateWithWhereUniqueWithoutAssignedCompaniesInput | Prisma.UserUpdateWithWhereUniqueWithoutAssignedCompaniesInput[]
-  updateMany?: Prisma.UserUpdateManyWithWhereWithoutAssignedCompaniesInput | Prisma.UserUpdateManyWithWhereWithoutAssignedCompaniesInput[]
-  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-}
-
-export type UserCreateNestedOneWithoutNotesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutNotesInput, Prisma.UserUncheckedCreateWithoutNotesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotesInput
+export type UserCreateNestedOneWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutNotesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutNotesInput, Prisma.UserUncheckedCreateWithoutNotesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotesInput
-  upsert?: Prisma.UserUpsertWithoutNotesInput
+export type UserUpdateOneRequiredWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyInput
+  upsert?: Prisma.UserUpsertWithoutCompanyInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotesInput, Prisma.UserUpdateWithoutNotesInput>, Prisma.UserUncheckedUpdateWithoutNotesInput>
-}
-
-export type UserCreateNestedOneWithoutDocsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDocsInput, Prisma.UserUncheckedCreateWithoutDocsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutDocsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDocsInput, Prisma.UserUncheckedCreateWithoutDocsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocsInput
-  upsert?: Prisma.UserUpsertWithoutDocsInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocsInput, Prisma.UserUpdateWithoutDocsInput>, Prisma.UserUncheckedUpdateWithoutDocsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompanyInput, Prisma.UserUpdateWithoutCompanyInput>, Prisma.UserUncheckedUpdateWithoutCompanyInput>
 }
 
 export type UserCreateNestedOneWithoutRefreshTokensInput = {
@@ -685,15 +602,7 @@ export type EnumUserStatusFieldUpdateOperationsInput = {
   set?: $Enums.UserStatus
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type UserCreateWithoutAssignedCompaniesInput = {
+export type UserCreateWithoutCompanyInput = {
   id?: string
   email: string
   name: string
@@ -709,11 +618,9 @@ export type UserCreateWithoutAssignedCompaniesInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  notes?: Prisma.NoteCreateNestedManyWithoutAuthorInput
-  docs?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
 }
 
-export type UserUncheckedCreateWithoutAssignedCompaniesInput = {
+export type UserUncheckedCreateWithoutCompanyInput = {
   id?: string
   email: string
   name: string
@@ -729,108 +636,25 @@ export type UserUncheckedCreateWithoutAssignedCompaniesInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutAuthorInput
-  docs?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
 }
 
-export type UserCreateOrConnectWithoutAssignedCompaniesInput = {
+export type UserCreateOrConnectWithoutCompanyInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompaniesInput, Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput>
 }
 
-export type UserUpsertWithWhereUniqueWithoutAssignedCompaniesInput = {
-  where: Prisma.UserWhereUniqueInput
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedCompaniesInput, Prisma.UserUncheckedUpdateWithoutAssignedCompaniesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedCompaniesInput, Prisma.UserUncheckedCreateWithoutAssignedCompaniesInput>
-}
-
-export type UserUpdateWithWhereUniqueWithoutAssignedCompaniesInput = {
-  where: Prisma.UserWhereUniqueInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedCompaniesInput, Prisma.UserUncheckedUpdateWithoutAssignedCompaniesInput>
-}
-
-export type UserUpdateManyWithWhereWithoutAssignedCompaniesInput = {
-  where: Prisma.UserScalarWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutAssignedCompaniesInput>
-}
-
-export type UserScalarWhereInput = {
-  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-  OR?: Prisma.UserScalarWhereInput[]
-  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-  id?: Prisma.StringFilter<"User"> | string
-  email?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  mobile?: Prisma.StringNullableFilter<"User"> | string | null
-  profile?: Prisma.StringNullableFilter<"User"> | string | null
-  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
-  failedLoginAttempts?: Prisma.IntFilter<"User"> | number
-  lastFailedAttempt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  lockUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-}
-
-export type UserCreateWithoutNotesInput = {
-  id?: string
-  email: string
-  name: string
-  password: string
-  mobile?: string | null
-  profile?: string | null
-  role: $Enums.UserRole
-  status?: $Enums.UserStatus
-  failedLoginAttempts?: number
-  lastFailedAttempt?: Date | string | null
-  lockUntil?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  docs?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyCreateNestedManyWithoutAssignedAdminsInput
-}
-
-export type UserUncheckedCreateWithoutNotesInput = {
-  id?: string
-  email: string
-  name: string
-  password: string
-  mobile?: string | null
-  profile?: string | null
-  role: $Enums.UserRole
-  status?: $Enums.UserStatus
-  failedLoginAttempts?: number
-  lastFailedAttempt?: Date | string | null
-  lockUntil?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  docs?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutAssignedAdminsInput
-}
-
-export type UserCreateOrConnectWithoutNotesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutNotesInput, Prisma.UserUncheckedCreateWithoutNotesInput>
-}
-
-export type UserUpsertWithoutNotesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutNotesInput, Prisma.UserUncheckedUpdateWithoutNotesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutNotesInput, Prisma.UserUncheckedCreateWithoutNotesInput>
+export type UserUpsertWithoutCompanyInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompanyInput, Prisma.UserUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompanyInput, Prisma.UserUncheckedCreateWithoutCompanyInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutNotesInput = {
+export type UserUpdateToOneWithWhereWithoutCompanyInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutNotesInput, Prisma.UserUncheckedUpdateWithoutNotesInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompanyInput, Prisma.UserUncheckedUpdateWithoutCompanyInput>
 }
 
-export type UserUpdateWithoutNotesInput = {
+export type UserUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -846,11 +670,9 @@ export type UserUpdateWithoutNotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  docs?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUpdateManyWithoutAssignedAdminsNestedInput
 }
 
-export type UserUncheckedUpdateWithoutNotesInput = {
+export type UserUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -866,104 +688,6 @@ export type UserUncheckedUpdateWithoutNotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  docs?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutAssignedAdminsNestedInput
-}
-
-export type UserCreateWithoutDocsInput = {
-  id?: string
-  email: string
-  name: string
-  password: string
-  mobile?: string | null
-  profile?: string | null
-  role: $Enums.UserRole
-  status?: $Enums.UserStatus
-  failedLoginAttempts?: number
-  lastFailedAttempt?: Date | string | null
-  lockUntil?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  notes?: Prisma.NoteCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyCreateNestedManyWithoutAssignedAdminsInput
-}
-
-export type UserUncheckedCreateWithoutDocsInput = {
-  id?: string
-  email: string
-  name: string
-  password: string
-  mobile?: string | null
-  profile?: string | null
-  role: $Enums.UserRole
-  status?: $Enums.UserStatus
-  failedLoginAttempts?: number
-  lastFailedAttempt?: Date | string | null
-  lockUntil?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutAssignedAdminsInput
-}
-
-export type UserCreateOrConnectWithoutDocsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDocsInput, Prisma.UserUncheckedCreateWithoutDocsInput>
-}
-
-export type UserUpsertWithoutDocsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDocsInput, Prisma.UserUncheckedUpdateWithoutDocsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDocsInput, Prisma.UserUncheckedCreateWithoutDocsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutDocsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDocsInput, Prisma.UserUncheckedUpdateWithoutDocsInput>
-}
-
-export type UserUpdateWithoutDocsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  mobile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastFailedAttempt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  notes?: Prisma.NoteUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUpdateManyWithoutAssignedAdminsNestedInput
-}
-
-export type UserUncheckedUpdateWithoutDocsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  mobile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastFailedAttempt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  notes?: Prisma.NoteUncheckedUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutAssignedAdminsNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -981,9 +705,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  notes?: Prisma.NoteCreateNestedManyWithoutAuthorInput
-  docs?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyCreateNestedManyWithoutAssignedAdminsInput
+  company?: Prisma.CompanyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1001,9 +723,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutAuthorInput
-  docs?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
-  assignedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutAssignedAdminsInput
+  company?: Prisma.CompanyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1037,9 +757,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  notes?: Prisma.NoteUpdateManyWithoutAuthorNestedInput
-  docs?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUpdateManyWithoutAssignedAdminsNestedInput
+  company?: Prisma.CompanyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1057,66 +775,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  notes?: Prisma.NoteUncheckedUpdateManyWithoutAuthorNestedInput
-  docs?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
-  assignedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutAssignedAdminsNestedInput
-}
-
-export type UserUpdateWithoutAssignedCompaniesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  mobile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastFailedAttempt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  notes?: Prisma.NoteUpdateManyWithoutAuthorNestedInput
-  docs?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
-}
-
-export type UserUncheckedUpdateWithoutAssignedCompaniesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  mobile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastFailedAttempt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  notes?: Prisma.NoteUncheckedUpdateManyWithoutAuthorNestedInput
-  docs?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
-}
-
-export type UserUncheckedUpdateManyWithoutAssignedCompaniesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  mobile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
-  lastFailedAttempt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  company?: Prisma.CompanyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1126,16 +785,12 @@ export type UserUncheckedUpdateManyWithoutAssignedCompaniesInput = {
 
 export type UserCountOutputType = {
   refreshTokens: number
-  notes: number
-  docs: number
-  assignedCompanies: number
+  company: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
-  notes?: boolean | UserCountOutputTypeCountNotesArgs
-  docs?: boolean | UserCountOutputTypeCountDocsArgs
-  assignedCompanies?: boolean | UserCountOutputTypeCountAssignedCompaniesArgs
+  company?: boolean | UserCountOutputTypeCountCompanyArgs
 }
 
 /**
@@ -1158,21 +813,7 @@ export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Ty
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.NoteWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountDocsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DocumentWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountAssignedCompaniesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountCompanyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CompanyWhereInput
 }
 
@@ -1193,9 +834,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   deletedAt?: boolean
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
-  notes?: boolean | Prisma.User$notesArgs<ExtArgs>
-  docs?: boolean | Prisma.User$docsArgs<ExtArgs>
-  assignedCompanies?: boolean | Prisma.User$assignedCompaniesArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1253,9 +892,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "password" | "mobile" | "profile" | "role" | "status" | "failedLoginAttempts" | "lastFailedAttempt" | "lockUntil" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
-  notes?: boolean | Prisma.User$notesArgs<ExtArgs>
-  docs?: boolean | Prisma.User$docsArgs<ExtArgs>
-  assignedCompanies?: boolean | Prisma.User$assignedCompaniesArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1265,9 +902,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
-    notes: Prisma.$NotePayload<ExtArgs>[]
-    docs: Prisma.$DocumentPayload<ExtArgs>[]
-    assignedCompanies: Prisma.$CompanyPayload<ExtArgs>[]
+    company: Prisma.$CompanyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1679,9 +1314,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  notes<T extends Prisma.User$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  docs<T extends Prisma.User$docsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$docsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  assignedCompanies<T extends Prisma.User$assignedCompaniesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedCompaniesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  company<T extends Prisma.User$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2137,57 +1770,9 @@ export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * User.notes
+ * User.company
  */
-export type User$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Note
-   */
-  select?: Prisma.NoteSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Note
-   */
-  omit?: Prisma.NoteOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.NoteInclude<ExtArgs> | null
-  where?: Prisma.NoteWhereInput
-  orderBy?: Prisma.NoteOrderByWithRelationInput | Prisma.NoteOrderByWithRelationInput[]
-  cursor?: Prisma.NoteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.NoteScalarFieldEnum | Prisma.NoteScalarFieldEnum[]
-}
-
-/**
- * User.docs
- */
-export type User$docsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Document
-   */
-  select?: Prisma.DocumentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Document
-   */
-  omit?: Prisma.DocumentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DocumentInclude<ExtArgs> | null
-  where?: Prisma.DocumentWhereInput
-  orderBy?: Prisma.DocumentOrderByWithRelationInput | Prisma.DocumentOrderByWithRelationInput[]
-  cursor?: Prisma.DocumentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DocumentScalarFieldEnum | Prisma.DocumentScalarFieldEnum[]
-}
-
-/**
- * User.assignedCompanies
- */
-export type User$assignedCompaniesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Company
    */

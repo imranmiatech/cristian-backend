@@ -52,8 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Company: 'Company',
-  Note: 'Note',
   Document: 'Document',
+  Note: 'Note',
+  Attachment: 'Attachment',
   RefreshToken: 'RefreshToken',
   User: 'User'
 } as const
@@ -81,30 +82,14 @@ export const CompanyScalarFieldEnum = {
   PhoneNumber: 'PhoneNumber',
   logo: 'logo',
   tags: 'tags',
-  notTitle: 'notTitle',
-  noteComment: 'noteComment',
-  notTags: 'notTags',
-  attachment: 'attachment',
+  assignUsername: 'assignUsername',
   status: 'status',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
-
-
-export const NoteScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  tags: 'tags',
-  companyId: 'companyId',
-  authorId: 'authorId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
 
 
 export const DocumentScalarFieldEnum = {
@@ -113,13 +98,39 @@ export const DocumentScalarFieldEnum = {
   fileUrl: 'fileUrl',
   fileType: 'fileType',
   fileSize: 'fileSize',
-  noteId: 'noteId',
-  companyId: 'companyId',
-  authorId: 'authorId',
-  createdAt: 'createdAt'
+  docId: 'docId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+export const NoteScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  tags: 'tags',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+
+
+export const AttachmentScalarFieldEnum = {
+  id: 'id',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  noteId: 'noteId'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
 export const RefreshTokenScalarFieldEnum = {

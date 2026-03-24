@@ -17,6 +17,9 @@ RUN pnpm install --frozen-lockfile
 
 FROM base AS production
 ENV NODE_ENV=production
+
+# RUN mkdir -p uploads && chmod 777 uploads
+
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/prisma.config.ts ./
 COPY --from=prod-deps /app/node_modules ./node_modules

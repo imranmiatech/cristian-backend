@@ -43,7 +43,7 @@ services:
     restart: always
     profiles: ["dev", "prod"]
     ports:
-      - "9999:9999"
+      - "9099:9099"
     env_file:
       - .env
     environment:
@@ -51,6 +51,8 @@ services:
       REDIS_HOST: redis_cache
       REDIS_PORT: 6379
       REDIS_CONNECTION_URL: redis://redis_cache:6379
+    # volumes:
+    #   - ./uploads:/usr/src/app/uploads
     depends_on:
       db:
         condition: service_healthy

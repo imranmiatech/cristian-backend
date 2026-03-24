@@ -23,15 +23,20 @@ export * from './enums.js';
  */
 export type Company = Prisma.CompanyModel
 /**
+ * Model Document
+ * 
+ */
+export type Document = Prisma.DocumentModel
+/**
  * Model Note
  * 
  */
 export type Note = Prisma.NoteModel
 /**
- * Model Document
+ * Model Attachment
  * 
  */
-export type Document = Prisma.DocumentModel
+export type Attachment = Prisma.AttachmentModel
 /**
  * Model RefreshToken
  * 

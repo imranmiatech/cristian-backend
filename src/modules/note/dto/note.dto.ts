@@ -3,49 +3,33 @@ import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsOptional, IsString, IsArray, IsUUID } from 'class-validator';
 
 export class CreateNoteDto {
-  @ApiPropertyOptional({ 
-    example: 'Q1 Financial Review', 
-    description: 'The title of the note' 
-  })
+  @ApiPropertyOptional({ example: 'Q1 Financial Review' })
   @IsOptional()
   @IsString()
   title?: string;
 
-  @ApiProperty({ 
-    example: 'Discussed the budget allocation for the next quarter.', 
-    description: 'The main content or body of the note' 
-  })
+  @ApiProperty({ example: 'Discussed the budget allocation...' })
   @IsNotEmpty()
   @IsString()
   content: string;
 
-  @ApiPropertyOptional({ 
-    type: [String], 
-    example: ['Urgent', 'Finance'], 
-    description: 'Array of tags or comma-separated strings' 
-  })
+  @ApiPropertyOptional({ type: [String], example: ['Urgent', 'Finance'] })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @Transform(({ value }) => {
     if (Array.isArray(value)) return value;
-    return value ? value.split(',').map((t: string) => t.trim()) : [];
+    if (typeof value === 'string') return value.split(',').map((t) => t.trim());
+    return [];
   })
   tags?: string[];
 
-  @ApiProperty({ 
-    example: '550e8400-e29b-41d4-a716-446655440000', 
-    description: 'The UUID of the company this note belongs to' 
-  })
+  @ApiProperty({ example: 'uuid-of-company' })
   @IsUUID()
   @IsNotEmpty()
   companyId: string;
 
-  @ApiPropertyOptional({ 
-    type: 'array', 
-    items: { type: 'string', format: 'binary' }, 
-    description: 'Upload multiple Pictures or PDFs' 
-  })
+  @ApiPropertyOptional({ type: 'array', items: { type: 'string', format: 'binary' } })
   @IsOptional()
   files?: any[];
 }

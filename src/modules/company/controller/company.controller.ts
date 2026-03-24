@@ -1,8 +1,11 @@
 import {
     Controller, Get, Post, Body, Patch, Param, Query, UseGuards,
-    Delete
+    Delete,
+    UseInterceptors,
+    UploadedFiles,
+    UploadedFile
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { CompanyService } from '../service/company.service';
 ;
 import { JwtAuthGuard } from 'src/core/jwt/jwt-auth.guard';
@@ -11,6 +14,11 @@ import { Roles } from 'src/core/jwt/roles.decorator';
 import { CompanyStatus, UserRole } from 'prisma/generated/prisma/enums';
 import { CreateCompanyDto } from '../dto/company.dto';
 import { UpdateCompanyDto } from '../dto/update.company.dto';
+import { FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { MulterService } from 'src/lib/file/service/multer.service';
+import { FileType } from 'src/lib/file/utils/file-type.enum';
+import { GetUser } from 'src/core/jwt/get-user.decorator';
+import { UpdateCompanyStatusDto } from '../dto/status.dto';
 
 
 @ApiTags('Company Management')
@@ -18,20 +26,30 @@ import { UpdateCompanyDto } from '../dto/update.company.dto';
 @Controller('company')
 export class CompanyController {
     constructor(private readonly companyService: CompanyService) { }
+    @Post("create-company")
+    @ApiConsumes('multipart/form-data')
+    @UseInterceptors(FileFieldsInterceptor([
+        { name: 'logo', maxCount: 1 },
+        { name: 'documents', maxCount: 10 },
+    ], new MulterService().multipleUpload(11, FileType.any)))
+    async create(
+        @Body() dto: CreateCompanyDto,
+        @GetUser('id') userId: string,
+        @UploadedFiles() files: { logo?: Express.Multer.File[], documents?: Express.Multer.File[] }
+    ) {
 
-    @Post()
-    @Roles(UserRole.SUPER_ADMIN)
-    @ApiOperation({ summary: 'Create a new company and assign admins' })
-    async create(@Body() createCompanyDto: CreateCompanyDto) {
-        const data = await this.companyService.createCompany(createCompanyDto);
+        const result = await this.companyService.createCompany(dto, files, userId);
         return {
-            message: 'Company created successfully',
-            data
-        };
+            message: "Company create  successfully",
+            data: result
+        }
     }
+
+
+
     @Get('all')
     @UseGuards(JwtAuthGuard, RoleGuard)
-    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
+    @Roles(UserRole.SUPER_ADMIN)
     @ApiOperation({ summary: 'Retrieve all companies with optional filters and pagination' })
     @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
     @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
@@ -44,14 +62,14 @@ export class CompanyController {
         @Query('status') status?: CompanyStatus,
     ) {
         const result = await this.companyService.getAllCompanies(page, limit, search, status);
-        return{
-            message :"Company get successfully",
-            data:result
+        return {
+            message: "Company get successfully",
+            data: result
         }
     }
 
     @Get(':id')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
+    @Roles(UserRole.SUPER_ADMIN)
     @ApiOperation({ summary: 'Get detailed company information' })
     async findOne(@Param('id') id: string) {
         const data = await this.companyService.getCompanyById(id);
@@ -60,13 +78,15 @@ export class CompanyController {
 
     @Patch(':id')
     @Roles(UserRole.SUPER_ADMIN)
-    @ApiOperation({ summary: 'Update company details and admin assignments' })
-    @ApiBody({ type: UpdateCompanyDto }) 
+    @ApiConsumes('multipart/form-data')
+    @ApiOperation({ summary: 'Update core company details' })
+    @UseInterceptors(FileInterceptor('logo', new MulterService().singleUpload(FileType.image)))
     async update(
         @Param('id') id: string,
-        @Body() updateDto: UpdateCompanyDto
+        @Body() updateDto: UpdateCompanyDto,
+        @UploadedFile() file?: Express.Multer.File
     ) {
-        const data = await this.companyService.updateCompany(id, updateDto);
+        const data = await this.companyService.updateCompany(id, updateDto, file);
         return {
             message: 'Company updated successfully',
             data
@@ -75,15 +95,16 @@ export class CompanyController {
 
     @Patch(':id/status')
     @Roles(UserRole.SUPER_ADMIN)
-    @ApiOperation({ summary: 'Change company status (ACTIVE/PENDING)' })
+    @ApiOperation({ summary: 'Set company status (ACTIVE/PENDING)' })
     async changeStatus(
         @Param('id') id: string,
-        @Body('status') status: CompanyStatus
+        @Body() dto: UpdateCompanyStatusDto
     ) {
-        const data = await this.companyService.toggleStatus(id, status);
+        const data = await this.companyService.updateStatus(id, dto.status);
+
         return {
-            message: `Company status changed to ${status}`,
-            data
+            message: `Company status set to ${dto.status}`,
+            data,
         };
     }
 

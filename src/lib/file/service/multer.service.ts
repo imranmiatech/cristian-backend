@@ -1,8 +1,9 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
-import { memoryStorage } from 'multer';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { existsSync, mkdirSync } from 'fs';
 import { FileType } from '../utils/file-type.enum';
-
 
 @Injectable()
 export class MulterService {
@@ -39,6 +40,23 @@ export class MulterService {
     ],
   };
 
+  constructor() {
+    if (!existsSync('./uploads')) {
+      mkdirSync('./uploads');
+    }
+  }
+
+  private getDiskStorage() {
+    return diskStorage({
+      destination: './uploads',
+      filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const ext = extname(file.originalname);
+        cb(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
+      },
+    });
+  }
+
   private fileFilter(
     fileType: FileType,
     customMimeTypes?: string[],
@@ -64,11 +82,11 @@ export class MulterService {
 
   singleUpload(
     fileType: FileType = FileType.image,
-    fileSizeLimit = 10 * 1024 * 1024,
+    fileSizeLimit = 50 * 1024 * 1024,
     customMimeTypes?: string[],
   ): MulterOptions {
     return {
-      storage: memoryStorage(),
+      storage: this.getDiskStorage(),
       limits: { fileSize: fileSizeLimit },
       fileFilter: this.fileFilter(fileType, customMimeTypes),
     };
@@ -77,11 +95,11 @@ export class MulterService {
   multipleUpload(
     maxFiles = 5,
     fileType: FileType = FileType.any,
-    fileSizeLimit = 10 * 1024 * 1024,
+    fileSizeLimit = 50 * 1024 * 1024,
     customMimeTypes?: string[],
   ): MulterOptions {
     return {
-      storage: memoryStorage(),
+      storage: this.getDiskStorage(),
       limits: {
         fileSize: fileSizeLimit,
         files: maxFiles,
@@ -90,5 +108,3 @@ export class MulterService {
     };
   }
 }
-
-

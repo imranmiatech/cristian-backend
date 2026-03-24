@@ -10,6 +10,8 @@ import { FilesInterceptor } from "@nestjs/platform-express";
 import { GetUser } from "src/core/jwt/get-user.decorator";
 import { CreateNoteDto } from "../dto/note.dto";
 import { UpdateNoteDto } from "../dto/update-note.dto";
+import { MulterService } from "src/lib/file/service/multer.service";
+import { FileType } from "src/lib/file/utils/file-type.enum";
 
 @ApiTags('Notes')
 @Controller('notes')
@@ -19,39 +21,22 @@ export class NoteController {
         private readonly noteService: NoteService,
         private readonly s3Service: S3Service,
     ) { }
-
     @Post()
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: 'Create a note with files for a company' })
-    @UseInterceptors(FilesInterceptor('files'))
+    @UseInterceptors(FilesInterceptor('files', 10, new MulterService().multipleUpload(10, FileType.any)))
     async createNote(
-        @GetUser('id') userId: string,
         @Body() dto: CreateNoteDto,
         @UploadedFiles() files: Express.Multer.File[],
     ) {
-        const uploadedFileInfos: { url: string; file: Express.Multer.File }[] = [];
+        const result = await this.noteService.createNote(dto, files);
 
-        try {
-            if (files && files.length > 0) {
-                for (const file of files) {
-                    const url = await this.s3Service.uploadSingle(file, 'company-notes');
-                    uploadedFileInfos.push({ url, file });
-                }
-            }
-
-            const result = await this.noteService.createNote(userId, dto, uploadedFileInfos);
-
-            return {
-                message: 'Note and documents created successfully',
-                data: result,
-            };
-        } catch (error) {
-            for (const info of uploadedFileInfos) {
-                await this.s3Service.deleteFile(info.url);
-            }
-            throw error;
-        }
+        return {
+            message: 'Note and documents created successfully',
+            data: result,
+        };
     }
+
 
     @Get('all')
     @ApiOperation({ summary: 'Search all notes with advanced filters' })
@@ -110,25 +95,13 @@ export class NoteController {
 
     @Patch(':id')
     @ApiConsumes('multipart/form-data')
-    @UseInterceptors(FilesInterceptor('files'))
+    @UseInterceptors(FilesInterceptor('files', 10, new MulterService().multipleUpload(10, FileType.any)))
     async update(
         @Param('id') id: string,
         @Body() dto: UpdateNoteDto,
         @UploadedFiles() files: Express.Multer.File[]
     ) {
-        const newFiles: { url: string; file: Express.Multer.File }[] = [];
-        try {
-            if (files && files.length > 0) {
-                for (const file of files) {
-                    const url = await this.s3Service.uploadSingle(file, 'company-notes');
-                    newFiles.push({ url, file });
-                }
-            }
-            return await this.noteService.updateNote(id, dto, newFiles);
-        } catch (error) {
-            for (const f of newFiles) await this.s3Service.deleteFile(f.url);
-            throw error;
-        }
+        return await this.noteService.updateNote(id, dto, files);
     }
 
     @Delete(':id')

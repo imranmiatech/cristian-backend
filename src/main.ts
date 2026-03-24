@@ -5,15 +5,18 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { SeederService } from './core/seed/seed.service';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express'; // Added this
+import { join } from 'path'; // Added this
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // Specify NestExpressApplication to access useStaticAssets
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   const seeder = app.get(SeederService);
   await seeder.seedAdmin();
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT') || 9000;
+  const port = configService.get<number>('PORT') || 9099;
 
   const originString = process.env.ALLOWED_ORIGINS || '';
   const allowedOrigins = originString.split(',').map(o => o.trim()).filter(Boolean);
@@ -26,6 +29,10 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization, X-Requested-With',
+  });
+
+  app.useStaticAssets(join(process.cwd(), 'uploads'), {
+    prefix: '/uploads/',
   });
 
   const config = new DocumentBuilder()
@@ -42,7 +49,6 @@ async function bootstrap() {
     },
   });
 
-  // 
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,

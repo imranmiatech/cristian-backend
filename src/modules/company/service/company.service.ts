@@ -1,37 +1,53 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCompanyDto } from '../dto/company.dto';
-import { CompanyStatus, UserRole } from 'prisma/generated/prisma/enums';
+import { CompanyStatus } from 'prisma/generated/prisma/enums';
 import { UpdateCompanyDto } from '../dto/update.company.dto';
 
 
 @Injectable()
 export class CompanyService {
     constructor(private readonly prisma: PrismaService) { }
+    async createCompany(
+        dto: CreateCompanyDto,
+        files: { logo?: Express.Multer.File[], documents?: Express.Multer.File[] },
+        userId: string
+    ) {
 
-    async createCompany(dto: CreateCompanyDto) {
-        const { adminIds, ...companyData } = dto;
+        const { noteTitle, noteContent, noteTags, documents, logo, ...companyData } = dto;
+        const logoFile = files?.logo?.[0];
+        const logoPath = logoFile ? `/uploads/${logoFile.filename}` : null;
 
-        if (adminIds && adminIds.length > 0) {
-            const admins = await this.prisma.user.findMany({
-                where: { id: { in: adminIds }, role: UserRole.ADMIN },
-            });
 
-            if (admins.length !== adminIds.length) {
-                throw new NotFoundException('One or more Admin IDs are invalid or not Admins');
-            }
-        }
+        const noteAttachments = files?.documents?.map(file => ({
+            fileName: file.originalname,
+            fileUrl: `/uploads/${file.filename}`,
+            fileType: file.mimetype,
+            fileSize: file.size,
+        })) || [];
 
         return await this.prisma.company.create({
             data: {
                 ...companyData,
-                assignedAdmins: adminIds?.length > 0 ? {
-                    connect: adminIds.map((id) => ({ id })),
-                } : undefined,
+                logo: logoPath,
+                tags: Array.isArray(dto.tags) ? dto.tags : [],
+                user: { connect: { id: userId } },
+
+                notes: (noteTitle || noteContent) ? {
+                    create: {
+                        title: noteTitle,
+                        content: noteContent || '',
+                        tags: Array.isArray(noteTags) ? noteTags : [],
+                        documents: noteAttachments.length > 0 ? {
+                            create: noteAttachments
+                        } : undefined
+                    }
+                } : undefined
             },
-            //   include: {
-            //     _count: { select: { assignedAdmins: true } },
-            //   },
+            include: {
+                notes: { include: { documents: true } },
+                user: { select: { name: true, email: true } }
+            }
         });
     }
 
@@ -63,10 +79,12 @@ export class CompanyService {
                         take: 3,
                         include: {
                             documents: true,
-                            author: { select: { name: true } }
                         }
-                    }
+                    },
+                    document: true
+
                 },
+
             }),
             this.prisma.company.count({ where }),
         ]);
@@ -86,15 +104,9 @@ export class CompanyService {
         const company = await this.prisma.company.findUnique({
             where: { id },
             include: {
-                assignedAdmins: {
-                    select: { id: true, name: true, email: true, profile: true },
-                },
                 notes: {
                     orderBy: { createdAt: 'desc' },
                     include: {
-                        author: {
-                            select: { id: true, name: true, profile: true },
-                        },
                         documents: true,
                     },
                 },
@@ -106,25 +118,23 @@ export class CompanyService {
         return company;
     }
 
+    async updateCompany(id: string, dto: UpdateCompanyDto, file?: Express.Multer.File) {
+        const { tags, ...updateData } = dto;
 
-    async updateCompany(id: string, dto: UpdateCompanyDto) {
-        const { adminIds, ...updateData } = dto;
-
-
-        await this.getCompanyById(id);
+        const exists = await this.prisma.company.findUnique({ where: { id } });
+        if (!exists) throw new NotFoundException('Company not found');
 
         return await this.prisma.company.update({
             where: { id },
             data: {
                 ...updateData,
-                assignedAdmins: adminIds ? {
-                    set: adminIds.map((adminId) => ({ id: adminId })),
-                } : undefined,
+                ...(file && { logo: `/uploads/${file.filename}` }),
+                ...(tags && { tags: Array.isArray(tags) ? tags : [tags] }),
             },
         });
     }
 
-    async toggleStatus(id: string, status: CompanyStatus) {
+    async updateStatus(id: string, status: CompanyStatus) {
         return await this.prisma.company.update({
             where: { id },
             data: { status },
@@ -146,9 +156,6 @@ export class CompanyService {
         try {
             return await this.prisma.$transaction(async (tx) => {
                 await tx.note.deleteMany({
-                    where: { companyId: id },
-                });
-                await tx.document.deleteMany({
                     where: { companyId: id },
                 });
                 const deletedCompany = await tx.company.delete({

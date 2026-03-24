@@ -10,15 +10,11 @@ model User {
   
   // Missing back-relations
   refreshTokens RefreshToken[]
-  notes         Note[]       
-  docs          Document[]
+  company       Company[]
 
   failedLoginAttempts Int       @default(0)
   lastFailedAttempt   DateTime?
   lockUntil           DateTime?
-
-  //relations 
-  assignedCompanies Company[] @relation("AdminCompanies")
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

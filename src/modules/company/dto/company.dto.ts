@@ -1,81 +1,78 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import { IsArray, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import { CompanyStatus } from 'prisma/generated/prisma/enums';
 
 export class CreateCompanyDto {
-  @ApiProperty({ 
-    example: 'Tech Solutions Ltd', 
-    description: 'The legal name of the company' 
-  })
+  // --- Company Basic Info ---
+  @ApiProperty({ example: 'Tech Solutions Ltd' })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ 
-    example: 'contact@techsolutions.com', 
-    description: 'Official corporate email address' 
-  })
+  @ApiProperty({ example: 'contact@techsolutions.com' })
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
-  @ApiProperty({ 
-    example: '+8801700000000', 
-    description: 'Primary contact phone number' 
-  })
+  @ApiProperty({ example: '+8801700000000' })
   @IsString()
   @IsNotEmpty()
   PhoneNumber: string;
 
-  @ApiPropertyOptional({ 
-    example: 'https://s3.bucket/logo.png', 
-    description: 'URL of the company logo hosted on S3 or similar storage' 
-  })
-  @IsOptional()
-  @IsString()
-  logo?: string;
 
-  @ApiPropertyOptional({ 
-    type: [String], 
-    example: ['SaaS', 'Fintech', 'B2B'], 
-    description: 'Array of tags for categorization' 
-  })
+  @ApiPropertyOptional({ type: [String], example: ['SaaS', 'Fintech'] })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') return value.split(',').map(v => v.trim());
+    return value;
+  })
   tags?: string[];
 
-  @ApiPropertyOptional({ 
-    example: 'Strategic Partnership', 
-    description: 'Short title for internal notes regarding this company' 
-  })
+  @ApiPropertyOptional({ example: 'Jon doe' })
   @IsOptional()
   @IsString()
-  notTitle?: string;
+  assignUsername?: string;
 
-  @ApiPropertyOptional({ 
-    example: 'Key client for Q3 infrastructure project.', 
-    description: 'Detailed internal comments or context about the company' 
-  })
+  @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'Company Logo' })
   @IsOptional()
-  @IsString()
-  noteComment?: string;
+  logo?: any;
 
-  @ApiPropertyOptional({ 
-    enum: CompanyStatus, 
-    default: CompanyStatus.ACTIVE,
-    description: 'Current operational status of the company' 
-  })
+  @ApiPropertyOptional({ enum: CompanyStatus, default: CompanyStatus.ACTIVE })
   @IsOptional()
   @IsEnum(CompanyStatus)
   status?: CompanyStatus;
 
-  @ApiProperty({ 
-    type: [String], 
-    example: ['550e8400-e29b-41d4-a716-446655440000'], 
-    description: 'List of Admin User IDs to be assigned to this company' 
-  })
+  // --- Initial Note Info ---
+  @ApiPropertyOptional({ example: 'Onboarding Note' })
+  @IsOptional()
+  @IsString()
+  noteTitle?: string;
+
+  @ApiPropertyOptional({ example: 'Initial setup details' })
+  @IsOptional()
+  @IsString()
+  noteContent?: string;
+
+
+  @ApiPropertyOptional({ type: [String], example: ['Internal', 'Priority'] })
+  @IsOptional()
   @IsArray()
-  @IsUUID('all', { each: true })
-  @IsNotEmpty()
-  adminIds: string[];
+  @IsString({ each: true })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') return value.split(',').map(v => v.trim());
+    return value;
+  })
+  noteTags?: string[];
+
+  // --- File Uploads ---
+  @ApiPropertyOptional({
+    type: 'array',
+    items: { type: 'string', format: 'binary' },
+    description: 'Note documents'
+  })
+  @IsOptional()
+  documents?: any[];
 }
