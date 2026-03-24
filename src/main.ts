@@ -5,8 +5,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { SeederService } from './core/seed/seed.service';
 import { ValidationPipe } from '@nestjs/common';
-import { NestExpressApplication } from '@nestjs/platform-express'; // Added this
-import { join } from 'path'; // Added this
+import { NestExpressApplication } from '@nestjs/platform-express'; 
+import { join } from 'path'; 
 
 async function bootstrap() {
   // Specify NestExpressApplication to access useStaticAssets
