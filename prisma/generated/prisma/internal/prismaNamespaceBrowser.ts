@@ -111,7 +111,10 @@ export const NoteScalarFieldEnum = {
   title: 'title',
   content: 'content',
   tags: 'tags',
+  isPinned: 'isPinned',
+  type: 'type',
   companyId: 'companyId',
+  authorId: 'authorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

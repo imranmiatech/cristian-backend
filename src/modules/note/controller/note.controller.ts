@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFiles, UseGuards, UseInterceptors } from "@nestjs/common";
-import { ApiConsumes, ApiOperation, ApiQuery, ApiTags } from "@nestjs/swagger";
+import { ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/core/jwt/jwt-auth.guard";
 import { RoleGuard } from "src/core/jwt/roles.guard";
 import { NoteService } from "../services/note.service";
@@ -29,8 +29,9 @@ export class NoteController {
     async createNote(
         @Body() dto: CreateNoteDto,
         @UploadedFiles() files: Express.Multer.File[],
+        @GetUser('id') userId: string,
     ) {
-        const result = await this.noteService.createNote(dto, files);
+        const result = await this.noteService.createNote(dto, files, userId);
 
         return {
             message: 'Note and documents created successfully',
@@ -42,13 +43,17 @@ export class NoteController {
     @Get('all')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Search all notes with advanced filters' })
-    @ApiQuery({ name: 'companyId', required: false })
+    @ApiQuery({ name: 'companySearch', required: false, description: 'Search by company name or ID' })
+    @ApiQuery({ name: 'authorId', required: false, description: 'Filter by author ID' })
+    @ApiQuery({ name: 'type', required: false, description: 'Filter by note type' })
     @ApiQuery({ name: 'search', required: false, description: 'Search in title or content' })
     @ApiQuery({ name: 'tag', required: false, description: 'Filter by a specific tag' })
     @ApiQuery({ name: 'startDate', required: false, example: '' })
     @ApiQuery({ name: 'endDate', required: false, example: '' })
     async findAll(
-        @Query('companyId') companyId?: string,
+        @Query('companySearch') companySearch?: string,
+        @Query('authorId') authorId?: string,
+        @Query('type') type?: string,
         @Query('search') search?: string,
         @Query('tag') tag?: string,
         @Query('startDate') createdAt?: string,
@@ -57,7 +62,9 @@ export class NoteController {
         @Query('limit') limit?: number,
     ) {
         return await this.noteService.getAllNotes({
-            companyId,
+            companySearch,
+            authorId,
+            type,
             search,
             tag,
             createdAt,
@@ -65,6 +72,30 @@ export class NoteController {
             page,
             limit,
         });
+    }
+
+@Patch(':id/pin')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
+    @ApiOperation({ 
+        summary: 'Toggle pin status of a note',
+        description: 'Switches the isPinned boolean from true to false or vice versa.' 
+    })
+    @ApiParam({ 
+        name: 'id', 
+        description: 'The unique UUID of the note to pin/unpin',
+        example: '550e8400-e29b-41d4-a716-446655440000'
+    })
+    @ApiResponse({ 
+        status: 200, 
+        description: 'Returns the updated note object with the new pin status.' 
+    })
+    @ApiResponse({ status: 404, description: 'Note not found.' })
+    async togglePin(@Param('id') id: string) {
+        const result = await this.noteService.togglePin(id);
+        return {
+            message: `Note ${result.isPinned ? 'pinned' : 'unpinned'} successfully`,
+            data: result
+        };
     }
 
 

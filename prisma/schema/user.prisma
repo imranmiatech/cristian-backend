@@ -8,9 +8,10 @@ model User {
   role         UserRole
   status       UserStatus     @default(PENDING)
   
-  // Missing back-relations
+  // Back-relations
   refreshTokens RefreshToken[]
   company       Company[]
+  notes         Note[]
 
   failedLoginAttempts Int       @default(0)
   lastFailedAttempt   DateTime?

@@ -18,8 +18,8 @@ export class NoteService {
     constructor(private readonly prisma: PrismaService, private readonly s3Service: S3Service) { }
 
 
-    async createNote(dto: CreateNoteDto, files: Express.Multer.File[]) {
-        const { companyId, title, content, tags } = dto;
+    async createNote(dto: CreateNoteDto, files: Express.Multer.File[], authorId: string) {
+        const { companyId, title, content, tags, isPinned, type } = dto;
         const company = await this.prisma.company.findUnique({
             where: { id: companyId }
         });
@@ -33,6 +33,9 @@ export class NoteService {
                     content,
                     tags: tags || [],
                     companyId,
+                    authorId,
+                    isPinned: isPinned || false,
+                    type: type || 'GENERAL',
                 },
             });
             if (files && files.length > 0) {
@@ -55,7 +58,9 @@ export class NoteService {
 
 
     async getAllNotes(query: {
-        companyId?: string;
+        companySearch?: string;
+        authorId?: string;
+        type?: string;
         search?: string;
         tag?: string;
         createdAt?: string;
@@ -63,13 +68,23 @@ export class NoteService {
         page?: number;
         limit?: number;
     }) {
-        const { companyId, search, tag, createdAt, updatedAt } = query;
+        const { companySearch, authorId, type, search, tag, createdAt, updatedAt } = query;
         const page = Number(query.page || 1);
         const limit = Number(query.limit || 10);
         const skip = (page - 1) * limit;
+
         const where: any = {
             AND: [
-                companyId ? { companyId } : {},
+                companySearch ? {
+                    company: {
+                        OR: [
+                            { id: companySearch },
+                            { name: { contains: companySearch, mode: 'insensitive' } }
+                        ]
+                    }
+                } : {},
+                authorId ? { authorId } : {},
+                type ? { type: { contains: type, mode: 'insensitive' } } : {},
                 tag ? { tags: { has: tag } } : {},
                 search ? {
                     OR: [
@@ -91,11 +106,14 @@ export class NoteService {
                 where,
                 skip,
                 take: limit,
-                orderBy: { createdAt: 'desc' },
+                orderBy: [
+                    { isPinned: 'desc' },
+                    { createdAt: 'desc' }
+                ],
                 include: {
                     documents: true,
-
                     company: { select: { name: true } },
+                    author: { select: { name: true, email: true } }
                 },
             }),
             this.prisma.note.count({ where }),
@@ -178,7 +196,18 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
         });
     }
 
+    async togglePin(noteId: string) {
+        const note = await this.prisma.note.findUnique({
+            where: { id: noteId }
+        });
 
+        if (!note) throw new NotFoundException('Note not found');
+
+        return await this.prisma.note.update({
+            where: { id: noteId },
+            data: { isPinned: !note.isPinned  }
+        });
+    }
 
 
     async deleteNote(noteId: string) {
@@ -225,22 +254,22 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
         const [notes, total] = await Promise.all([
             this.prisma.note.findMany({
                 where: {
-                    company: {
-                        id: companyId
-                    }
+                    companyId: companyId
                 },
                 skip,
                 take: limit,
-                orderBy: { createdAt: 'desc' },
+                orderBy: [
+                    { isPinned: 'desc' },
+                    { createdAt: 'desc' }
+                ],
                 include: {
                     documents: true,
+                    author: { select: { name: true } }
                 },
             }),
             this.prisma.note.count({
                 where: {
-                    company: {
-                        id: companyId
-                    }
+                    companyId: companyId
                 }
             }),
         ]);
@@ -261,7 +290,7 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
             where: { id: noteId },
             include: {
                 documents: true,
-
+                author: { select: { name: true, email: true } },
                 company: {
                     select: { id: true, name: true },
                 },
@@ -272,5 +301,3 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
         return note;
     }
 }
-
-

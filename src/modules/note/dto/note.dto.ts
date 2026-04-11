@@ -7,7 +7,7 @@ export class CreateNoteDto {
   @IsOptional()
   @IsString()
   title?: string;
-  
+
   @ApiProperty({
     example: 'Discussed the budget allocation...',
     required: false // This removes the red asterisk in Swagger
@@ -15,6 +15,20 @@ export class CreateNoteDto {
   @IsString()
   @IsOptional()
   content?: string;
+
+  @ApiPropertyOptional({ example: false })
+  @IsOptional()
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
+  })
+  isPinned?: boolean;
+
+  @ApiPropertyOptional({ example: 'GENERAL' })
+  @IsOptional()
+  @IsString()
+  type?: string;
 
   @ApiPropertyOptional({ type: [String], example: ['Urgent', 'Finance'] })
   @IsOptional()
@@ -30,7 +44,7 @@ export class CreateNoteDto {
   @ApiProperty({ example: 'uuid-of-company' })
   @IsUUID()
   @IsNotEmpty()
-  companyId!: string;
+  companyId!: string; 
 
   @ApiPropertyOptional({ type: 'array', items: { type: 'string', format: 'binary' } })
   @IsOptional()
