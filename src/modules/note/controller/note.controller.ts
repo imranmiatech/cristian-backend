@@ -16,6 +16,7 @@ import { FileType } from "src/lib/file/utils/file-type.enum";
 @ApiTags('Notes')
 @Controller('notes')
 @UseGuards(JwtAuthGuard)
+@Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
 export class NoteController {
     constructor(
         private readonly noteService: NoteService,
@@ -39,6 +40,7 @@ export class NoteController {
 
 
     @Get('all')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Search all notes with advanced filters' })
     @ApiQuery({ name: 'companyId', required: false })
     @ApiQuery({ name: 'search', required: false, description: 'Search in title or content' })
@@ -68,6 +70,7 @@ export class NoteController {
 
 
     @Get('company/:companyId')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Get all notes for a specific company' })
     @ApiQuery({ name: 'page', required: false, type: Number })
     @ApiQuery({ name: 'limit', required: false, type: Number })
@@ -84,6 +87,7 @@ export class NoteController {
     }
 
     @Get(':id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Get a single note details by its ID' })
     async getOne(@Param('id') id: string) {
         const data = await this.noteService.getNoteById(id);
@@ -94,6 +98,7 @@ export class NoteController {
     }
 
     @Patch(':id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiConsumes('multipart/form-data')
     @UseInterceptors(FilesInterceptor('files', 10, new MulterService().multipleUpload(10, FileType.any)))
     async update(
@@ -105,6 +110,7 @@ export class NoteController {
     }
 
     @Delete(':id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
     @ApiOperation({ summary: 'Delete a note and its files permanently' })
     async remove(@Param('id') id: string) {

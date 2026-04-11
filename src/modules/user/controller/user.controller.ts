@@ -36,6 +36,36 @@ export class UserController {
             data: result
         };
     }
+    // @Patch('update-me')
+    // @UseGuards(JwtAuthGuard, RoleGuard)
+    // @ApiConsumes('multipart/form-data')
+    // @UseInterceptors(FileInterceptor('profile', new MulterService().singleUpload(FileType.image)))
+    // async updateMe(
+    //     @GetUser('id') userId: string,
+    //     @Body() updateUserDto: UpdateUserDto,
+    //     @UploadedFile() file: Express.Multer.File
+    // ) {
+    //     let profileUrl: string | undefined;
+
+    //     try {
+    //         if (file) {
+    //             profileUrl = await this.s3Service.uploadSingle(file, 'profiles');
+    //         }
+    //         const result = await this.userService.updateMe(userId, updateUserDto, profileUrl);
+
+    //         return {
+    //             message: "Profile updated successfully",
+    //             data: result
+    //         };
+
+    //     } catch (error) {
+    //         if (profileUrl) {
+    //             await this.s3Service.deleteFile(profileUrl);
+    //         }
+    //         throw error;
+    //     }
+    // }
+
     @Patch('update-me')
     @UseGuards(JwtAuthGuard, RoleGuard)
     @ApiConsumes('multipart/form-data')
@@ -45,23 +75,16 @@ export class UserController {
         @Body() updateUserDto: UpdateUserDto,
         @UploadedFile() file: Express.Multer.File
     ) {
-        let profileUrl: string | undefined;
+        const profilePath = file ? `/uploads/${file.filename}` : undefined;
 
         try {
-            if (file) {
-                profileUrl = await this.s3Service.uploadSingle(file, 'profiles');
-            }
-            const result = await this.userService.updateMe(userId, updateUserDto, profileUrl);
+            const result = await this.userService.updateMe(userId, updateUserDto, profilePath);
 
             return {
                 message: "Profile updated successfully",
                 data: result
             };
-
         } catch (error) {
-            if (profileUrl) {
-                await this.s3Service.deleteFile(profileUrl);
-            }
             throw error;
         }
     }

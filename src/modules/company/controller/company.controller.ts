@@ -45,15 +45,30 @@ export class CompanyController {
         }
     }
 
+    @Get('stats')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
+    async getStats() {
+        const stats = await this.companyService.getCompanyStats();
+        return {
+            message: "Stats retrieved successfully",
+            data: stats
+        };
+    }
 
 
-    @Get('all')
+
+@Get('all')
     @UseGuards(JwtAuthGuard, RoleGuard)
-    @Roles(UserRole.SUPER_ADMIN)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Retrieve all companies with optional filters and pagination' })
     @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
     @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
-    @ApiQuery({ name: 'search', required: false, type: String, description: 'Search by name, email or phone' })
+    @ApiQuery({ 
+        name: 'search', 
+        required: false, 
+        type: String, 
+        description: 'Search by name, email, phone, tags, or note content' 
+    })
     @ApiQuery({ name: 'status', required: false, enum: CompanyStatus })
     async findAll(
         @Query('page') page?: number,
@@ -63,13 +78,13 @@ export class CompanyController {
     ) {
         const result = await this.companyService.getAllCompanies(page, limit, search, status);
         return {
-            message: "Company get successfully",
+            message: "Companies retrieved successfully",
             data: result
         }
     }
 
     @Get(':id')
-    @Roles(UserRole.SUPER_ADMIN)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Get detailed company information' })
     async findOne(@Param('id') id: string) {
         const data = await this.companyService.getCompanyById(id);
@@ -77,7 +92,7 @@ export class CompanyController {
     }
 
     @Patch(':id')
-    @Roles(UserRole.SUPER_ADMIN)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: 'Update core company details' })
     @UseInterceptors(FileInterceptor('logo', new MulterService().singleUpload(FileType.image)))
@@ -94,7 +109,7 @@ export class CompanyController {
     }
 
     @Patch(':id/status')
-    @Roles(UserRole.SUPER_ADMIN)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Set company status (ACTIVE/PENDING)' })
     async changeStatus(
         @Param('id') id: string,
@@ -109,7 +124,7 @@ export class CompanyController {
     }
 
     @Delete('remove/:id')
-    @Roles(UserRole.SUPER_ADMIN)
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({
         summary: 'Permanently delete a company (Hard Delete) - Super Admin Only',
         description: 'This action is irreversible. It will remove the company from the database.'
@@ -117,5 +132,7 @@ export class CompanyController {
     async remove(@Param('id') id: string) {
         return await this.companyService.hardDeleteCompany(id);
     }
+
+
 }
 

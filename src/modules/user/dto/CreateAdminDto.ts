@@ -14,7 +14,7 @@ export class CreateAdminDto {
 
     @ApiProperty()
     @IsString()
-    @MinLength(8)
+    @MinLength(4)
     password: string;
 
     @ApiProperty({ required: false })

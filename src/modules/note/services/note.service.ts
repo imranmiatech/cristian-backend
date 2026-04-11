@@ -6,6 +6,13 @@ import { UpdateNoteDto } from "../dto/update-note.dto";
 import * as fs from 'fs';
 import * as path from 'path';
 
+
+interface AttachmentCreateInput {
+    fileName: string;
+    fileUrl: string;
+    fileType: string;
+    fileSize: number;
+}
 @Injectable()
 export class NoteService {
     constructor(private readonly prisma: PrismaService, private readonly s3Service: S3Service) { }
@@ -106,52 +113,71 @@ export class NoteService {
     }
 
 
-    // --- UPDATE NOTE ---
-    async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[]) {
-        const { deleteFileIds, companyId, ...updateData } = dto;
 
-        const note = await this.prisma.note.findUnique({
+    // --- UPDATE NOTE ---
+// note.service.ts
+
+async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[]) {
+        const { deleteFileIds, tags, ...updateData } = dto;
+
+        const existingNote = await this.prisma.note.findUnique({
             where: { id: noteId },
             include: { documents: true }
         });
-        if (!note) throw new NotFoundException('Note not found');
+
+        if (!existingNote) {
+            throw new NotFoundException(`Note with ID ${noteId} not found`);
+        }
 
         return await this.prisma.$transaction(async (tx) => {
+            const physicalFilesToDelete: string[] = [];
+
             if (deleteFileIds && deleteFileIds.length > 0) {
-                const filesToDestroy = note.documents.filter(doc => deleteFileIds.includes(doc.id));
+                const targets = existingNote.documents.filter(doc => deleteFileIds.includes(doc.id));
+                
+                targets.forEach(t => {
+                    const filePath = path.join(process.cwd(), t.fileUrl);
+                    physicalFilesToDelete.push(filePath);
+                });
 
-                for (const file of filesToDestroy) {
-                    const filePath = path.join(process.cwd(), file.fileUrl);
-                    if (fs.existsSync(filePath)) {
-                        fs.unlinkSync(filePath);
-                    }
-                }
-
-                await tx.document.deleteMany({
+                await tx.attachment.deleteMany({
                     where: { id: { in: deleteFileIds } }
                 });
             }
-            if (newUploadedFiles && newUploadedFiles.length > 0) {
-                const newDocs = newUploadedFiles.map(file => ({
-                    fileName: file.originalname,
-                    fileUrl: `/uploads/${file.filename}`,
-                    fileType: file.mimetype,
-                    fileSize: file.size,
-                    noteId: noteId,
-                    companyId: note.companyId,
-                }));
 
-                await tx.document.createMany({
-                    data: newDocs,
-                });
-            }
-            return tx.note.update({
+            const attachmentData: AttachmentCreateInput[] = (newUploadedFiles || []).map(file => ({
+                fileName: file.originalname,
+                fileUrl: `/uploads/${file.filename}`,
+                fileType: file.mimetype,
+                fileSize: file.size,
+            }));
+
+            const updatedNote = await tx.note.update({
                 where: { id: noteId },
-                data: { ...updateData },
+                data: {
+                    ...updateData,
+                    tags: tags !== undefined ? tags : existingNote.tags,
+                    documents: {
+                        create: attachmentData
+                    }
+                },
                 include: { documents: true }
             });
+
+            if (physicalFilesToDelete.length > 0) {
+                for (const filePath of physicalFilesToDelete) {
+                    if (fs.existsSync(filePath)) {
+                        fs.unlink(filePath, (err) => {
+                            if (err) console.error(`Cleanup error: ${filePath}`, err);
+                        });
+                    }
+                }
+            }
+
+            return updatedNote;
         });
     }
+
 
 
 

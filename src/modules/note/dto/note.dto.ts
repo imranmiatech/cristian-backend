@@ -7,11 +7,14 @@ export class CreateNoteDto {
   @IsOptional()
   @IsString()
   title?: string;
-
-  @ApiProperty({ example: 'Discussed the budget allocation...' })
-  @IsNotEmpty()
+  
+  @ApiProperty({
+    example: 'Discussed the budget allocation...',
+    required: false // This removes the red asterisk in Swagger
+  })
   @IsString()
-  content: string;
+  @IsOptional()
+  content?: string;
 
   @ApiPropertyOptional({ type: [String], example: ['Urgent', 'Finance'] })
   @IsOptional()
@@ -27,7 +30,7 @@ export class CreateNoteDto {
   @ApiProperty({ example: 'uuid-of-company' })
   @IsUUID()
   @IsNotEmpty()
-  companyId: string;
+  companyId!: string;
 
   @ApiPropertyOptional({ type: 'array', items: { type: 'string', format: 'binary' } })
   @IsOptional()

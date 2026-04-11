@@ -1,16 +1,18 @@
-import { PartialType, ApiPropertyOptional } from '@nestjs/swagger';
-
-import { IsArray, IsOptional, IsUUID, IsString } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
+import { IsArray, IsOptional, IsUUID } from 'class-validator';
 import { CreateNoteDto } from './note.dto';
 
 export class UpdateNoteDto extends PartialType(CreateNoteDto) {
-  @ApiPropertyOptional({ 
-    type: [String], 
-    example: ['uuid-of-file-to-delete'],
-    description: 'old file delete ' 
-  })
   @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })
+  @Transform(({ value }) => {
+
+    if (typeof value === 'string') {
+      return value.split(',').map((id) => id.trim()).filter((id) => id !== '');
+    }
+    return value;
+  })
   deleteFileIds?: string[];
 }

@@ -52,6 +52,54 @@ export class CompanyService {
     }
 
 
+    // async getAllCompanies(page: number = 1, limit: number = 10, search?: string, status?: CompanyStatus) {
+    //     const skip = (Number(page) - 1) * Number(limit);
+
+    //     const where: any = {
+    //         AND: [
+    //             status ? { status } : {},
+    //             search ? {
+    //                 OR: [
+    //                     { name: { contains: search, mode: 'insensitive' } },
+    //                     { email: { contains: search, mode: 'insensitive' } },
+    //                     { PhoneNumber: { contains: search } },
+    //                 ],
+    //             } : {},
+    //         ],
+    //     };
+
+    //     const [companies, total] = await Promise.all([
+    //         this.prisma.company.findMany({
+    //             where,
+    //             skip,
+    //             take: Number(limit),
+    //             orderBy: { createdAt: 'desc' },
+    //             include: {
+    //                 notes: {
+    //                     take: 3,
+    //                     include: {
+    //                         documents: true,
+    //                     }
+    //                 },
+    //                 document: true
+
+    //             },
+
+    //         }),
+    //         this.prisma.company.count({ where }),
+    //     ]);
+
+    //     return {
+    //         companies,
+    //         meta: {
+    //             total,
+    //             page: Number(page),
+    //             limit: Number(limit),
+    //             lastPage: Math.ceil(total / Number(limit)),
+    //         },
+    //     };
+    // }
+
     async getAllCompanies(page: number = 1, limit: number = 10, search?: string, status?: CompanyStatus) {
         const skip = (Number(page) - 1) * Number(limit);
 
@@ -63,6 +111,16 @@ export class CompanyService {
                         { name: { contains: search, mode: 'insensitive' } },
                         { email: { contains: search, mode: 'insensitive' } },
                         { PhoneNumber: { contains: search } },
+                        // 1. Search within the tags array
+                        { tags: { has: search } },
+                        // 2. Search within related notes content
+                        {
+                            notes: {
+                                some: {
+                                    content: { contains: search, mode: 'insensitive' }
+                                }
+                            }
+                        }
                     ],
                 } : {},
             ],
@@ -82,9 +140,7 @@ export class CompanyService {
                         }
                     },
                     document: true
-
                 },
-
             }),
             this.prisma.company.count({ where }),
         ]);
@@ -174,4 +230,20 @@ export class CompanyService {
             );
         }
     }
+
+    async getCompanyStats() {
+        const [total, active] = await Promise.all([
+            this.prisma.company.count(),
+            this.prisma.company.count({
+                where: { status: CompanyStatus.ACTIVE }
+            }),
+        ]);
+
+        return {
+            total: total || 0,
+            active: active || 0,
+            pending: (total - active) || 0
+        };
+    }
+
 }

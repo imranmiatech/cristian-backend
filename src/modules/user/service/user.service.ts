@@ -26,6 +26,24 @@ export class UserService {
         return result;
     }
 
+    // async updateMe(userId: string, data: UpdateUserDto, profilePath?: string) {
+    //     const updatedUser = await this.prisma.user.update({
+    //         where: { id: userId },
+    //         data: {
+    //             name: data.name,
+    //             mobile: data.mobile,
+    //             ...(profilePath && { profile: profilePath }),
+    //         },
+    //         select: {
+    //             id: true,
+    //             name: true,
+    //             profile: true,
+    //             mobile: true,
+    //         },
+    //     });
+    //     return updatedUser;
+    // }
+
     async updateMe(userId: string, data: UpdateUserDto, profilePath?: string) {
         const updatedUser = await this.prisma.user.update({
             where: { id: userId },
