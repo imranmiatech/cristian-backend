@@ -19,7 +19,7 @@ export class NoteService {
 
 
     async createNote(dto: CreateNoteDto, files: Express.Multer.File[], authorId: string) {
-        const { companyId, title, content, tags, isPinned, type } = dto;
+        const { companyId, title, content, communicationTags, serviceTags, isPinned, type } = dto;
         const company = await this.prisma.company.findUnique({
             where: { id: companyId }
         });
@@ -31,7 +31,8 @@ export class NoteService {
                 data: {
                     title,
                     content,
-                    tags: tags || [],
+                    communicationTags: communicationTags || [],
+                    serviceTags: serviceTags || [],
                     companyId,
                     authorId,
                     isPinned: isPinned || false,
@@ -63,12 +64,14 @@ export class NoteService {
         type?: string;
         search?: string;
         tag?: string;
+        communicationTag?: string;
+        serviceTag?: string;
         createdAt?: string;
         updatedAt?: string;
         page?: number;
         limit?: number;
     }) {
-        const { companySearch, authorId, type, search, tag, createdAt, updatedAt } = query;
+        const { companySearch, authorId, type, search, tag, communicationTag, serviceTag, createdAt, updatedAt } = query;
         const page = Number(query.page || 1);
         const limit = Number(query.limit || 10);
         const skip = (page - 1) * limit;
@@ -85,7 +88,14 @@ export class NoteService {
                 } : {},
                 authorId ? { authorId } : {},
                 type ? { type: { contains: type, mode: 'insensitive' } } : {},
-                tag ? { tags: { has: tag } } : {},
+                tag ? {
+                    OR: [
+                        { communicationTags: { has: tag } },
+                        { serviceTags: { has: tag } }
+                    ]
+                } : {},
+                communicationTag ? { communicationTags: { has: communicationTag } } : {},
+                serviceTag ? { serviceTags: { has: serviceTag } } : {},
                 search ? {
                     OR: [
                         { title: { contains: search, mode: 'insensitive' } },
@@ -136,7 +146,7 @@ export class NoteService {
 // note.service.ts
 
 async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[]) {
-        const { deleteFileIds, tags, ...updateData } = dto;
+        const { deleteFileIds, communicationTags, serviceTags, ...updateData } = dto;
 
         const existingNote = await this.prisma.note.findUnique({
             where: { id: noteId },
@@ -174,7 +184,8 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 where: { id: noteId },
                 data: {
                     ...updateData,
-                    tags: tags !== undefined ? tags : existingNote.tags,
+                    communicationTags: communicationTags !== undefined ? communicationTags : existingNote.communicationTags,
+                    serviceTags: serviceTags !== undefined ? serviceTags : existingNote.serviceTags,
                     documents: {
                         create: attachmentData
                     }
@@ -205,7 +216,7 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
 
         return await this.prisma.note.update({
             where: { id: noteId },
-            data: { isPinned: !note.isPinned  }
+            data: { isPinned: !note.isPinned }
         });
     }
 

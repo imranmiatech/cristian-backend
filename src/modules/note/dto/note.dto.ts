@@ -30,7 +30,7 @@ export class CreateNoteDto {
   @IsString()
   type?: string;
 
-  @ApiPropertyOptional({ type: [String], example: ['Urgent', 'Finance'] })
+  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'] })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -39,7 +39,18 @@ export class CreateNoteDto {
     if (typeof value === 'string') return value.split(',').map((t) => t.trim());
     return [];
   })
-  tags?: string[];
+  communicationTags?: string[];
+
+  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'] })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => {
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') return value.split(',').map((t) => t.trim());
+    return [];
+  })
+  serviceTags?: string[];
 
   @ApiProperty({ example: 'uuid-of-company' })
   @IsUUID()

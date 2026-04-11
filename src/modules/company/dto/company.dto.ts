@@ -8,17 +8,17 @@ export class CreateCompanyDto {
   @ApiProperty({ example: 'Tech Solutions Ltd' })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @ApiProperty({ example: 'contact@techsolutions.com' })
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email!: string;
 
   @ApiProperty({ example: '+8801700000000' })
   @IsString()
   @IsNotEmpty()
-  PhoneNumber: string;
+  PhoneNumber!: string;
 
 
   @ApiPropertyOptional({ type: [String], example: ['SaaS', 'Fintech'] })
@@ -40,10 +40,10 @@ export class CreateCompanyDto {
   @IsOptional()
   logo?: any;
 
-  @ApiPropertyOptional({ enum: CompanyStatus, default: CompanyStatus.ACTIVE })
-  @IsOptional()
-  @IsEnum(CompanyStatus)
-  status?: CompanyStatus;
+  // @ApiPropertyOptional({ enum: CompanyStatus, default: CompanyStatus.ACTIVE })
+  // @IsOptional()
+  // @IsEnum(CompanyStatus)
+  // status?: CompanyStatus;
 
   // --- Initial Note Info ---
   @ApiPropertyOptional({ example: 'Onboarding Note' })
@@ -57,7 +57,7 @@ export class CreateCompanyDto {
   noteContent?: string;
 
 
-  @ApiPropertyOptional({ type: [String], example: ['Internal', 'Priority'] })
+  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'] })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -65,7 +65,17 @@ export class CreateCompanyDto {
     if (typeof value === 'string') return value.split(',').map(v => v.trim());
     return value;
   })
-  noteTags?: string[];
+  communicationTags?: string[];
+
+  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'] })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') return value.split(',').map(v => v.trim());
+    return value;
+  })
+  serviceTags?: string[];
 
   // --- File Uploads ---
   @ApiPropertyOptional({

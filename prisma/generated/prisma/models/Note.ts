@@ -52,7 +52,8 @@ export type NoteCountAggregateOutputType = {
   id: number
   title: number
   content: number
-  tags: number
+  communicationTags: number
+  serviceTags: number
   isPinned: number
   type: number
   companyId: number
@@ -91,7 +92,8 @@ export type NoteCountAggregateInputType = {
   id?: true
   title?: true
   content?: true
-  tags?: true
+  communicationTags?: true
+  serviceTags?: true
   isPinned?: true
   type?: true
   companyId?: true
@@ -177,7 +179,8 @@ export type NoteGroupByOutputType = {
   id: string
   title: string | null
   content: string | null
-  tags: string[]
+  communicationTags: string[]
+  serviceTags: string[]
   isPinned: boolean
   type: string | null
   companyId: string
@@ -211,7 +214,8 @@ export type NoteWhereInput = {
   id?: Prisma.StringFilter<"Note"> | string
   title?: Prisma.StringNullableFilter<"Note"> | string | null
   content?: Prisma.StringNullableFilter<"Note"> | string | null
-  tags?: Prisma.StringNullableListFilter<"Note">
+  communicationTags?: Prisma.StringNullableListFilter<"Note">
+  serviceTags?: Prisma.StringNullableListFilter<"Note">
   isPinned?: Prisma.BoolFilter<"Note"> | boolean
   type?: Prisma.StringNullableFilter<"Note"> | string | null
   companyId?: Prisma.StringFilter<"Note"> | string
@@ -227,7 +231,8 @@ export type NoteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
-  tags?: Prisma.SortOrder
+  communicationTags?: Prisma.SortOrder
+  serviceTags?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -246,7 +251,8 @@ export type NoteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.NoteWhereInput | Prisma.NoteWhereInput[]
   title?: Prisma.StringNullableFilter<"Note"> | string | null
   content?: Prisma.StringNullableFilter<"Note"> | string | null
-  tags?: Prisma.StringNullableListFilter<"Note">
+  communicationTags?: Prisma.StringNullableListFilter<"Note">
+  serviceTags?: Prisma.StringNullableListFilter<"Note">
   isPinned?: Prisma.BoolFilter<"Note"> | boolean
   type?: Prisma.StringNullableFilter<"Note"> | string | null
   companyId?: Prisma.StringFilter<"Note"> | string
@@ -262,7 +268,8 @@ export type NoteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
-  tags?: Prisma.SortOrder
+  communicationTags?: Prisma.SortOrder
+  serviceTags?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -281,7 +288,8 @@ export type NoteScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Note"> | string
   title?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
-  tags?: Prisma.StringNullableListFilter<"Note">
+  communicationTags?: Prisma.StringNullableListFilter<"Note">
+  serviceTags?: Prisma.StringNullableListFilter<"Note">
   isPinned?: Prisma.BoolWithAggregatesFilter<"Note"> | boolean
   type?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
   companyId?: Prisma.StringWithAggregatesFilter<"Note"> | string
@@ -294,7 +302,8 @@ export type NoteCreateInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -308,7 +317,8 @@ export type NoteUncheckedCreateInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -322,7 +332,8 @@ export type NoteUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -336,7 +347,8 @@ export type NoteUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -350,7 +362,8 @@ export type NoteCreateManyInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -363,7 +376,8 @@ export type NoteUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,7 +388,8 @@ export type NoteUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -397,7 +412,8 @@ export type NoteCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
+  communicationTags?: Prisma.SortOrder
+  serviceTags?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -477,11 +493,20 @@ export type NoteUncheckedUpdateManyWithoutCompanyNestedInput = {
   deleteMany?: Prisma.NoteScalarWhereInput | Prisma.NoteScalarWhereInput[]
 }
 
-export type NoteCreatetagsInput = {
+export type NoteCreatecommunicationTagsInput = {
   set: string[]
 }
 
-export type NoteUpdatetagsInput = {
+export type NoteCreateserviceTagsInput = {
+  set: string[]
+}
+
+export type NoteUpdatecommunicationTagsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type NoteUpdateserviceTagsInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -552,7 +577,8 @@ export type NoteCreateWithoutCompanyInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -565,7 +591,8 @@ export type NoteUncheckedCreateWithoutCompanyInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   authorId?: string | null
@@ -607,7 +634,8 @@ export type NoteScalarWhereInput = {
   id?: Prisma.StringFilter<"Note"> | string
   title?: Prisma.StringNullableFilter<"Note"> | string | null
   content?: Prisma.StringNullableFilter<"Note"> | string | null
-  tags?: Prisma.StringNullableListFilter<"Note">
+  communicationTags?: Prisma.StringNullableListFilter<"Note">
+  serviceTags?: Prisma.StringNullableListFilter<"Note">
   isPinned?: Prisma.BoolFilter<"Note"> | boolean
   type?: Prisma.StringNullableFilter<"Note"> | string | null
   companyId?: Prisma.StringFilter<"Note"> | string
@@ -620,7 +648,8 @@ export type NoteCreateWithoutDocumentsInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -633,7 +662,8 @@ export type NoteUncheckedCreateWithoutDocumentsInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -662,7 +692,8 @@ export type NoteUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -675,7 +706,8 @@ export type NoteUncheckedUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -688,7 +720,8 @@ export type NoteCreateWithoutAuthorInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -701,7 +734,8 @@ export type NoteUncheckedCreateWithoutAuthorInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -740,7 +774,8 @@ export type NoteCreateManyCompanyInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   authorId?: string | null
@@ -752,7 +787,8 @@ export type NoteUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -765,7 +801,8 @@ export type NoteUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -778,7 +815,8 @@ export type NoteUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -790,7 +828,8 @@ export type NoteCreateManyAuthorInput = {
   id?: string
   title?: string | null
   content?: string | null
-  tags?: Prisma.NoteCreatetagsInput | string[]
+  communicationTags?: Prisma.NoteCreatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteCreateserviceTagsInput | string[]
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -802,7 +841,8 @@ export type NoteUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -815,7 +855,8 @@ export type NoteUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -828,7 +869,8 @@ export type NoteUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NoteUpdatetagsInput | string[]
+  communicationTags?: Prisma.NoteUpdatecommunicationTagsInput | string[]
+  serviceTags?: Prisma.NoteUpdateserviceTagsInput | string[]
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -871,7 +913,8 @@ export type NoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   title?: boolean
   content?: boolean
-  tags?: boolean
+  communicationTags?: boolean
+  serviceTags?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -888,7 +931,8 @@ export type NoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   content?: boolean
-  tags?: boolean
+  communicationTags?: boolean
+  serviceTags?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -903,7 +947,8 @@ export type NoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   content?: boolean
-  tags?: boolean
+  communicationTags?: boolean
+  serviceTags?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -918,7 +963,8 @@ export type NoteSelectScalar = {
   id?: boolean
   title?: boolean
   content?: boolean
-  tags?: boolean
+  communicationTags?: boolean
+  serviceTags?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -927,7 +973,7 @@ export type NoteSelectScalar = {
   updatedAt?: boolean
 }
 
-export type NoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "tags" | "isPinned" | "type" | "companyId" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
+export type NoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "communicationTags" | "serviceTags" | "isPinned" | "type" | "companyId" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
 export type NoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   documents?: boolean | Prisma.Note$documentsArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -954,7 +1000,8 @@ export type $NotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     title: string | null
     content: string | null
-    tags: string[]
+    communicationTags: string[]
+    serviceTags: string[]
     isPinned: boolean
     type: string | null
     companyId: string
@@ -1390,7 +1437,8 @@ export interface NoteFieldRefs {
   readonly id: Prisma.FieldRef<"Note", 'String'>
   readonly title: Prisma.FieldRef<"Note", 'String'>
   readonly content: Prisma.FieldRef<"Note", 'String'>
-  readonly tags: Prisma.FieldRef<"Note", 'String[]'>
+  readonly communicationTags: Prisma.FieldRef<"Note", 'String[]'>
+  readonly serviceTags: Prisma.FieldRef<"Note", 'String[]'>
   readonly isPinned: Prisma.FieldRef<"Note", 'Boolean'>
   readonly type: Prisma.FieldRef<"Note", 'String'>
   readonly companyId: Prisma.FieldRef<"Note", 'String'>

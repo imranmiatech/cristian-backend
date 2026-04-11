@@ -14,7 +14,7 @@ export class CompanyService {
         userId: string
     ) {
 
-        const { noteTitle, noteContent, noteTags, documents, logo, ...companyData } = dto;
+        const { noteTitle, noteContent, communicationTags, serviceTags, documents, logo, ...companyData } = dto;
         const logoFile = files?.logo?.[0];
         const logoPath = logoFile ? `/uploads/${logoFile.filename}` : null;
 
@@ -37,7 +37,9 @@ export class CompanyService {
                     create: {
                         title: noteTitle,
                         content: noteContent || '',
-                        tags: Array.isArray(noteTags) ? noteTags : [],
+                        communicationTags: Array.isArray(communicationTags) ? communicationTags : [],
+                        serviceTags: Array.isArray(serviceTags) ? serviceTags : [],
+                        authorId: userId,
                         documents: noteAttachments.length > 0 ? {
                             create: noteAttachments
                         } : undefined
@@ -51,55 +53,6 @@ export class CompanyService {
         });
     }
 
-
-    // async getAllCompanies(page: number = 1, limit: number = 10, search?: string, status?: CompanyStatus) {
-    //     const skip = (Number(page) - 1) * Number(limit);
-
-    //     const where: any = {
-    //         AND: [
-    //             status ? { status } : {},
-    //             search ? {
-    //                 OR: [
-    //                     { name: { contains: search, mode: 'insensitive' } },
-    //                     { email: { contains: search, mode: 'insensitive' } },
-    //                     { PhoneNumber: { contains: search } },
-    //                 ],
-    //             } : {},
-    //         ],
-    //     };
-
-    //     const [companies, total] = await Promise.all([
-    //         this.prisma.company.findMany({
-    //             where,
-    //             skip,
-    //             take: Number(limit),
-    //             orderBy: { createdAt: 'desc' },
-    //             include: {
-    //                 notes: {
-    //                     take: 3,
-    //                     include: {
-    //                         documents: true,
-    //                     }
-    //                 },
-    //                 document: true
-
-    //             },
-
-    //         }),
-    //         this.prisma.company.count({ where }),
-    //     ]);
-
-    //     return {
-    //         companies,
-    //         meta: {
-    //             total,
-    //             page: Number(page),
-    //             limit: Number(limit),
-    //             lastPage: Math.ceil(total / Number(limit)),
-    //         },
-    //     };
-    // }
-
     async getAllCompanies(page: number = 1, limit: number = 10, search?: string, status?: CompanyStatus) {
         const skip = (Number(page) - 1) * Number(limit);
 
@@ -111,13 +64,16 @@ export class CompanyService {
                         { name: { contains: search, mode: 'insensitive' } },
                         { email: { contains: search, mode: 'insensitive' } },
                         { PhoneNumber: { contains: search } },
-                        // 1. Search within the tags array
                         { tags: { has: search } },
-                        // 2. Search within related notes content
                         {
                             notes: {
                                 some: {
-                                    content: { contains: search, mode: 'insensitive' }
+                                    OR: [
+                                        { title: { contains: search, mode: 'insensitive' } },
+                                        { content: { contains: search, mode: 'insensitive' } },
+                                        { communicationTags: { has: search } },
+                                        { serviceTags: { has: search } }
+                                    ]
                                 }
                             }
                         }
@@ -135,6 +91,10 @@ export class CompanyService {
                 include: {
                     notes: {
                         take: 3,
+                        orderBy: [
+                            { isPinned: 'desc' },
+                            { createdAt: 'desc' }
+                        ],
                         include: {
                             documents: true,
                         }
@@ -161,7 +121,10 @@ export class CompanyService {
             where: { id },
             include: {
                 notes: {
-                    orderBy: { createdAt: 'desc' },
+                    orderBy: [
+                        { isPinned: 'desc' },
+                        { createdAt: 'desc' }
+                    ],
                     include: {
                         documents: true,
                     },

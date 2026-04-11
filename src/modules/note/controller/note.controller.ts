@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFiles, UseGuards, UseInterceptors } from "@nestjs/common";
-import { ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiConsumes, ApiOperation, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/core/jwt/jwt-auth.guard";
-import { RoleGuard } from "src/core/jwt/roles.guard";
 import { NoteService } from "../services/note.service";
 import { S3Service } from "src/lib/file/service/s3.service";
 import { Roles } from "src/core/jwt/roles.decorator";
@@ -22,6 +21,7 @@ export class NoteController {
         private readonly noteService: NoteService,
         private readonly s3Service: S3Service,
     ) { }
+
     @Post()
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: 'Create a note with files for a company' })
@@ -47,19 +47,25 @@ export class NoteController {
     @ApiQuery({ name: 'authorId', required: false, description: 'Filter by author ID' })
     @ApiQuery({ name: 'type', required: false, description: 'Filter by note type' })
     @ApiQuery({ name: 'search', required: false, description: 'Search in title or content' })
-    @ApiQuery({ name: 'tag', required: false, description: 'Filter by a specific tag' })
+    @ApiQuery({ name: 'tag', required: false, description: 'Filter by any tag (communication or service)' })
+    @ApiQuery({ name: 'communicationTag', required: false, description: 'Filter by communication tag' })
+    @ApiQuery({ name: 'serviceTag', required: false, description: 'Filter by service tag' })
     @ApiQuery({ name: 'startDate', required: false, example: '' })
     @ApiQuery({ name: 'endDate', required: false, example: '' })
+    @ApiQuery({ name: 'page', required: false, type: Number })
+    @ApiQuery({ name: 'limit', required: false, type: Number })
     async findAll(
         @Query('companySearch') companySearch?: string,
         @Query('authorId') authorId?: string,
         @Query('type') type?: string,
         @Query('search') search?: string,
         @Query('tag') tag?: string,
+        @Query('communicationTag') communicationTag?: string,
+        @Query('serviceTag') serviceTag?: string,
         @Query('startDate') createdAt?: string,
         @Query('endDate') updatedAt?: string,
-        @Query('page') page?: number,
-        @Query('limit') limit?: number,
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
     ) {
         return await this.noteService.getAllNotes({
             companySearch,
@@ -67,35 +73,20 @@ export class NoteController {
             type,
             search,
             tag,
+            communicationTag,
+            serviceTag,
             createdAt,
             updatedAt,
-            page,
-            limit,
+            page: +page,
+            limit: +limit,
         });
     }
 
-@Patch(':id/pin')
+    @Patch(':id/pin')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
-    @ApiOperation({ 
-        summary: 'Toggle pin status of a note',
-        description: 'Switches the isPinned boolean from true to false or vice versa.' 
-    })
-    @ApiParam({ 
-        name: 'id', 
-        description: 'The unique UUID of the note to pin/unpin',
-        example: '550e8400-e29b-41d4-a716-446655440000'
-    })
-    @ApiResponse({ 
-        status: 200, 
-        description: 'Returns the updated note object with the new pin status.' 
-    })
-    @ApiResponse({ status: 404, description: 'Note not found.' })
+    @ApiOperation({ summary: 'Toggle pin status of a note' })
     async togglePin(@Param('id') id: string) {
-        const result = await this.noteService.togglePin(id);
-        return {
-            message: `Note ${result.isPinned ? 'pinned' : 'unpinned'} successfully`,
-            data: result
-        };
+        return await this.noteService.togglePin(id);
     }
 
 
@@ -142,7 +133,6 @@ export class NoteController {
 
     @Delete(':id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
-    @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
     @ApiOperation({ summary: 'Delete a note and its files permanently' })
     async remove(@Param('id') id: string) {
         return await this.noteService.deleteNote(id);
