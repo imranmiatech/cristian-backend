@@ -573,27 +573,52 @@ export class NoteService {
         });
     }
 
-    async getPinnedNotes(companyId?: string) {
-    return await this.prisma.note.findMany({
-        where: {
-            isPinned: true,
-            deletedAt: null, // Ensure we don't show deleted pinned notes
-            ...(companyId ? { companyId } : {}), // Optional: filter by company if ID provided
-        },
-        orderBy: {
-            updatedAt: 'desc',
-        },
-        include: {
-            documents: true,
-            author: {
-                select: { name: true, email: true, profile: true }
-            },
-            company: {
-                select: { name: true }
+    async getNoteHistory(noteId: string) {
+        const note = await this.prisma.note.findUnique({
+            where: { id: noteId },
+            include: {
+                history: {
+                    include: {
+                        changedBy: {
+                            select: {
+                                id: true,
+                                name: true,
+                                email: true,
+                                profile: true
+                            }
+                        }
+                    },
+                    orderBy: {
+                        createdAt: 'desc'
+                    }
+                }
             }
-        },
-    });
-}
+        });
+
+        if (!note) throw new NotFoundException('Note not found');
+        return note.history;
+    }
+    async getPinnedNotes(companyId?: string) {
+        return await this.prisma.note.findMany({
+            where: {
+                isPinned: true,
+                deletedAt: null, // Ensure we don't show deleted pinned notes
+                ...(companyId ? { companyId } : {}), // Optional: filter by company if ID provided
+            },
+            orderBy: {
+                updatedAt: 'desc',
+            },
+            include: {
+                documents: true,
+                author: {
+                    select: { name: true, email: true, profile: true }
+                },
+                company: {
+                    select: { name: true }
+                }
+            },
+        });
+    }
 
     async softDeleteNote(noteId: string, userId: string) {
         const note = await this.prisma.note.findUnique({ where: { id: noteId } });

@@ -116,7 +116,17 @@ export class NoteController {
             ...data,
         };
     }
-    
+
+    @Get(':id/history')
+    @ApiOperation({ summary: 'Get the full audit log/history of a note' })
+    async getHistory(@Param('id') id: string) {
+        const history = await this.noteService.getNoteHistory(id);
+        return {
+            message: 'Note history retrieved successfully',
+            data: history,
+        };
+    }
+
     @Patch(':id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiConsumes('multipart/form-data')
