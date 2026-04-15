@@ -7,25 +7,43 @@ model Note {
   isPinned          Boolean  @default(false)
   type              String?  @default("GENERAL")
 
-  documents Attachment[]
-
+  // --- Relations ---
   companyId String
   company   Company @relation(fields: [companyId], references: [id])
-
+  
   authorId  String?
-  author    User?    @relation(fields: [authorId], references: [id])
+  author    User?   @relation(fields: [authorId], references: [id])
+  
+  documents Attachment[]
+  
+  // --- History & Audit ---
+  history   NoteHistory[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // --- State Control ---
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // For Soft Delete
 
-  @@index([companyId])
-  @@index([authorId])
-  @@index([createdAt])
-  @@index([title])
-  @@index([communicationTags])
-  @@index([serviceTags])
-  @@index([isPinned])
-  @@index([type])
+  @@index([companyId, deletedAt])
+}
+
+model NoteHistory {
+  id        String   @id @default(uuid())
+  noteId    String
+  note      Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  
+  // Snapshot of what the note looked like
+  oldTitle   String?
+  oldContent String?
+  oldTags    String[]
+  
+  // The Audit Log: Who did it and when
+  changedById String
+  changedBy   User     @relation(fields: [changedById], references: [id])
+  createdAt   DateTime @default(now())
+  
+  // Action type: "UPDATE", "SOFT_DELETE", "RECOVER"
+  action      String   
 }
 
 model Attachment {

@@ -88,7 +88,16 @@ export class NoteController {
     async togglePin(@Param('id') id: string) {
         return await this.noteService.togglePin(id);
     }
-
+    @Get('pinned')
+    @ApiOperation({ summary: 'Get all pinned notes' })
+    @ApiQuery({ name: 'companyId', required: false })
+    async getPinned(@Query('companyId') companyId?: string) {
+        const data = await this.noteService.getPinnedNotes(companyId);
+        return {
+            message: 'Pinned notes retrieved successfully',
+            data,
+        };
+    }
 
 
     @Get('company/:companyId')
@@ -107,6 +116,25 @@ export class NoteController {
             ...data,
         };
     }
+    
+    @Patch(':id')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
+    @ApiConsumes('multipart/form-data')
+    @ApiOperation({ summary: 'Update a note, manage files, and log changes to history' })
+    @UseInterceptors(FilesInterceptor('files', 10, new MulterService().multipleUpload(10, FileType.any)))
+    async update(
+        @Param('id') id: string,
+        @Body() dto: UpdateNoteDto,
+        @UploadedFiles() files: Express.Multer.File[],
+        @GetUser('id') userId: string // Extract the ID of the person making the change
+    ) {
+        const result = await this.noteService.updateNote(id, dto, files, userId);
+
+        return {
+            message: 'Note updated successfully and change logged to history',
+            data: result,
+        };
+    }
 
     @Get(':id')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
@@ -119,23 +147,23 @@ export class NoteController {
         };
     }
 
-    @Patch(':id')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
-    @ApiConsumes('multipart/form-data')
-    @UseInterceptors(FilesInterceptor('files', 10, new MulterService().multipleUpload(10, FileType.any)))
-    async update(
-        @Param('id') id: string,
-        @Body() dto: UpdateNoteDto,
-        @UploadedFiles() files: Express.Multer.File[]
-    ) {
-        return await this.noteService.updateNote(id, dto, files);
+    @Patch(':id/soft-delete')
+    @ApiOperation({ summary: 'Move a note to trash (Soft Delete)' })
+    async softDelete(@Param('id') id: string, @GetUser('id') userId: string) {
+        return await this.noteService.softDeleteNote(id, userId);
     }
 
-    @Delete(':id')
-    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
-    @ApiOperation({ summary: 'Delete a note and its files permanently' })
-    async remove(@Param('id') id: string) {
-        return await this.noteService.deleteNote(id);
+    @Patch(':id/recover')
+    @ApiOperation({ summary: 'Restore a note from trash' })
+    async recover(@Param('id') id: string, @GetUser('id') userId: string) {
+        return await this.noteService.recoverNote(id, userId);
     }
+
+    @Delete(':id/hard-delete')
+    @ApiOperation({ summary: 'Delete a note and files permanently' })
+    async hardDelete(@Param('id') id: string) {
+        return await this.noteService.hardDeleteNote(id);
+    }
+
 
 }

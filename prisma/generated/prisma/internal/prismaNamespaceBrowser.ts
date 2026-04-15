@@ -54,6 +54,7 @@ export const ModelName = {
   Company: 'Company',
   Document: 'Document',
   Note: 'Note',
+  NoteHistory: 'NoteHistory',
   Attachment: 'Attachment',
   RefreshToken: 'RefreshToken',
   User: 'User'
@@ -117,10 +118,25 @@ export const NoteScalarFieldEnum = {
   companyId: 'companyId',
   authorId: 'authorId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+
+
+export const NoteHistoryScalarFieldEnum = {
+  id: 'id',
+  noteId: 'noteId',
+  oldTitle: 'oldTitle',
+  oldContent: 'oldContent',
+  oldTags: 'oldTags',
+  changedById: 'changedById',
+  createdAt: 'createdAt',
+  action: 'action'
+} as const
+
+export type NoteHistoryScalarFieldEnum = (typeof NoteHistoryScalarFieldEnum)[keyof typeof NoteHistoryScalarFieldEnum]
 
 
 export const AttachmentScalarFieldEnum = {

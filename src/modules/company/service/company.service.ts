@@ -97,6 +97,15 @@ export class CompanyService {
                         ],
                         include: {
                             documents: true,
+                            // --- ADDED THIS SECTION ---
+                            author: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    email: true,
+                                    profile: true, 
+                                }
+                            }
                         }
                     },
                     document: true

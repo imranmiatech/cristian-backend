@@ -53,6 +53,11 @@ export type Document = Prisma.DocumentModel
  */
 export type Note = Prisma.NoteModel
 /**
+ * Model NoteHistory
+ * 
+ */
+export type NoteHistory = Prisma.NoteHistoryModel
+/**
  * Model Attachment
  * 
  */

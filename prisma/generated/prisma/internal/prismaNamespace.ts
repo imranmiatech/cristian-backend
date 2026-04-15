@@ -387,6 +387,7 @@ export const ModelName = {
   Company: 'Company',
   Document: 'Document',
   Note: 'Note',
+  NoteHistory: 'NoteHistory',
   Attachment: 'Attachment',
   RefreshToken: 'RefreshToken',
   User: 'User'
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "document" | "note" | "attachment" | "refreshToken" | "user"
+    modelProps: "company" | "document" | "note" | "noteHistory" | "attachment" | "refreshToken" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.NoteCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.NoteCountAggregateOutputType> | number
+        }
+      }
+    }
+    NoteHistory: {
+      payload: Prisma.$NoteHistoryPayload<ExtArgs>
+      fields: Prisma.NoteHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NoteHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NoteHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.NoteHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NoteHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.NoteHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.NoteHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.NoteHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NoteHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.NoteHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>
+        }
+        update: {
+          args: Prisma.NoteHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.NoteHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NoteHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NoteHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.NoteHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoteHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.NoteHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNoteHistory>
+        }
+        groupBy: {
+          args: Prisma.NoteHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NoteHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NoteHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NoteHistoryCountAggregateOutputType> | number
         }
       }
     }
@@ -934,10 +1009,25 @@ export const NoteScalarFieldEnum = {
   companyId: 'companyId',
   authorId: 'authorId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+
+
+export const NoteHistoryScalarFieldEnum = {
+  id: 'id',
+  noteId: 'noteId',
+  oldTitle: 'oldTitle',
+  oldContent: 'oldContent',
+  oldTags: 'oldTags',
+  changedById: 'changedById',
+  createdAt: 'createdAt',
+  action: 'action'
+} as const
+
+export type NoteHistoryScalarFieldEnum = (typeof NoteHistoryScalarFieldEnum)[keyof typeof NoteHistoryScalarFieldEnum]
 
 
 export const AttachmentScalarFieldEnum = {
@@ -1223,6 +1313,7 @@ export type GlobalOmitConfig = {
   company?: Prisma.CompanyOmit
   document?: Prisma.DocumentOmit
   note?: Prisma.NoteOmit
+  noteHistory?: Prisma.NoteHistoryOmit
   attachment?: Prisma.AttachmentOmit
   refreshToken?: Prisma.RefreshTokenOmit
   user?: Prisma.UserOmit
