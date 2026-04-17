@@ -19,12 +19,18 @@ model Note {
   // --- History & Audit ---
   history   NoteHistory[]
 
+  // --- Follow-up relations ---
+  parentId  String?
+  parent    Note?     @relation("FollowUps", fields: [parentId], references: [id])
+  followUps Note[]    @relation("FollowUps")
+
   // --- State Control ---
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime? // For Soft Delete
 
   @@index([companyId, deletedAt])
+  @@index([parentId])
 }
 
 model NoteHistory {
@@ -33,9 +39,10 @@ model NoteHistory {
   note      Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
   
   // Snapshot of what the note looked like
-  oldTitle   String?
-  oldContent String?
-  oldTags    String[]
+  oldTitle             String?
+  oldContent           String?
+  oldCommunicationTags String[]
+  oldServiceTags       String[]
   
   // The Audit Log: Who did it and when
   changedById String

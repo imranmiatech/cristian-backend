@@ -82,6 +82,33 @@ export class NoteController {
         });
     }
 
+    @Get('audit/all')
+    @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
+    @ApiOperation({ summary: 'Get system-wide audit logs for all notes' })
+    @ApiQuery({ name: 'noteName', required: false, description: 'Filter by note title' })
+    @ApiQuery({ name: 'authorName', required: false, description: 'Filter by name of person who made the change' })
+    @ApiQuery({ name: 'startDate', required: false, description: 'Start date range' })
+    @ApiQuery({ name: 'endDate', required: false, description: 'End date range' })
+    @ApiQuery({ name: 'page', required: false, type: Number })
+    @ApiQuery({ name: 'limit', required: false, type: Number })
+    async getAllHistory(
+        @Query('noteName') noteName?: string,
+        @Query('authorName') authorName?: string,
+        @Query('startDate') startDate?: string,
+        @Query('endDate') endDate?: string,
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+    ) {
+        return await this.noteService.getAllHistory({
+            noteName,
+            authorName,
+            startDate,
+            endDate,
+            page: +page,
+            limit: +limit,
+        });
+    }
+
     @Patch(':id/pin')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Toggle pin status of a note' })

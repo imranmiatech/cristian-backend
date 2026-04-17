@@ -117,6 +117,7 @@ export const NoteScalarFieldEnum = {
   type: 'type',
   companyId: 'companyId',
   authorId: 'authorId',
+  parentId: 'parentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -130,7 +131,8 @@ export const NoteHistoryScalarFieldEnum = {
   noteId: 'noteId',
   oldTitle: 'oldTitle',
   oldContent: 'oldContent',
-  oldTags: 'oldTags',
+  oldCommunicationTags: 'oldCommunicationTags',
+  oldServiceTags: 'oldServiceTags',
   changedById: 'changedById',
   createdAt: 'createdAt',
   action: 'action'

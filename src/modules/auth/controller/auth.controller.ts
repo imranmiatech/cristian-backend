@@ -86,7 +86,7 @@ export class AuthController {
   
 
   private handleCookies(res: Response, access: string | null, refresh: string | null, clear = false) {
-    const isProd = this.config.get<string>('node_env') === 'production';
+    const isProd = this.config.get<string>('node_env') === 'development';
     const accessExp = this.config.get<string>('jwt.access_expires_in') || '15m';
     const refreshExp = this.config.get<string>('jwt.refresh_expires_in') || '30d';
 

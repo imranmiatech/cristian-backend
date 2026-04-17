@@ -57,6 +57,11 @@ export class CreateNoteDto {
   @IsNotEmpty()
   companyId!: string; 
 
+  @ApiPropertyOptional({ example: 'uuid-of-parent-note' })
+  @IsOptional()
+  @IsUUID()
+  parentId?: string;
+
   @ApiPropertyOptional({ type: 'array', items: { type: 'string', format: 'binary' } })
   @IsOptional()
   files?: any[];
