@@ -208,6 +208,7 @@ export class NoteService {
         if (!existingNote) throw new NotFoundException(`Note not found`);
 
         return await this.prisma.$transaction(async (tx) => {
+            // SNAPSHOT: Capture EVERYTHING before update
             await tx.noteHistory.create({
                 data: {
                     noteId: existingNote.id,
@@ -215,19 +216,17 @@ export class NoteService {
                     oldContent: existingNote.content,
                     oldCommunicationTags: existingNote.communicationTags,
                     oldServiceTags: existingNote.serviceTags,
+                    oldDocuments: existingNote.documents as any, // Preserve attachment metadata
                     changedById: currentUserId,
                     action: 'UPDATE'
                 }
             });
 
-            const physicalFilesToDelete: string[] = [];
+            // Handle file removal from the current note record
             if (deleteFileIds && deleteFileIds.length > 0) {
-                const targets = existingNote.documents.filter(doc => deleteFileIds.includes(doc.id));
-                targets.forEach(t => {
-                    const filePath = path.join(process.cwd(), t.fileUrl);
-                    physicalFilesToDelete.push(filePath);
-                });
-
+                // We ONLY delete the database relationship. 
+                // We DO NOT physically unlink the files from disk here, 
+                // because the history log still needs them to be "permanent records".
                 await tx.attachment.deleteMany({
                     where: { id: { in: deleteFileIds } }
                 });
@@ -252,16 +251,6 @@ export class NoteService {
                 },
                 include: { documents: true, followUps: true, parent: true }
             });
-
-            if (physicalFilesToDelete.length > 0) {
-                for (const filePath of physicalFilesToDelete) {
-                    if (fs.existsSync(filePath)) {
-                        fs.unlink(filePath, (err) => {
-                            if (err) console.error(`File deletion error: ${filePath}`, err);
-                        });
-                    }
-                }
-            }
 
             return updatedNote;
         });
@@ -343,6 +332,49 @@ export class NoteService {
 
         return {
             history,
+            meta: {
+                total,
+                page,
+                limit,
+                lastPage: Math.ceil(total / limit)
+            }
+        };
+    }
+
+    async getUserActivity(userId: string, page: number = 1, limit: number = 10) {
+        const skip = (page - 1) * limit;
+
+        const where = {
+            OR: [
+                { changedById: userId }, // Changes made BY the user
+                { note: { authorId: userId } } // Changes made TO the user's notes
+            ]
+        };
+
+        const [activity, total] = await Promise.all([
+            this.prisma.noteHistory.findMany({
+                where,
+                skip,
+                take: limit,
+                orderBy: { createdAt: 'desc' },
+                include: {
+                    note: {
+                        select: {
+                            id: true,
+                            title: true,
+                            company: { select: { name: true } }
+                        }
+                    },
+                    changedBy: {
+                        select: { name: true, profile: true }
+                    }
+                }
+            }),
+            this.prisma.noteHistory.count({ where })
+        ]);
+
+        return {
+            activity,
             meta: {
                 total,
                 page,

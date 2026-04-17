@@ -109,6 +109,34 @@ export class NoteController {
         });
     }
 
+    @Get('me/activity')
+    @ApiOperation({ summary: 'Get recent activity related to my notes or changes I made' })
+    @ApiQuery({ name: 'page', required: false, type: Number })
+    @ApiQuery({ name: 'limit', required: false, type: Number })
+    async getMyActivity(
+        @GetUser('id') userId: string,
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+    ) {
+        return await this.noteService.getUserActivity(userId, +page, +limit);
+    }
+
+    @Get('me/notes')
+    @ApiOperation({ summary: 'Get all notes authored by me' })
+    @ApiQuery({ name: 'page', required: false, type: Number })
+    @ApiQuery({ name: 'limit', required: false, type: Number })
+    async getMyNotes(
+        @GetUser('id') userId: string,
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10,
+    ) {
+        return await this.noteService.getAllNotes({
+            authorId: userId,
+            page: +page,
+            limit: +limit,
+        });
+    }
+
     @Patch(':id/pin')
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Toggle pin status of a note' })
