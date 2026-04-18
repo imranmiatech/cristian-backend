@@ -67,6 +67,14 @@ export class NoteService {
                 });
             }
 
+            await tx.noteHistory.create({
+                data: {
+                    noteId: note.id,
+                    changedById: authorId,
+                    action: 'CREATE'
+                }
+            });
+
             return tx.note.findUnique({
                 where: { id: note.id },
                 include: {
@@ -98,6 +106,11 @@ export class NoteService {
                     }
                 } : {},
                 query.authorId ? { authorId: query.authorId } : {},
+                query.authorName ? {
+                    author: {
+                        name: { contains: query.authorName, mode: 'insensitive' }
+                    }
+                } : {},
                 query.type ? { type: { contains: query.type, mode: 'insensitive' } } : {},
                 query.search ? {
                     OR: [
@@ -105,11 +118,34 @@ export class NoteService {
                         { content: { contains: query.search, mode: 'insensitive' } },
                     ],
                 } : {},
-                query.createdAt || query.updatedAt ? {
+                // Advanced relation filtering
+                query.services ? {
+                    services: {
+                        some: {
+                            name: { in: Array.isArray(query.services) ? query.services : query.services.split(',') }
+                        }
+                    }
+                } : {},
+                query.interactionTypes ? {
+                    interactionTypes: {
+                        some: {
+                            name: { in: Array.isArray(query.interactionTypes) ? query.interactionTypes : query.interactionTypes.split(',') }
+                        }
+                    }
+                } : {},
+                query.tags ? {
+                    tags: {
+                        some: {
+                            name: { in: Array.isArray(query.tags) ? query.tags : query.tags.split(',') }
+                        }
+                    }
+                } : {},
+                // Date range filtering
+                (query.startDate || query.endDate) ? {
                     createdAt: {
-                        gte: query.createdAt ? new Date(query.createdAt) : undefined,
-                        lte: query.updatedAt ? new Date(query.updatedAt) : undefined,
-                    },
+                        gte: query.startDate ? new Date(query.startDate) : undefined,
+                        lte: query.endDate ? new Date(query.endDate) : undefined,
+                    }
                 } : {},
             ],
         };
@@ -126,7 +162,7 @@ export class NoteService {
                 include: {
                     documents: true,
                     company: { select: { name: true } },
-                    author: { select: { name: true, email: true, profile: true } },
+                    author: { select: { id: true, name: true, email: true, profile: true } },
                     followUps: true,
                     parent: true,
                     services: true,
@@ -147,90 +183,102 @@ export class NoteService {
             },
         };
     }
+async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[], currentUserId: string) {
+    const { interactionTypes, services, tags, deleteFileIds, files, ...restDto } = dto;
 
-    async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[], currentUserId: string) {
-        const { interactionTypes, services, tags, deleteFileIds, ...restDto } = dto;
+    const existingNote = await this.prisma.note.findUnique({
+        where: { id: noteId },
+        include: {
+            documents: true,
+            services: true,
+            interactionTypes: true,
+            tags: true
+        }
+    });
 
-        const existingNote = await this.prisma.note.findUnique({
+    if (!existingNote) throw new NotFoundException('Note not found');
+
+    if (interactionTypes?.length) {
+        const count = await this.prisma.interactionType.count({ where: { id: { in: interactionTypes } } });
+        if (count !== interactionTypes.length) throw new NotFoundException('Some Interaction Types were not found');
+    }
+
+    if (services?.length) {
+        const count = await this.prisma.service.count({ where: { id: { in: services } } });
+        if (count !== services.length) throw new NotFoundException('Some Services were not found');
+    }
+
+    if (tags?.length) {
+        const count = await this.prisma.tag.count({ where: { id: { in: tags } } });
+        if (count !== tags.length) throw new NotFoundException('Some Tags were not found');
+    }
+
+    return await this.prisma.$transaction(async (tx) => {
+        if (deleteFileIds && deleteFileIds.length > 0) {
+            const filesToDelete = existingNote.documents.filter(doc => deleteFileIds.includes(doc.id));
+            for (const doc of filesToDelete) {
+                const filePath = path.join(process.cwd(), doc.fileUrl);
+                try {
+                    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+                } catch (err) {
+                    console.error(`Failed to delete file: ${filePath}`, err);
+                }
+            }
+            await tx.attachment.deleteMany({
+                where: { id: { in: deleteFileIds } }
+            });
+        }
+        await tx.noteHistory.create({
+            data: {
+                noteId: existingNote.id,
+                oldTitle: existingNote.title,
+                oldContent: existingNote.content,
+                oldServices: existingNote.services as any,
+                oldInteractionTypes: existingNote.interactionTypes as any,
+                oldTags: existingNote.tags as any,
+                oldDocuments: existingNote.documents as any,
+                changedById: currentUserId,
+                action: 'UPDATE'
+            }
+        });
+
+        const attachmentData = (newUploadedFiles || []).map(file => ({
+            fileName: file.originalname,
+            fileUrl: `/uploads/${file.filename}`,
+            fileType: file.mimetype,
+            fileSize: file.size,
+        }));
+
+        const updatedNote = await tx.note.update({
             where: { id: noteId },
+            data: {
+                ...restDto,
+                interactionTypes: interactionTypes ? {
+                    set: interactionTypes.map(id => ({ id })) 
+                } : undefined,
+                services: services ? {
+                    set: services.map(id => ({ id }))
+                } : undefined,
+                tags: tags ? {
+                    set: tags.map(id => ({ id }))
+                } : undefined,
+                documents: attachmentData.length > 0 ? {
+                    create: attachmentData
+                } : undefined
+            },
             include: {
                 documents: true,
+                followUps: true,
+                parent: true,
                 services: true,
                 interactionTypes: true,
                 tags: true
             }
         });
 
-        if (!existingNote) throw new NotFoundException('Note not found');
-
-        return await this.prisma.$transaction(async (tx) => {
-            // Delete files if requested
-            if (deleteFileIds && deleteFileIds.length > 0) {
-                const filesToDelete = existingNote.documents.filter(doc => deleteFileIds.includes(doc.id));
-                for (const doc of filesToDelete) {
-                    const filePath = path.join(process.cwd(), doc.fileUrl);
-                    try {
-                        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-                    } catch (err) {
-                        console.error(`Failed to delete file: ${filePath}`, err);
-                    }
-                }
-                await tx.attachment.deleteMany({
-                    where: { id: { in: deleteFileIds } }
-                });
-            }
-
-            await tx.noteHistory.create({
-                data: {
-                    noteId: existingNote.id,
-                    oldTitle: existingNote.title,
-                    oldContent: existingNote.content,
-                    oldServices: existingNote.services as any,
-                    oldInteractionTypes: existingNote.interactionTypes as any,
-                    oldTags: existingNote.tags as any,
-                    oldDocuments: existingNote.documents as any,
-                    changedById: currentUserId,
-                    action: 'UPDATE'
-                }
-            });
-
-            const attachmentData: AttachmentCreateInput[] = (newUploadedFiles || []).map(file => ({
-                fileName: file.originalname,
-                fileUrl: `/uploads/${file.filename}`,
-                fileType: file.mimetype,
-                fileSize: file.size,
-            }));
-
-            const updatedNote = await tx.note.update({
-                where: { id: noteId },
-                data: {
-                    ...restDto,
-                    interactionTypes: interactionTypes ? {
-                        set: interactionTypes.map(name => ({ name }))
-                    } : undefined,
-                    services: services ? {
-                        set: services.map(name => ({ name }))
-                    } : undefined,
-                    tags: tags ? {
-                        set: tags.map(name => ({ name }))
-                    } : undefined,
-                    documents: attachmentData.length > 0 ? {
-                        create: attachmentData
-                    } : undefined
-                },
-                include: {
-                    documents: true,
-                    followUps: true,
-                    parent: true,
-                    services: true,
-                    interactionTypes: true,
-                    tags: true
-                }
-            });
-
-            return updatedNote;
-        });
-    }
+        return updatedNote;
+    });
+}
 
     async getNoteHistory(noteId: string) {
         const note = await this.prisma.note.findUnique({

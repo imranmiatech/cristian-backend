@@ -35,6 +35,9 @@ model Note {
 
   @@index([companyId, deletedAt])
   @@index([parentId])
+  @@index([authorId])
+  @@index([type])
+  @@index([createdAt])
 }
 
 model NoteHistory {
