@@ -22,6 +22,8 @@ export class CompanyService {
             noteTags,
             tags,
             assignUsername,
+            documents,
+            logo,
             ...companyData
         } = dto;
 
@@ -55,6 +57,7 @@ export class CompanyService {
                 data: {
                     ...companyData,
                     logo: logoPath,
+                    assignUsername: assignUsername || null,
                     tags: Array.isArray(tags) ? tags : [],
                     user: { connect: { id: userId } },
                     notes: (noteTitle || noteContent) ? {
@@ -89,14 +92,11 @@ export class CompanyService {
                     user: { select: { id: true, name: true, email: true } }
                 }
             });
-        } catch (error) {
-            if (error instanceof Error) {
-                console.log(error.message);
-            } else {
-                console.log('An unexpected error occurred');
-            }
+        } catch (error: unknown) {
+            throw new ConflictException('Company with this email or phone already exists')
         }
     }
+
 
     async getAllCompanies(page: number = 1, limit: number = 10, search?: string, status?: CompanyStatus) {
         const skip = (Number(page) - 1) * Number(limit);
