@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString, IsArray, IsUUID } from 'class-validator';
+import { IsOptional, IsString, IsArray, IsUUID, IsNotEmpty, IsBoolean } from 'class-validator';
 
 export class CreateNoteDto {
   @ApiPropertyOptional({ example: 'Q1 Financial Review' })
@@ -10,7 +10,7 @@ export class CreateNoteDto {
 
   @ApiProperty({
     example: 'Discussed the budget allocation...',
-    required: false
+    required: false,
   })
   @IsString()
   @IsOptional()
@@ -18,6 +18,7 @@ export class CreateNoteDto {
 
   @ApiPropertyOptional({ example: false })
   @IsOptional()
+  @IsBoolean()
   @Transform(({ value }) => {
     if (value === 'true') return true;
     if (value === 'false') return false;
@@ -30,10 +31,14 @@ export class CreateNoteDto {
   @IsString()
   type?: string;
 
-  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'], description: 'Interaction types / Communication channels' })
+  @ApiPropertyOptional({ 
+    type: [String], 
+    format: 'uuid',
+    example: ['550e8400-e29b-41d4-a716-446655440000'] 
+  })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
+  @IsUUID('4', { each: true })
   @Transform(({ value }) => {
     if (Array.isArray(value)) return value;
     if (typeof value === 'string') return value.split(',').map((t) => t.trim()).filter(t => t !== '');
@@ -41,10 +46,14 @@ export class CreateNoteDto {
   })
   interactionTypes?: string[];
 
-  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'], description: 'Services discussed' })
+  @ApiPropertyOptional({ 
+    type: [String], 
+    format: 'uuid',
+    example: ['7c9e6679-7425-40de-944b-e07fc1f90ae7'] 
+  })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
+  @IsUUID('4', { each: true })
   @Transform(({ value }) => {
     if (Array.isArray(value)) return value;
     if (typeof value === 'string') return value.split(',').map((t) => t.trim()).filter(t => t !== '');
@@ -52,10 +61,14 @@ export class CreateNoteDto {
   })
   services?: string[];
 
-  @ApiPropertyOptional({ type: [String], example: ['Urgent', 'Follow-up'], description: 'General tags' })
+  @ApiPropertyOptional({ 
+    type: [String], 
+    format: 'uuid',
+    example: ['a3b07204-742d-4c8d-9372-91696207f23c'] 
+  })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
+  @IsUUID('4', { each: true })
   @Transform(({ value }) => {
     if (Array.isArray(value)) return value;
     if (typeof value === 'string') return value.split(',').map((t) => t.trim()).filter(t => t !== '');

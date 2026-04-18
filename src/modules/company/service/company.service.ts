@@ -8,16 +8,40 @@ import { UpdateCompanyDto } from '../dto/update.company.dto';
 @Injectable()
 export class CompanyService {
     constructor(private readonly prisma: PrismaService) { }
+
     async createCompany(
         dto: CreateCompanyDto,
         files: { logo?: Express.Multer.File[], documents?: Express.Multer.File[] },
         userId: string
     ) {
+        const {
+            noteTitle,
+            noteContent,
+            interactionTypes,
+            services,
+            noteTags,
+            tags,
+            assignUsername,
+            ...companyData
+        } = dto;
 
-        const { noteTitle, noteContent, interactionTypes, services, noteTags, documents, logo, ...companyData } = dto;
+        if (interactionTypes?.length) {
+            const count = await this.prisma.interactionType.count({ where: { id: { in: interactionTypes } } });
+            if (count !== interactionTypes.length) throw new NotFoundException('One or more Interaction Types not found');
+        }
+
+        if (services?.length) {
+            const count = await this.prisma.service.count({ where: { id: { in: services } } });
+            if (count !== services.length) throw new NotFoundException('One or more Services not found');
+        }
+
+        if (noteTags?.length) {
+            const count = await this.prisma.tag.count({ where: { id: { in: noteTags } } });
+            if (count !== noteTags.length) throw new NotFoundException('One or more Note Tags not found');
+        }
+
         const logoFile = files?.logo?.[0];
         const logoPath = logoFile ? `/uploads/${logoFile.filename}` : null;
-
 
         const noteAttachments = files?.documents?.map(file => ({
             fileName: file.originalname,
@@ -26,47 +50,52 @@ export class CompanyService {
             fileSize: file.size,
         })) || [];
 
-        return await this.prisma.company.create({
-            data: {
-                ...companyData,
-                logo: logoPath,
-                tags: Array.isArray(dto.tags) ? dto.tags : [],
-                user: { connect: { id: userId } },
-
-                notes: (noteTitle || noteContent) ? {
-                    create: {
-                        title: noteTitle,
-                        content: noteContent || '',
-                        interactionTypes: {
-                            connectOrCreate: (interactionTypes || []).map(name => ({
-                                where: { name },
-                                create: { name }
-                            }))
-                        },
-                        services: {
-                            connectOrCreate: (services || []).map(name => ({
-                                where: { name },
-                                create: { name }
-                            }))
-                        },
-                        tags: {
-                            connectOrCreate: (noteTags || []).map(name => ({
-                                where: { name },
-                                create: { name }
-                            }))
-                        },
-                        authorId: userId,
-                        documents: noteAttachments.length > 0 ? {
-                            create: noteAttachments
-                        } : undefined
-                    }
-                } : undefined
-            },
-            include: {
-                notes: { include: { documents: true, interactionTypes: true, services: true, tags: true } },
-                user: { select: { name: true, email: true } }
+        try {
+            return await this.prisma.company.create({
+                data: {
+                    ...companyData,
+                    logo: logoPath,
+                    tags: Array.isArray(tags) ? tags : [],
+                    user: { connect: { id: userId } },
+                    notes: (noteTitle || noteContent) ? {
+                        create: {
+                            title: noteTitle,
+                            content: noteContent || '',
+                            authorId: userId,
+                            interactionTypes: {
+                                connect: (interactionTypes || []).map(id => ({ id }))
+                            },
+                            services: {
+                                connect: (services || []).map(id => ({ id }))
+                            },
+                            tags: {
+                                connect: (noteTags || []).map(id => ({ id }))
+                            },
+                            documents: noteAttachments.length > 0 ? {
+                                create: noteAttachments
+                            } : undefined
+                        }
+                    } : undefined
+                },
+                include: {
+                    notes: {
+                        include: {
+                            documents: true,
+                            interactionTypes: true,
+                            services: true,
+                            tags: true
+                        }
+                    },
+                    user: { select: { id: true, name: true, email: true } }
+                }
+            });
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            } else {
+                console.log('An unexpected error occurred');
             }
-        });
+        }
     }
 
     async getAllCompanies(page: number = 1, limit: number = 10, search?: string, status?: CompanyStatus) {
@@ -119,7 +148,7 @@ export class CompanyService {
                                     id: true,
                                     name: true,
                                     email: true,
-                                    profile: true, 
+                                    profile: true,
                                 }
                             }
                         }

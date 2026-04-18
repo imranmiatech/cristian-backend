@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateCompanyDto {
   // --- Company Basic Info ---
@@ -20,7 +20,7 @@ export class CreateCompanyDto {
   PhoneNumber!: string;
 
 
-  @ApiPropertyOptional({ type: [String], example: ['SaaS', 'Fintech'], description: 'Company categories/tags' })
+  @ApiPropertyOptional({ type: [String], example: ['SaaS', 'Fintech'], description: 'Company categories/tags. These are stored as simple strings.' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -51,30 +51,45 @@ export class CreateCompanyDto {
   noteContent?: string;
 
 
-  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'], description: 'Initial note interaction types' })
+  @ApiPropertyOptional({
+    type: [String],
+    format: 'uuid',
+    example: ['550e8400-e29b-41d4-a716-446655440000'],
+    description: 'Array of InteractionType IDs for the initial note.'
+  })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
+  @IsUUID('4', { each: true })
   @Transform(({ value }) => {
     if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
     return value;
   })
   interactionTypes?: string[];
 
-  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'], description: 'Initial note services' })
+  @ApiPropertyOptional({
+    type: [String],
+    format: 'uuid',
+    example: ['7c9e6679-7425-40de-944b-e07fc1f90ae7'],
+    description: 'Array of Service IDs for the initial note.'
+  })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
+  @IsUUID('4', { each: true })
   @Transform(({ value }) => {
     if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
     return value;
   })
   services?: string[];
 
-  @ApiPropertyOptional({ type: [String], example: ['Urgent'], description: 'Initial note tags' })
+  @ApiPropertyOptional({
+    type: [String],
+    format: 'uuid',
+    example: ['a3b07204-742d-4c8d-9372-91696207f23c'],
+    description: 'Array of Tag IDs for the initial note.'
+  })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
+  @IsUUID('4', { each: true })
   @Transform(({ value }) => {
     if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
     return value;

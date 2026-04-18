@@ -40,26 +40,17 @@ export class NoteService {
                     content,
                     companyId,
                     authorId,
-                    isPinned: isPinned || false,
+                    isPinned: isPinned ?? false,
                     type: type || 'GENERAL',
                     parentId: parentId || null,
                     interactionTypes: {
-                        connectOrCreate: (interactionTypes || []).map(name => ({
-                            where: { name },
-                            create: { name }
-                        }))
+                        connect: (interactionTypes || []).map(id => ({ id }))
                     },
                     services: {
-                        connectOrCreate: (services || []).map(name => ({
-                            where: { name },
-                            create: { name }
-                        }))
+                        connect: (services || []).map(id => ({ id }))
                     },
                     tags: {
-                        connectOrCreate: (tags || []).map(name => ({
-                            where: { name },
-                            create: { name }
-                        }))
+                        connect: (tags || []).map(id => ({ id }))
                     }
                 },
             });
@@ -215,25 +206,13 @@ export class NoteService {
                 data: {
                     ...restDto,
                     interactionTypes: interactionTypes ? {
-                        set: [], // Clear existing
-                        connectOrCreate: interactionTypes.map(name => ({
-                            where: { name },
-                            create: { name }
-                        }))
+                        set: interactionTypes.map(name => ({ name }))
                     } : undefined,
                     services: services ? {
-                        set: [], // Clear existing
-                        connectOrCreate: services.map(name => ({
-                            where: { name },
-                            create: { name }
-                        }))
+                        set: services.map(name => ({ name }))
                     } : undefined,
                     tags: tags ? {
-                        set: [], // Clear existing
-                        connectOrCreate: tags.map(name => ({
-                            where: { name },
-                            create: { name }
-                        }))
+                        set: tags.map(name => ({ name }))
                     } : undefined,
                     documents: attachmentData.length > 0 ? {
                         create: attachmentData
@@ -337,7 +316,7 @@ export class NoteService {
                     const filePath = path.join(process.cwd(), doc.fileUrl);
                     try {
                         if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-                    } catch {}
+                    } catch { }
                 }
             }
 
@@ -379,7 +358,7 @@ export class NoteService {
         if (!note) throw new NotFoundException('Note not found');
         return note;
     }
-      async getUserActivity(userId: string, page: number = 1, limit: number = 10) {
+    async getUserActivity(userId: string, page: number = 1, limit: number = 10) {
         const skip = (page - 1) * limit;
 
         const where = {
@@ -421,7 +400,7 @@ export class NoteService {
             }
         };
     }
- async getAllHistory(query: {
+    async getAllHistory(query: {
         noteName?: string;
         authorName?: string;
         startDate?: string;

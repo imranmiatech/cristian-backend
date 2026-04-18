@@ -15,6 +15,7 @@ import { SeederService } from './core/seed/seed.service';
 import { EmailModule } from './lib/email/email.module';
 import { CompanyModule } from './modules/company/company.module';
 import { NoteModule } from './modules/note/note.module';
+import { TagModule } from './modules/tag/tag.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { NoteModule } from './modules/note/note.module';
     EmailModule,
     CompanyModule,
     NoteModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [

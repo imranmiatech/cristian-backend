@@ -37,10 +37,10 @@ export class CompanyController {
         @GetUser('id') userId: string,
         @UploadedFiles() files: { logo?: Express.Multer.File[], documents?: Express.Multer.File[] }
     ) {
-
         const result = await this.companyService.createCompany(dto, files, userId);
+
         return {
-            message: "Company create  successfully",
+            message: "Company created successfully",
             data: result
         }
     }
@@ -57,17 +57,17 @@ export class CompanyController {
 
 
 
-@Get('all')
+    @Get('all')
     @UseGuards(JwtAuthGuard, RoleGuard)
     @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
     @ApiOperation({ summary: 'Retrieve all companies with optional filters and pagination' })
     @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
     @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
-    @ApiQuery({ 
-        name: 'search', 
-        required: false, 
-        type: String, 
-        description: 'Search by name, email, phone, tags, or note content' 
+    @ApiQuery({
+        name: 'search',
+        required: false,
+        type: String,
+        description: 'Search by name, email, phone, tags, or note content'
     })
     @ApiQuery({ name: 'status', required: false, enum: CompanyStatus })
     async findAll(
