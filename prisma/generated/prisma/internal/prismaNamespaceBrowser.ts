@@ -52,11 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Company: 'Company',
-  Document: 'Document',
   Note: 'Note',
   NoteHistory: 'NoteHistory',
   Attachment: 'Attachment',
   RefreshToken: 'RefreshToken',
+  Service: 'Service',
+  InteractionType: 'InteractionType',
+  Tag: 'Tag',
   User: 'User'
 } as const
 
@@ -93,26 +95,10 @@ export const CompanyScalarFieldEnum = {
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
 
 
-export const DocumentScalarFieldEnum = {
-  id: 'id',
-  fileName: 'fileName',
-  fileUrl: 'fileUrl',
-  fileType: 'fileType',
-  fileSize: 'fileSize',
-  docId: 'docId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
-
-
 export const NoteScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
-  communicationTags: 'communicationTags',
-  serviceTags: 'serviceTags',
   isPinned: 'isPinned',
   type: 'type',
   companyId: 'companyId',
@@ -131,12 +117,13 @@ export const NoteHistoryScalarFieldEnum = {
   noteId: 'noteId',
   oldTitle: 'oldTitle',
   oldContent: 'oldContent',
-  oldCommunicationTags: 'oldCommunicationTags',
-  oldServiceTags: 'oldServiceTags',
+  oldServices: 'oldServices',
+  oldInteractionTypes: 'oldInteractionTypes',
+  oldTags: 'oldTags',
   oldDocuments: 'oldDocuments',
   changedById: 'changedById',
-  createdAt: 'createdAt',
-  action: 'action'
+  action: 'action',
+  createdAt: 'createdAt'
 } as const
 
 export type NoteHistoryScalarFieldEnum = (typeof NoteHistoryScalarFieldEnum)[keyof typeof NoteHistoryScalarFieldEnum]
@@ -171,6 +158,30 @@ export const RefreshTokenScalarFieldEnum = {
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const ServiceScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
+
+
+export const InteractionTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type InteractionTypeScalarFieldEnum = (typeof InteractionTypeScalarFieldEnum)[keyof typeof InteractionTypeScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

@@ -10,7 +10,7 @@ model Company {
   status CompanyStatus @default(ACTIVE)
 
   notes    Note[]
-  document Document[]
+
 
 
   userId String

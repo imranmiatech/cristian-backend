@@ -1,7 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsArray, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
-import { CompanyStatus } from 'prisma/generated/prisma/enums';
+import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateCompanyDto {
   // --- Company Basic Info ---
@@ -21,12 +20,12 @@ export class CreateCompanyDto {
   PhoneNumber!: string;
 
 
-  @ApiPropertyOptional({ type: [String], example: ['SaaS', 'Fintech'] })
+  @ApiPropertyOptional({ type: [String], example: ['SaaS', 'Fintech'], description: 'Company categories/tags' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @Transform(({ value }) => {
-    if (typeof value === 'string') return value.split(',').map(v => v.trim());
+    if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
     return value;
   })
   tags?: string[];
@@ -40,11 +39,6 @@ export class CreateCompanyDto {
   @IsOptional()
   logo?: any;
 
-  // @ApiPropertyOptional({ enum: CompanyStatus, default: CompanyStatus.ACTIVE })
-  // @IsOptional()
-  // @IsEnum(CompanyStatus)
-  // status?: CompanyStatus;
-
   // --- Initial Note Info ---
   @ApiPropertyOptional({ example: 'Onboarding Note' })
   @IsOptional()
@@ -57,31 +51,41 @@ export class CreateCompanyDto {
   noteContent?: string;
 
 
-  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'] })
+  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'], description: 'Initial note interaction types' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @Transform(({ value }) => {
-    if (typeof value === 'string') return value.split(',').map(v => v.trim());
+    if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
     return value;
   })
-  communicationTags?: string[];
+  interactionTypes?: string[];
 
-  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'] })
+  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'], description: 'Initial note services' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @Transform(({ value }) => {
-    if (typeof value === 'string') return value.split(',').map(v => v.trim());
+    if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
     return value;
   })
-  serviceTags?: string[];
+  services?: string[];
+
+  @ApiPropertyOptional({ type: [String], example: ['Urgent'], description: 'Initial note tags' })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
+    return value;
+  })
+  noteTags?: string[];
 
   // --- File Uploads ---
   @ApiPropertyOptional({
     type: 'array',
     items: { type: 'string', format: 'binary' },
-    description: 'Note documents'
+    description: 'Initial note documents'
   })
   @IsOptional()
   documents?: any[];

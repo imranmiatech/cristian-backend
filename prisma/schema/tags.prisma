@@ -1,0 +1,20 @@
+model Service {
+  id   String @id @default(uuid())
+  name String @unique
+
+  notes Note[] @relation("NoteServices")
+}
+
+model InteractionType {
+  id   String @id @default(uuid())
+  name String @unique
+
+  notes Note[] @relation("NoteInteractions")
+}
+
+model Tag {
+  id   String @id @default(uuid())
+  name String @unique
+
+  notes Note[] @relation("NoteTags")
+}

@@ -14,7 +14,7 @@ export class CompanyService {
         userId: string
     ) {
 
-        const { noteTitle, noteContent, communicationTags, serviceTags, documents, logo, ...companyData } = dto;
+        const { noteTitle, noteContent, interactionTypes, services, noteTags, documents, logo, ...companyData } = dto;
         const logoFile = files?.logo?.[0];
         const logoPath = logoFile ? `/uploads/${logoFile.filename}` : null;
 
@@ -37,8 +37,24 @@ export class CompanyService {
                     create: {
                         title: noteTitle,
                         content: noteContent || '',
-                        communicationTags: Array.isArray(communicationTags) ? communicationTags : [],
-                        serviceTags: Array.isArray(serviceTags) ? serviceTags : [],
+                        interactionTypes: {
+                            connectOrCreate: (interactionTypes || []).map(name => ({
+                                where: { name },
+                                create: { name }
+                            }))
+                        },
+                        services: {
+                            connectOrCreate: (services || []).map(name => ({
+                                where: { name },
+                                create: { name }
+                            }))
+                        },
+                        tags: {
+                            connectOrCreate: (noteTags || []).map(name => ({
+                                where: { name },
+                                create: { name }
+                            }))
+                        },
                         authorId: userId,
                         documents: noteAttachments.length > 0 ? {
                             create: noteAttachments
@@ -47,7 +63,7 @@ export class CompanyService {
                 } : undefined
             },
             include: {
-                notes: { include: { documents: true } },
+                notes: { include: { documents: true, interactionTypes: true, services: true, tags: true } },
                 user: { select: { name: true, email: true } }
             }
         });
@@ -71,8 +87,8 @@ export class CompanyService {
                                     OR: [
                                         { title: { contains: search, mode: 'insensitive' } },
                                         { content: { contains: search, mode: 'insensitive' } },
-                                        { communicationTags: { has: search } },
-                                        { serviceTags: { has: search } }
+                                        { interactionTypes: { some: { name: { contains: search, mode: 'insensitive' } } } },
+                                        { services: { some: { name: { contains: search, mode: 'insensitive' } } } }
                                     ]
                                 }
                             }
@@ -108,7 +124,6 @@ export class CompanyService {
                             }
                         }
                     },
-                    document: true
                 },
             }),
             this.prisma.company.count({ where }),
@@ -138,7 +153,6 @@ export class CompanyService {
                         documents: true,
                     },
                 },
-                document: true
             },
         });
 

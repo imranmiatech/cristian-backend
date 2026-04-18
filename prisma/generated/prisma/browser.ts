@@ -23,11 +23,6 @@ export * from './enums.js';
  */
 export type Company = Prisma.CompanyModel
 /**
- * Model Document
- * 
- */
-export type Document = Prisma.DocumentModel
-/**
  * Model Note
  * 
  */
@@ -47,6 +42,21 @@ export type Attachment = Prisma.AttachmentModel
  * 
  */
 export type RefreshToken = Prisma.RefreshTokenModel
+/**
+ * Model Service
+ * 
+ */
+export type Service = Prisma.ServiceModel
+/**
+ * Model InteractionType
+ * 
+ */
+export type InteractionType = Prisma.InteractionTypeModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
 /**
  * Model User
  * 

@@ -15,7 +15,6 @@ import { SeederService } from './core/seed/seed.service';
 import { EmailModule } from './lib/email/email.module';
 import { CompanyModule } from './modules/company/company.module';
 import { NoteModule } from './modules/note/note.module';
-import { DocumentModule } from './modules/document/document.module';
 
 @Module({
   imports: [
@@ -38,7 +37,6 @@ import { DocumentModule } from './modules/document/document.module';
     EmailModule,
     CompanyModule,
     NoteModule,
-    DocumentModule
   ],
   controllers: [AppController],
   providers: [

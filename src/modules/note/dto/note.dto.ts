@@ -10,7 +10,7 @@ export class CreateNoteDto {
 
   @ApiProperty({
     example: 'Discussed the budget allocation...',
-    required: false // This removes the red asterisk in Swagger
+    required: false
   })
   @IsString()
   @IsOptional()
@@ -30,27 +30,38 @@ export class CreateNoteDto {
   @IsString()
   type?: string;
 
-  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'] })
+  @ApiPropertyOptional({ type: [String], example: ['Email', 'Phone Call'], description: 'Interaction types / Communication channels' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @Transform(({ value }) => {
     if (Array.isArray(value)) return value;
-    if (typeof value === 'string') return value.split(',').map((t) => t.trim());
+    if (typeof value === 'string') return value.split(',').map((t) => t.trim()).filter(t => t !== '');
     return [];
   })
-  communicationTags?: string[];
+  interactionTypes?: string[];
 
-  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'] })
+  @ApiPropertyOptional({ type: [String], example: ['Consulting', 'Audit'], description: 'Services discussed' })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @Transform(({ value }) => {
     if (Array.isArray(value)) return value;
-    if (typeof value === 'string') return value.split(',').map((t) => t.trim());
+    if (typeof value === 'string') return value.split(',').map((t) => t.trim()).filter(t => t !== '');
     return [];
   })
-  serviceTags?: string[];
+  services?: string[];
+
+  @ApiPropertyOptional({ type: [String], example: ['Urgent', 'Follow-up'], description: 'General tags' })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => {
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') return value.split(',').map((t) => t.trim()).filter(t => t !== '');
+    return [];
+  })
+  tags?: string[];
 
   @ApiProperty({ example: 'uuid-of-company' })
   @IsUUID()
