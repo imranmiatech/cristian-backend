@@ -61,21 +61,6 @@ export class CreateNoteDto {
   })
   services?: string[];
 
-  @ApiPropertyOptional({ 
-    type: [String], 
-    format: 'uuid',
-    example: ['a3b07204-742d-4c8d-9372-91696207f23c'] 
-  })
-  @IsOptional()
-  @IsArray()
-  @IsUUID('4', { each: true })
-  @Transform(({ value }) => {
-    if (Array.isArray(value)) return value;
-    if (typeof value === 'string') return value.split(',').map((t) => t.trim()).filter(t => t !== '');
-    return [];
-  })
-  tags?: string[];
-
   @ApiProperty({ example: 'uuid-of-company' })
   @IsUUID()
   @IsNotEmpty()

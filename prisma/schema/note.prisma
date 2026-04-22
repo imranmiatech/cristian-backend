@@ -6,7 +6,7 @@ model Note {
   // Structured relations (NO String[])
   services         Service[]         @relation("NoteServices")
   interactionTypes InteractionType[] @relation("NoteInteractions")
-  tags             Tag[]             @relation("NoteTags")
+
 
   isPinned Boolean @default(false)
   type     String? @default("GENERAL")
@@ -51,7 +51,6 @@ model NoteHistory {
 
   oldServices         Json?
   oldInteractionTypes Json?
-  oldTags             Json?
   oldDocuments        Json?
 
   //  Audit info

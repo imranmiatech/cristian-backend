@@ -119,7 +119,6 @@ export const NoteHistoryScalarFieldEnum = {
   oldContent: 'oldContent',
   oldServices: 'oldServices',
   oldInteractionTypes: 'oldInteractionTypes',
-  oldTags: 'oldTags',
   oldDocuments: 'oldDocuments',
   changedById: 'changedById',
   action: 'action',

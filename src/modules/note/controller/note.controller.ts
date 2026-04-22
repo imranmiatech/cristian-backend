@@ -73,7 +73,6 @@ export class NoteController {
   @ApiQuery({ name: "search", required: false, description: "Search in title or content" })
   @ApiQuery({ name: "services", required: false, description: "Filter by service names (comma separated)" })
   @ApiQuery({ name: "interactionTypes", required: false, description: "Filter by interaction type names (comma separated)" })
-  @ApiQuery({ name: "tags", required: false, description: "Filter by tag names (comma separated)" })
   @ApiQuery({ name: "startDate", required: false, description: "Filter from date (ISO string)" })
   @ApiQuery({ name: "endDate", required: false, description: "Filter to date (ISO string)" })
   @ApiQuery({ name: "page", required: false })

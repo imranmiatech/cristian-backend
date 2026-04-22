@@ -51,7 +51,6 @@ export type NoteHistoryCountAggregateOutputType = {
   oldContent: number
   oldServices: number
   oldInteractionTypes: number
-  oldTags: number
   oldDocuments: number
   changedById: number
   action: number
@@ -87,7 +86,6 @@ export type NoteHistoryCountAggregateInputType = {
   oldContent?: true
   oldServices?: true
   oldInteractionTypes?: true
-  oldTags?: true
   oldDocuments?: true
   changedById?: true
   action?: true
@@ -174,7 +172,6 @@ export type NoteHistoryGroupByOutputType = {
   oldContent: string | null
   oldServices: runtime.JsonValue | null
   oldInteractionTypes: runtime.JsonValue | null
-  oldTags: runtime.JsonValue | null
   oldDocuments: runtime.JsonValue | null
   changedById: string
   action: string
@@ -209,7 +206,6 @@ export type NoteHistoryWhereInput = {
   oldContent?: Prisma.StringNullableFilter<"NoteHistory"> | string | null
   oldServices?: Prisma.JsonNullableFilter<"NoteHistory">
   oldInteractionTypes?: Prisma.JsonNullableFilter<"NoteHistory">
-  oldTags?: Prisma.JsonNullableFilter<"NoteHistory">
   oldDocuments?: Prisma.JsonNullableFilter<"NoteHistory">
   changedById?: Prisma.StringFilter<"NoteHistory"> | string
   action?: Prisma.StringFilter<"NoteHistory"> | string
@@ -225,7 +221,6 @@ export type NoteHistoryOrderByWithRelationInput = {
   oldContent?: Prisma.SortOrderInput | Prisma.SortOrder
   oldServices?: Prisma.SortOrderInput | Prisma.SortOrder
   oldInteractionTypes?: Prisma.SortOrderInput | Prisma.SortOrder
-  oldTags?: Prisma.SortOrderInput | Prisma.SortOrder
   oldDocuments?: Prisma.SortOrderInput | Prisma.SortOrder
   changedById?: Prisma.SortOrder
   action?: Prisma.SortOrder
@@ -244,7 +239,6 @@ export type NoteHistoryWhereUniqueInput = Prisma.AtLeast<{
   oldContent?: Prisma.StringNullableFilter<"NoteHistory"> | string | null
   oldServices?: Prisma.JsonNullableFilter<"NoteHistory">
   oldInteractionTypes?: Prisma.JsonNullableFilter<"NoteHistory">
-  oldTags?: Prisma.JsonNullableFilter<"NoteHistory">
   oldDocuments?: Prisma.JsonNullableFilter<"NoteHistory">
   changedById?: Prisma.StringFilter<"NoteHistory"> | string
   action?: Prisma.StringFilter<"NoteHistory"> | string
@@ -260,7 +254,6 @@ export type NoteHistoryOrderByWithAggregationInput = {
   oldContent?: Prisma.SortOrderInput | Prisma.SortOrder
   oldServices?: Prisma.SortOrderInput | Prisma.SortOrder
   oldInteractionTypes?: Prisma.SortOrderInput | Prisma.SortOrder
-  oldTags?: Prisma.SortOrderInput | Prisma.SortOrder
   oldDocuments?: Prisma.SortOrderInput | Prisma.SortOrder
   changedById?: Prisma.SortOrder
   action?: Prisma.SortOrder
@@ -280,7 +273,6 @@ export type NoteHistoryScalarWhereWithAggregatesInput = {
   oldContent?: Prisma.StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
   oldServices?: Prisma.JsonNullableWithAggregatesFilter<"NoteHistory">
   oldInteractionTypes?: Prisma.JsonNullableWithAggregatesFilter<"NoteHistory">
-  oldTags?: Prisma.JsonNullableWithAggregatesFilter<"NoteHistory">
   oldDocuments?: Prisma.JsonNullableWithAggregatesFilter<"NoteHistory">
   changedById?: Prisma.StringWithAggregatesFilter<"NoteHistory"> | string
   action?: Prisma.StringWithAggregatesFilter<"NoteHistory"> | string
@@ -293,7 +285,6 @@ export type NoteHistoryCreateInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action: string
   createdAt?: Date | string
@@ -308,7 +299,6 @@ export type NoteHistoryUncheckedCreateInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById: string
   action: string
@@ -321,7 +311,6 @@ export type NoteHistoryUpdateInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -336,7 +325,6 @@ export type NoteHistoryUncheckedUpdateInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
@@ -350,7 +338,6 @@ export type NoteHistoryCreateManyInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById: string
   action: string
@@ -363,7 +350,6 @@ export type NoteHistoryUpdateManyMutationInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -376,7 +362,6 @@ export type NoteHistoryUncheckedUpdateManyInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
@@ -400,7 +385,6 @@ export type NoteHistoryCountOrderByAggregateInput = {
   oldContent?: Prisma.SortOrder
   oldServices?: Prisma.SortOrder
   oldInteractionTypes?: Prisma.SortOrder
-  oldTags?: Prisma.SortOrder
   oldDocuments?: Prisma.SortOrder
   changedById?: Prisma.SortOrder
   action?: Prisma.SortOrder
@@ -517,7 +501,6 @@ export type NoteHistoryCreateWithoutNoteInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action: string
   createdAt?: Date | string
@@ -530,7 +513,6 @@ export type NoteHistoryUncheckedCreateWithoutNoteInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById: string
   action: string
@@ -573,7 +555,6 @@ export type NoteHistoryScalarWhereInput = {
   oldContent?: Prisma.StringNullableFilter<"NoteHistory"> | string | null
   oldServices?: Prisma.JsonNullableFilter<"NoteHistory">
   oldInteractionTypes?: Prisma.JsonNullableFilter<"NoteHistory">
-  oldTags?: Prisma.JsonNullableFilter<"NoteHistory">
   oldDocuments?: Prisma.JsonNullableFilter<"NoteHistory">
   changedById?: Prisma.StringFilter<"NoteHistory"> | string
   action?: Prisma.StringFilter<"NoteHistory"> | string
@@ -586,7 +567,6 @@ export type NoteHistoryCreateWithoutChangedByInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action: string
   createdAt?: Date | string
@@ -600,7 +580,6 @@ export type NoteHistoryUncheckedCreateWithoutChangedByInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action: string
   createdAt?: Date | string
@@ -638,7 +617,6 @@ export type NoteHistoryCreateManyNoteInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById: string
   action: string
@@ -651,7 +629,6 @@ export type NoteHistoryUpdateWithoutNoteInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -664,7 +641,6 @@ export type NoteHistoryUncheckedUpdateWithoutNoteInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
@@ -677,7 +653,6 @@ export type NoteHistoryUncheckedUpdateManyWithoutNoteInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   changedById?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
@@ -691,7 +666,6 @@ export type NoteHistoryCreateManyChangedByInput = {
   oldContent?: string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action: string
   createdAt?: Date | string
@@ -703,7 +677,6 @@ export type NoteHistoryUpdateWithoutChangedByInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -717,7 +690,6 @@ export type NoteHistoryUncheckedUpdateWithoutChangedByInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -730,7 +702,6 @@ export type NoteHistoryUncheckedUpdateManyWithoutChangedByInput = {
   oldContent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oldServices?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldInteractionTypes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  oldTags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   oldDocuments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   action?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -745,7 +716,6 @@ export type NoteHistorySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   oldContent?: boolean
   oldServices?: boolean
   oldInteractionTypes?: boolean
-  oldTags?: boolean
   oldDocuments?: boolean
   changedById?: boolean
   action?: boolean
@@ -761,7 +731,6 @@ export type NoteHistorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   oldContent?: boolean
   oldServices?: boolean
   oldInteractionTypes?: boolean
-  oldTags?: boolean
   oldDocuments?: boolean
   changedById?: boolean
   action?: boolean
@@ -777,7 +746,6 @@ export type NoteHistorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   oldContent?: boolean
   oldServices?: boolean
   oldInteractionTypes?: boolean
-  oldTags?: boolean
   oldDocuments?: boolean
   changedById?: boolean
   action?: boolean
@@ -793,14 +761,13 @@ export type NoteHistorySelectScalar = {
   oldContent?: boolean
   oldServices?: boolean
   oldInteractionTypes?: boolean
-  oldTags?: boolean
   oldDocuments?: boolean
   changedById?: boolean
   action?: boolean
   createdAt?: boolean
 }
 
-export type NoteHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "noteId" | "oldTitle" | "oldContent" | "oldServices" | "oldInteractionTypes" | "oldTags" | "oldDocuments" | "changedById" | "action" | "createdAt", ExtArgs["result"]["noteHistory"]>
+export type NoteHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "noteId" | "oldTitle" | "oldContent" | "oldServices" | "oldInteractionTypes" | "oldDocuments" | "changedById" | "action" | "createdAt", ExtArgs["result"]["noteHistory"]>
 export type NoteHistoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   note?: boolean | Prisma.NoteDefaultArgs<ExtArgs>
   changedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -827,7 +794,6 @@ export type $NoteHistoryPayload<ExtArgs extends runtime.Types.Extensions.Interna
     oldContent: string | null
     oldServices: runtime.JsonValue | null
     oldInteractionTypes: runtime.JsonValue | null
-    oldTags: runtime.JsonValue | null
     oldDocuments: runtime.JsonValue | null
     changedById: string
     action: string
@@ -1263,7 +1229,6 @@ export interface NoteHistoryFieldRefs {
   readonly oldContent: Prisma.FieldRef<"NoteHistory", 'String'>
   readonly oldServices: Prisma.FieldRef<"NoteHistory", 'Json'>
   readonly oldInteractionTypes: Prisma.FieldRef<"NoteHistory", 'Json'>
-  readonly oldTags: Prisma.FieldRef<"NoteHistory", 'Json'>
   readonly oldDocuments: Prisma.FieldRef<"NoteHistory", 'Json'>
   readonly changedById: Prisma.FieldRef<"NoteHistory", 'String'>
   readonly action: Prisma.FieldRef<"NoteHistory", 'String'>

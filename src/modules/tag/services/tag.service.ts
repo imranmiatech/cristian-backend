@@ -44,22 +44,4 @@ export class TagService {
     }
   }
 
-  // --- Tag Operations ---
-  async createTag(dto: CreateTagDto) {
-    const exists = await this.prisma.tag.findUnique({ where: { name: dto.name } });
-    if (exists) throw new ConflictException(`Tag with name "${dto.name}" already exists`);
-    return this.prisma.tag.create({ data: { name: dto.name } });
-  }
-
-  async getAllTags() {
-    return this.prisma.tag.findMany({ orderBy: { name: 'asc' } });
-  }
-
-  async deleteTag(id: string) {
-    try {
-      return await this.prisma.tag.delete({ where: { id } });
-    } catch {
-      throw new NotFoundException(`Tag with ID "${id}" not found`);
-    }
-  }
 }

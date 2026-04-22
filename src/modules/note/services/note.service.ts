@@ -17,7 +17,7 @@ export class NoteService {
     constructor(private readonly prisma: PrismaService) { }
 
     async createNote(dto: CreateNoteDto, files: Express.Multer.File[], authorId: string) {
-        const { companyId, title, content, isPinned, type, parentId, interactionTypes, services, tags } = dto;
+        const { companyId, title, content, isPinned, type, parentId, interactionTypes, services } = dto;
 
         const company = await this.prisma.company.findUnique({
             where: { id: companyId }
@@ -48,9 +48,6 @@ export class NoteService {
                     },
                     services: {
                         connect: (services || []).map(id => ({ id }))
-                    },
-                    tags: {
-                        connect: (tags || []).map(id => ({ id }))
                     }
                 },
             });
@@ -82,8 +79,7 @@ export class NoteService {
                     followUps: true,
                     parent: true,
                     services: true,
-                    interactionTypes: true,
-                    tags: true
+                    interactionTypes: true
                 },
             });
         });
@@ -133,13 +129,6 @@ export class NoteService {
                         }
                     }
                 } : {},
-                query.tags ? {
-                    tags: {
-                        some: {
-                            name: { in: Array.isArray(query.tags) ? query.tags : query.tags.split(',') }
-                        }
-                    }
-                } : {},
                 // Date range filtering
                 (query.startDate || query.endDate) ? {
                     createdAt: {
@@ -166,8 +155,7 @@ export class NoteService {
                     followUps: true,
                     parent: true,
                     services: true,
-                    interactionTypes: true,
-                    tags: true
+                    interactionTypes: true
                 },
             }),
             this.prisma.note.count({ where }),
@@ -184,15 +172,14 @@ export class NoteService {
         };
     }
 async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[], currentUserId: string) {
-    const { interactionTypes, services, tags, deleteFileIds, files, ...restDto } = dto;
+    const { interactionTypes, services, deleteFileIds, files, ...restDto } = dto;
 
     const existingNote = await this.prisma.note.findUnique({
         where: { id: noteId },
         include: {
             documents: true,
             services: true,
-            interactionTypes: true,
-            tags: true
+            interactionTypes: true
         }
     });
 
@@ -206,11 +193,6 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
     if (services?.length) {
         const count = await this.prisma.service.count({ where: { id: { in: services } } });
         if (count !== services.length) throw new NotFoundException('Some Services were not found');
-    }
-
-    if (tags?.length) {
-        const count = await this.prisma.tag.count({ where: { id: { in: tags } } });
-        if (count !== tags.length) throw new NotFoundException('Some Tags were not found');
     }
 
     return await this.prisma.$transaction(async (tx) => {
@@ -235,7 +217,6 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 oldContent: existingNote.content,
                 oldServices: existingNote.services as any,
                 oldInteractionTypes: existingNote.interactionTypes as any,
-                oldTags: existingNote.tags as any,
                 oldDocuments: existingNote.documents as any,
                 changedById: currentUserId,
                 action: 'UPDATE'
@@ -259,9 +240,6 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 services: services ? {
                     set: services.map(id => ({ id }))
                 } : undefined,
-                tags: tags ? {
-                    set: tags.map(id => ({ id }))
-                } : undefined,
                 documents: attachmentData.length > 0 ? {
                     create: attachmentData
                 } : undefined
@@ -271,8 +249,7 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 followUps: true,
                 parent: true,
                 services: true,
-                interactionTypes: true,
-                tags: true
+                interactionTypes: true
             }
         });
 
@@ -398,8 +375,7 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 followUps: true,
                 parent: true,
                 services: true,
-                interactionTypes: true,
-                tags: true
+                interactionTypes: true
             },
         });
 
@@ -518,7 +494,6 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 documents: true,
                 author: { select: { name: true, profile: true } },
                 company: { select: { name: true } },
-                tags: true,
                 services: true,
                 interactionTypes: true
             },
@@ -546,7 +521,6 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 include: {
                     documents: true,
                     author: { select: { name: true, profile: true } },
-                    tags: true,
                     services: true,
                     interactionTypes: true,
                     company: { select: { name: true } }

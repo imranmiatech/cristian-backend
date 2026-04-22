@@ -82,22 +82,6 @@ export class CreateCompanyDto {
   services?: string[];
 
   @ApiPropertyOptional({
-    type: [String],
-    format: 'uuid',
-    example: ['a3b07204-742d-4c8d-9372-91696207f23c'],
-    description: 'Array of Tag IDs for the initial note.'
-  })
-  @IsOptional()
-  @IsArray()
-  @IsUUID('4', { each: true })
-  @Transform(({ value }) => {
-    if (typeof value === 'string') return value.split(',').map(v => v.trim()).filter(v => v !== '');
-    return value;
-  })
-  noteTags?: string[];
-
-  // --- File Uploads ---
-  @ApiPropertyOptional({
     type: 'array',
     items: { type: 'string', format: 'binary' },
     description: 'Initial note documents'

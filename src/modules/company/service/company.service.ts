@@ -19,7 +19,6 @@ export class CompanyService {
             noteContent,
             interactionTypes,
             services,
-            noteTags,
             tags,
             assignUsername,
             documents,
@@ -35,11 +34,6 @@ export class CompanyService {
         if (services?.length) {
             const count = await this.prisma.service.count({ where: { id: { in: services } } });
             if (count !== services.length) throw new NotFoundException('One or more Services not found');
-        }
-
-        if (noteTags?.length) {
-            const count = await this.prisma.tag.count({ where: { id: { in: noteTags } } });
-            if (count !== noteTags.length) throw new NotFoundException('One or more Note Tags not found');
         }
 
         const logoFile = files?.logo?.[0];
@@ -71,9 +65,6 @@ export class CompanyService {
                             services: {
                                 connect: (services || []).map(id => ({ id }))
                             },
-                            tags: {
-                                connect: (noteTags || []).map(id => ({ id }))
-                            },
                             documents: noteAttachments.length > 0 ? {
                                 create: noteAttachments
                             } : undefined
@@ -85,8 +76,7 @@ export class CompanyService {
                         include: {
                             documents: true,
                             interactionTypes: true,
-                            services: true,
-                            tags: true
+                            services: true
                         }
                     },
                     user: { select: { id: true, name: true, email: true } }

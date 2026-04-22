@@ -50,23 +50,4 @@ export class TagController {
   async deleteService(@Param('id') id: string) {
     return this.tagService.deleteService(id);
   }
-
-  // --- General Tags ---
-  @Post('general')
-  @ApiOperation({ summary: 'Create a new general tag' })
-  async createTag(@Body() dto: CreateTagDto) {
-    return this.tagService.createTag(dto);
-  }
-
-  @Get('general')
-  @ApiOperation({ summary: 'Get all general tags' })
-  async getAllTags() {
-    return this.tagService.getAllTags();
-  }
-
-  @Delete('general/:id')
-  @ApiOperation({ summary: 'Hard delete a general tag' })
-  async deleteTag(@Param('id') id: string) {
-    return this.tagService.deleteTag(id);
-  }
 }
