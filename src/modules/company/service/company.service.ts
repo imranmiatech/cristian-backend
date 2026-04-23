@@ -126,6 +126,7 @@ export class CompanyService {
                 take: Number(limit),
                 orderBy: { createdAt: 'desc' },
                 include: {
+                    user: { select: { name: true } },
                     notes: {
                         where: { deletedAt: null },
                         take: 3,
@@ -135,7 +136,12 @@ export class CompanyService {
                         ],
                         include: {
                             documents: true,
-                            // --- ADDED THIS SECTION ---
+                            services: {
+                                select: { id: true, name: true }
+                            },
+                            interactionTypes: {
+                                select: { id: true, name: true }
+                            },
                             author: {
                                 select: {
                                     id: true,
@@ -145,7 +151,7 @@ export class CompanyService {
                                 }
                             }
                         }
-                    },
+                    }
                 },
             }),
             this.prisma.company.count({ where }),
@@ -166,6 +172,7 @@ export class CompanyService {
         const company = await this.prisma.company.findUnique({
             where: { id },
             include: {
+                user: { select: { name: true } },
                 notes: {
                     where: { deletedAt: null },
                     orderBy: [
@@ -174,6 +181,14 @@ export class CompanyService {
                     ],
                     include: {
                         documents: true,
+                        author: {
+                            select: {
+                                id: true,
+                                name: true,
+                                email: true,
+                                profile: true,
+                            }
+                        }
                     },
                 },
             },
