@@ -171,6 +171,10 @@ export class NoteService {
             },
         };
     }
+
+    async getDeletedNotes(query: any) {
+        return this.getAllNotes({ ...query, showDeletedOnly: true });
+    }
 async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[], currentUserId: string) {
     const { interactionTypes, services, deleteFileIds, files, ...restDto } = dto;
 

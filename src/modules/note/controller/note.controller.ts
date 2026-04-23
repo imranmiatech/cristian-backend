@@ -81,6 +81,14 @@ export class NoteController {
     return this.noteService.getAllNotes(query);
   }
 
+  @Get("deleted/note")
+  @ApiOperation({ summary: "Get all soft deleted notes" })
+  @ApiQuery({ name: "page", required: false })
+  @ApiQuery({ name: "limit", required: false })
+  async getDeleted(@Query() query: any) {
+    return this.noteService.getDeletedNotes(query);
+  }
+
   @Get("me/notes")
   async myNotes(
     @GetUser("id") userId: string,

@@ -167,7 +167,7 @@ export class CompanyService {
             },
         };
     }
-
+    
     async getCompanyById(id: string) {
         const company = await this.prisma.company.findUnique({
             where: { id },
@@ -181,6 +181,12 @@ export class CompanyService {
                     ],
                     include: {
                         documents: true,
+                        services: {
+                            select: { id: true, name: true }
+                        },
+                        interactionTypes: {
+                            select: { id: true, name: true }
+                        },
                         author: {
                             select: {
                                 id: true,
@@ -194,7 +200,10 @@ export class CompanyService {
             },
         });
 
-        if (!company) throw new NotFoundException(`Company with ID ${id} not found`);
+        if (!company) {
+            throw new NotFoundException(`Company with ID ${id} not found`);
+        }
+
         return company;
     }
 
