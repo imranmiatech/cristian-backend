@@ -174,8 +174,8 @@ export class NoteService {
 async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.Multer.File[], currentUserId: string) {
     const { interactionTypes, services, deleteFileIds, files, ...restDto } = dto;
 
-    const existingNote = await this.prisma.note.findUnique({
-        where: { id: noteId },
+    const existingNote = await this.prisma.note.findFirst({
+        where: { id: noteId, deletedAt: null },
         include: {
             documents: true,
             services: true,
@@ -183,7 +183,7 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
         }
     });
 
-    if (!existingNote) throw new NotFoundException('Note not found');
+    if (!existingNote) throw new NotFoundException('Note not found or has been deleted');
 
     if (interactionTypes?.length) {
         const count = await this.prisma.interactionType.count({ where: { id: { in: interactionTypes } } });
@@ -306,8 +306,8 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
     }
 
     async recoverNote(noteId: string, userId: string) {
-        const note = await this.prisma.note.findUnique({ where: { id: noteId } });
-        if (!note) throw new NotFoundException('Note not found');
+        const note = await this.prisma.note.findFirst({ where: { id: noteId, deletedAt: { not: null } } });
+        if (!note) throw new NotFoundException('Note not found or is not deleted');
 
         return await this.prisma.$transaction(async (tx) => {
             await tx.noteHistory.create({
@@ -322,7 +322,14 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
 
             return tx.note.update({
                 where: { id: noteId },
-                data: { deletedAt: null }
+                data: { deletedAt: null },
+                include: {
+                    documents: true,
+                    followUps: true,
+                    parent: true,
+                    services: true,
+                    interactionTypes: true
+                }
             });
         });
     }
@@ -352,8 +359,8 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
     }
 
     async togglePin(noteId: string) {
-        const note = await this.prisma.note.findUnique({ where: { id: noteId } });
-        if (!note) throw new NotFoundException('Note not found');
+        const note = await this.prisma.note.findFirst({ where: { id: noteId, deletedAt: null } });
+        if (!note) throw new NotFoundException('Note not found or has been deleted');
 
         return this.prisma.note.update({
             where: { id: noteId },
@@ -362,8 +369,8 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
     }
 
     async getNoteById(noteId: string) {
-        const note = await this.prisma.note.findUnique({
-            where: { id: noteId },
+        const note = await this.prisma.note.findFirst({
+            where: { id: noteId, deletedAt: null },
             include: {
                 documents: true,
                 author: true,
@@ -379,7 +386,7 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
             },
         });
 
-        if (!note) throw new NotFoundException('Note not found');
+        if (!note) throw new NotFoundException('Note not found or has been deleted');
         return note;
     }
     async getUserActivity(userId: string, page: number = 1, limit: number = 10) {

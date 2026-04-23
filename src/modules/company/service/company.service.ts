@@ -73,6 +73,7 @@ export class CompanyService {
                 },
                 include: {
                     notes: {
+                        where: { deletedAt: null },
                         include: {
                             documents: true,
                             interactionTypes: true,
@@ -103,6 +104,7 @@ export class CompanyService {
                         {
                             notes: {
                                 some: {
+                                    deletedAt: null,
                                     OR: [
                                         { title: { contains: search, mode: 'insensitive' } },
                                         { content: { contains: search, mode: 'insensitive' } },
@@ -125,6 +127,7 @@ export class CompanyService {
                 orderBy: { createdAt: 'desc' },
                 include: {
                     notes: {
+                        where: { deletedAt: null },
                         take: 3,
                         orderBy: [
                             { isPinned: 'desc' },
@@ -164,6 +167,7 @@ export class CompanyService {
             where: { id },
             include: {
                 notes: {
+                    where: { deletedAt: null },
                     orderBy: [
                         { isPinned: 'desc' },
                         { createdAt: 'desc' }

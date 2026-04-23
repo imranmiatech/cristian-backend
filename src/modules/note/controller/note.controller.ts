@@ -177,7 +177,17 @@ export class NoteController {
     return this.noteService.recoverNote(id, userId);
   }
 
+  @Delete(":id")
+  @ApiOperation({ summary: "Soft delete a note" })
+  async delete(
+    @Param("id") id: string,
+    @GetUser("id") userId: string,
+  ) {
+    return this.noteService.softDeleteNote(id, userId);
+  }
+
   @Delete(":id/hard-delete")
+  @ApiOperation({ summary: "Permanently delete a note" })
   async hardDelete(@Param("id") id: string) {
     return this.noteService.hardDeleteNote(id);
   }
