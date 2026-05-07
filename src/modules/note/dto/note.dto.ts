@@ -16,6 +16,11 @@ export class CreateNoteDto {
   @IsOptional()
   content?: string;
 
+  @ApiPropertyOptional({ example: 'John Doe' })
+  @IsOptional()
+  @IsString()
+  contactName?: string;
+
   @ApiPropertyOptional({ example: false })
   @IsOptional()
   @IsBoolean()

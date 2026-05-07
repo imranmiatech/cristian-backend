@@ -15,6 +15,9 @@ export class UpdateCompanyDto {
   PhoneNumber?: string;
 
   @ApiPropertyOptional() @IsOptional() @IsString()
+  contactName?: string;
+
+  @ApiPropertyOptional() @IsOptional() @IsString()
   assignUsername?: string;
 
   @ApiPropertyOptional({ enum: CompanyStatus }) 

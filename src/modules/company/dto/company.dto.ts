@@ -19,6 +19,10 @@ export class CreateCompanyDto {
   @IsNotEmpty()
   PhoneNumber!: string;
 
+  @ApiPropertyOptional({ example: 'John Doe' })
+  @IsOptional()
+  @IsString()
+  contactName?: string;
 
   @ApiPropertyOptional({ type: [String], example: ['SaaS', 'Fintech'], description: 'Company categories/tags. These are stored as simple strings.' })
   @IsOptional()

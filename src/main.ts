@@ -16,7 +16,7 @@ async function bootstrap() {
   await seeder.seedAdmin();
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT') || 9099;
+  const port = configService.get<number>('port') || parseInt(process.env.PORT as string, 10) || 9999;
 
   const originString = process.env.ALLOWED_ORIGINS || '';
   const allowedOrigins = originString.split(',').map(o => o.trim()).filter(Boolean);

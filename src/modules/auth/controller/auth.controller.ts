@@ -93,7 +93,7 @@ export class AuthController {
     const commonOptions = {
       httpOnly: true,
       secure: isProd,
-      sameSite: 'none' as 'none',
+      sameSite: isProd ? ('none' as 'none') : ('lax' as 'lax'),
       path: '/',
     };
 

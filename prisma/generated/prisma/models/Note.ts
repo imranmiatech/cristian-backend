@@ -28,6 +28,7 @@ export type NoteMinAggregateOutputType = {
   id: string | null
   title: string | null
   content: string | null
+  contactName: string | null
   isPinned: boolean | null
   type: string | null
   companyId: string | null
@@ -42,6 +43,7 @@ export type NoteMaxAggregateOutputType = {
   id: string | null
   title: string | null
   content: string | null
+  contactName: string | null
   isPinned: boolean | null
   type: string | null
   companyId: string | null
@@ -56,6 +58,7 @@ export type NoteCountAggregateOutputType = {
   id: number
   title: number
   content: number
+  contactName: number
   isPinned: number
   type: number
   companyId: number
@@ -72,6 +75,7 @@ export type NoteMinAggregateInputType = {
   id?: true
   title?: true
   content?: true
+  contactName?: true
   isPinned?: true
   type?: true
   companyId?: true
@@ -86,6 +90,7 @@ export type NoteMaxAggregateInputType = {
   id?: true
   title?: true
   content?: true
+  contactName?: true
   isPinned?: true
   type?: true
   companyId?: true
@@ -100,6 +105,7 @@ export type NoteCountAggregateInputType = {
   id?: true
   title?: true
   content?: true
+  contactName?: true
   isPinned?: true
   type?: true
   companyId?: true
@@ -187,6 +193,7 @@ export type NoteGroupByOutputType = {
   id: string
   title: string | null
   content: string | null
+  contactName: string | null
   isPinned: boolean
   type: string | null
   companyId: string
@@ -222,6 +229,7 @@ export type NoteWhereInput = {
   id?: Prisma.StringFilter<"Note"> | string
   title?: Prisma.StringNullableFilter<"Note"> | string | null
   content?: Prisma.StringNullableFilter<"Note"> | string | null
+  contactName?: Prisma.StringNullableFilter<"Note"> | string | null
   isPinned?: Prisma.BoolFilter<"Note"> | boolean
   type?: Prisma.StringNullableFilter<"Note"> | string | null
   companyId?: Prisma.StringFilter<"Note"> | string
@@ -244,6 +252,7 @@ export type NoteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactName?: Prisma.SortOrderInput | Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -269,6 +278,7 @@ export type NoteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.NoteWhereInput | Prisma.NoteWhereInput[]
   title?: Prisma.StringNullableFilter<"Note"> | string | null
   content?: Prisma.StringNullableFilter<"Note"> | string | null
+  contactName?: Prisma.StringNullableFilter<"Note"> | string | null
   isPinned?: Prisma.BoolFilter<"Note"> | boolean
   type?: Prisma.StringNullableFilter<"Note"> | string | null
   companyId?: Prisma.StringFilter<"Note"> | string
@@ -291,6 +301,7 @@ export type NoteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactName?: Prisma.SortOrderInput | Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -311,6 +322,7 @@ export type NoteScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Note"> | string
   title?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
+  contactName?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
   isPinned?: Prisma.BoolWithAggregatesFilter<"Note"> | boolean
   type?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
   companyId?: Prisma.StringWithAggregatesFilter<"Note"> | string
@@ -325,6 +337,7 @@ export type NoteCreateInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -344,6 +357,7 @@ export type NoteUncheckedCreateInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -363,6 +377,7 @@ export type NoteUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -382,6 +397,7 @@ export type NoteUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -401,6 +417,7 @@ export type NoteCreateManyInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -415,6 +432,7 @@ export type NoteUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -426,6 +444,7 @@ export type NoteUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -455,6 +474,7 @@ export type NoteCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  contactName?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -469,6 +489,7 @@ export type NoteMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  contactName?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -483,6 +504,7 @@ export type NoteMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  contactName?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
   type?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
@@ -758,6 +780,7 @@ export type NoteCreateWithoutCompanyInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -776,6 +799,7 @@ export type NoteUncheckedCreateWithoutCompanyInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   authorId?: string | null
@@ -823,6 +847,7 @@ export type NoteScalarWhereInput = {
   id?: Prisma.StringFilter<"Note"> | string
   title?: Prisma.StringNullableFilter<"Note"> | string | null
   content?: Prisma.StringNullableFilter<"Note"> | string | null
+  contactName?: Prisma.StringNullableFilter<"Note"> | string | null
   isPinned?: Prisma.BoolFilter<"Note"> | boolean
   type?: Prisma.StringNullableFilter<"Note"> | string | null
   companyId?: Prisma.StringFilter<"Note"> | string
@@ -837,6 +862,7 @@ export type NoteCreateWithoutFollowUpsInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -855,6 +881,7 @@ export type NoteUncheckedCreateWithoutFollowUpsInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -878,6 +905,7 @@ export type NoteCreateWithoutParentInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -896,6 +924,7 @@ export type NoteUncheckedCreateWithoutParentInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -935,6 +964,7 @@ export type NoteUpdateWithoutFollowUpsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -953,6 +983,7 @@ export type NoteUncheckedUpdateWithoutFollowUpsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -987,6 +1018,7 @@ export type NoteCreateWithoutHistoryInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -1005,6 +1037,7 @@ export type NoteUncheckedCreateWithoutHistoryInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -1039,6 +1072,7 @@ export type NoteUpdateWithoutHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1057,6 +1091,7 @@ export type NoteUncheckedUpdateWithoutHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1075,6 +1110,7 @@ export type NoteCreateWithoutDocumentsInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -1093,6 +1129,7 @@ export type NoteUncheckedCreateWithoutDocumentsInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -1127,6 +1164,7 @@ export type NoteUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1145,6 +1183,7 @@ export type NoteUncheckedUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1163,6 +1202,7 @@ export type NoteCreateWithoutServicesInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -1181,6 +1221,7 @@ export type NoteUncheckedCreateWithoutServicesInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -1220,6 +1261,7 @@ export type NoteCreateWithoutInteractionTypesInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -1238,6 +1280,7 @@ export type NoteUncheckedCreateWithoutInteractionTypesInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -1277,6 +1320,7 @@ export type NoteCreateWithoutAuthorInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   createdAt?: Date | string
@@ -1295,6 +1339,7 @@ export type NoteUncheckedCreateWithoutAuthorInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -1339,6 +1384,7 @@ export type NoteCreateManyCompanyInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   authorId?: string | null
@@ -1352,6 +1398,7 @@ export type NoteUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1370,6 +1417,7 @@ export type NoteUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1388,6 +1436,7 @@ export type NoteUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1401,6 +1450,7 @@ export type NoteCreateManyParentInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -1414,6 +1464,7 @@ export type NoteUpdateWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1432,6 +1483,7 @@ export type NoteUncheckedUpdateWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1450,6 +1502,7 @@ export type NoteUncheckedUpdateManyWithoutParentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1463,6 +1516,7 @@ export type NoteUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1481,6 +1535,7 @@ export type NoteUncheckedUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1499,6 +1554,7 @@ export type NoteUncheckedUpdateManyWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1513,6 +1569,7 @@ export type NoteUpdateWithoutInteractionTypesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1531,6 +1588,7 @@ export type NoteUncheckedUpdateWithoutInteractionTypesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1549,6 +1607,7 @@ export type NoteUncheckedUpdateManyWithoutInteractionTypesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1563,6 +1622,7 @@ export type NoteCreateManyAuthorInput = {
   id?: string
   title?: string | null
   content?: string | null
+  contactName?: string | null
   isPinned?: boolean
   type?: string | null
   companyId: string
@@ -1576,6 +1636,7 @@ export type NoteUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1594,6 +1655,7 @@ export type NoteUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1612,6 +1674,7 @@ export type NoteUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1692,6 +1755,7 @@ export type NoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   title?: boolean
   content?: boolean
+  contactName?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -1715,6 +1779,7 @@ export type NoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   content?: boolean
+  contactName?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -1732,6 +1797,7 @@ export type NoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   content?: boolean
+  contactName?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -1749,6 +1815,7 @@ export type NoteSelectScalar = {
   id?: boolean
   title?: boolean
   content?: boolean
+  contactName?: boolean
   isPinned?: boolean
   type?: boolean
   companyId?: boolean
@@ -1759,7 +1826,7 @@ export type NoteSelectScalar = {
   deletedAt?: boolean
 }
 
-export type NoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "isPinned" | "type" | "companyId" | "authorId" | "parentId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["note"]>
+export type NoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "contactName" | "isPinned" | "type" | "companyId" | "authorId" | "parentId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["note"]>
 export type NoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   services?: boolean | Prisma.Note$servicesArgs<ExtArgs>
   interactionTypes?: boolean | Prisma.Note$interactionTypesArgs<ExtArgs>
@@ -1798,6 +1865,7 @@ export type $NotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     title: string | null
     content: string | null
+    contactName: string | null
     isPinned: boolean
     type: string | null
     companyId: string
@@ -2240,6 +2308,7 @@ export interface NoteFieldRefs {
   readonly id: Prisma.FieldRef<"Note", 'String'>
   readonly title: Prisma.FieldRef<"Note", 'String'>
   readonly content: Prisma.FieldRef<"Note", 'String'>
+  readonly contactName: Prisma.FieldRef<"Note", 'String'>
   readonly isPinned: Prisma.FieldRef<"Note", 'Boolean'>
   readonly type: Prisma.FieldRef<"Note", 'String'>
   readonly companyId: Prisma.FieldRef<"Note", 'String'>

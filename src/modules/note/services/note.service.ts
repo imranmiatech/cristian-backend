@@ -17,7 +17,7 @@ export class NoteService {
     constructor(private readonly prisma: PrismaService) { }
 
     async createNote(dto: CreateNoteDto, files: Express.Multer.File[], authorId: string) {
-        const { companyId, title, content, isPinned, type, parentId, interactionTypes, services } = dto;
+        const { companyId, title, content, contactName, isPinned, type, parentId, interactionTypes, services } = dto;
 
         const company = await this.prisma.company.findUnique({
             where: { id: companyId }
@@ -38,6 +38,7 @@ export class NoteService {
                 data: {
                     title,
                     content,
+                    contactName,
                     companyId,
                     authorId,
                     isPinned: isPinned ?? false,
@@ -68,7 +69,14 @@ export class NoteService {
                 data: {
                     noteId: note.id,
                     changedById: authorId,
-                    action: 'CREATE'
+                    action: 'CREATE',
+                    newTitle: title,
+                    newContent: content,
+                    newContactName: contactName,
+                    newIsPinned: isPinned ?? false,
+                    newType: type || 'GENERAL',
+                    newServices: (services || []) as any,
+                    newInteractionTypes: (interactionTypes || []) as any,
                 }
             });
 
@@ -108,10 +116,13 @@ export class NoteService {
                     }
                 } : {},
                 query.type ? { type: { contains: query.type, mode: 'insensitive' } } : {},
+                query.contactName ? { contactName: { contains: query.contactName, mode: 'insensitive' } } : {},
                 query.search ? {
                     OR: [
                         { title: { contains: query.search, mode: 'insensitive' } },
                         { content: { contains: query.search, mode: 'insensitive' } },
+                        { contactName: { contains: query.search, mode: 'insensitive' } },
+                        { company: { name: { contains: query.search, mode: 'insensitive' } } },
                     ],
                 } : {},
                 // Advanced relation filtering
@@ -198,7 +209,6 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
         const count = await this.prisma.service.count({ where: { id: { in: services } } });
         if (count !== services.length) throw new NotFoundException('Some Services were not found');
     }
-
     return await this.prisma.$transaction(async (tx) => {
         if (deleteFileIds && deleteFileIds.length > 0) {
             const filesToDelete = existingNote.documents.filter(doc => deleteFileIds.includes(doc.id));
@@ -214,18 +224,6 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 where: { id: { in: deleteFileIds } }
             });
         }
-        await tx.noteHistory.create({
-            data: {
-                noteId: existingNote.id,
-                oldTitle: existingNote.title,
-                oldContent: existingNote.content,
-                oldServices: existingNote.services as any,
-                oldInteractionTypes: existingNote.interactionTypes as any,
-                oldDocuments: existingNote.documents as any,
-                changedById: currentUserId,
-                action: 'UPDATE'
-            }
-        });
 
         const attachmentData = (newUploadedFiles || []).map(file => ({
             fileName: file.originalname,
@@ -254,6 +252,31 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                 parent: true,
                 services: true,
                 interactionTypes: true
+            }
+        });
+
+        await tx.noteHistory.create({
+            data: {
+                noteId: existingNote.id,
+                changedById: currentUserId,
+                action: 'UPDATE',
+                oldTitle: existingNote.title,
+                oldContent: existingNote.content,
+                oldContactName: existingNote.contactName,
+                oldServices: existingNote.services as any,
+                oldInteractionTypes: existingNote.interactionTypes as any,
+                oldDocuments: existingNote.documents as any,
+                oldIsPinned: existingNote.isPinned,
+                oldType: existingNote.type,
+
+                newTitle: updatedNote.title,
+                newContent: updatedNote.content,
+                newContactName: updatedNote.contactName,
+                newServices: updatedNote.services as any,
+                newInteractionTypes: updatedNote.interactionTypes as any,
+                newDocuments: updatedNote.documents as any,
+                newIsPinned: updatedNote.isPinned,
+                newType: updatedNote.type,
             }
         });
 
@@ -299,6 +322,14 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                     action: 'SOFT_DELETE',
                     oldTitle: note.title,
                     oldContent: note.content,
+                    oldContactName: note.contactName,
+                    oldIsPinned: note.isPinned,
+                    oldType: note.type,
+                    newTitle: note.title,
+                    newContent: note.content,
+                    newContactName: note.contactName,
+                    newIsPinned: note.isPinned,
+                    newType: note.type,
                 }
             });
 
@@ -321,6 +352,14 @@ async updateNote(noteId: string, dto: UpdateNoteDto, newUploadedFiles: Express.M
                     action: 'RECOVER',
                     oldTitle: note.title,
                     oldContent: note.content,
+                    oldContactName: note.contactName,
+                    oldIsPinned: note.isPinned,
+                    oldType: note.type,
+                    newTitle: note.title,
+                    newContent: note.content,
+                    newContactName: note.contactName,
+                    newIsPinned: note.isPinned,
+                    newType: note.type,
                 }
             });
 

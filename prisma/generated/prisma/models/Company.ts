@@ -29,6 +29,7 @@ export type CompanyMinAggregateOutputType = {
   name: string | null
   email: string | null
   PhoneNumber: string | null
+  contactName: string | null
   logo: string | null
   assignUsername: string | null
   status: $Enums.CompanyStatus | null
@@ -42,6 +43,7 @@ export type CompanyMaxAggregateOutputType = {
   name: string | null
   email: string | null
   PhoneNumber: string | null
+  contactName: string | null
   logo: string | null
   assignUsername: string | null
   status: $Enums.CompanyStatus | null
@@ -55,6 +57,7 @@ export type CompanyCountAggregateOutputType = {
   name: number
   email: number
   PhoneNumber: number
+  contactName: number
   logo: number
   tags: number
   assignUsername: number
@@ -71,6 +74,7 @@ export type CompanyMinAggregateInputType = {
   name?: true
   email?: true
   PhoneNumber?: true
+  contactName?: true
   logo?: true
   assignUsername?: true
   status?: true
@@ -84,6 +88,7 @@ export type CompanyMaxAggregateInputType = {
   name?: true
   email?: true
   PhoneNumber?: true
+  contactName?: true
   logo?: true
   assignUsername?: true
   status?: true
@@ -97,6 +102,7 @@ export type CompanyCountAggregateInputType = {
   name?: true
   email?: true
   PhoneNumber?: true
+  contactName?: true
   logo?: true
   tags?: true
   assignUsername?: true
@@ -184,6 +190,7 @@ export type CompanyGroupByOutputType = {
   name: string
   email: string
   PhoneNumber: string
+  contactName: string | null
   logo: string | null
   tags: string[]
   assignUsername: string | null
@@ -219,6 +226,7 @@ export type CompanyWhereInput = {
   name?: Prisma.StringFilter<"Company"> | string
   email?: Prisma.StringFilter<"Company"> | string
   PhoneNumber?: Prisma.StringFilter<"Company"> | string
+  contactName?: Prisma.StringNullableFilter<"Company"> | string | null
   logo?: Prisma.StringNullableFilter<"Company"> | string | null
   tags?: Prisma.StringNullableListFilter<"Company">
   assignUsername?: Prisma.StringNullableFilter<"Company"> | string | null
@@ -235,6 +243,7 @@ export type CompanyOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   PhoneNumber?: Prisma.SortOrder
+  contactName?: Prisma.SortOrderInput | Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   assignUsername?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -254,6 +263,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Company"> | string
   email?: Prisma.StringFilter<"Company"> | string
   PhoneNumber?: Prisma.StringFilter<"Company"> | string
+  contactName?: Prisma.StringNullableFilter<"Company"> | string | null
   logo?: Prisma.StringNullableFilter<"Company"> | string | null
   tags?: Prisma.StringNullableListFilter<"Company">
   assignUsername?: Prisma.StringNullableFilter<"Company"> | string | null
@@ -270,6 +280,7 @@ export type CompanyOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   PhoneNumber?: Prisma.SortOrder
+  contactName?: Prisma.SortOrderInput | Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   assignUsername?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -290,6 +301,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Company"> | string
   email?: Prisma.StringWithAggregatesFilter<"Company"> | string
   PhoneNumber?: Prisma.StringWithAggregatesFilter<"Company"> | string
+  contactName?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   logo?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   tags?: Prisma.StringNullableListFilter<"Company">
   assignUsername?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
@@ -304,6 +316,7 @@ export type CompanyCreateInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -319,6 +332,7 @@ export type CompanyUncheckedCreateInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -334,6 +348,7 @@ export type CompanyUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -349,6 +364,7 @@ export type CompanyUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -364,6 +380,7 @@ export type CompanyCreateManyInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -378,6 +395,7 @@ export type CompanyUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -391,6 +409,7 @@ export type CompanyUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -413,6 +432,7 @@ export type CompanyCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   PhoneNumber?: Prisma.SortOrder
+  contactName?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   assignUsername?: Prisma.SortOrder
@@ -427,6 +447,7 @@ export type CompanyMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   PhoneNumber?: Prisma.SortOrder
+  contactName?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   assignUsername?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -440,6 +461,7 @@ export type CompanyMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   PhoneNumber?: Prisma.SortOrder
+  contactName?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   assignUsername?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -549,6 +571,7 @@ export type CompanyCreateWithoutNotesInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -563,6 +586,7 @@ export type CompanyUncheckedCreateWithoutNotesInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -593,6 +617,7 @@ export type CompanyUpdateWithoutNotesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -607,6 +632,7 @@ export type CompanyUncheckedUpdateWithoutNotesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -621,6 +647,7 @@ export type CompanyCreateWithoutUserInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -635,6 +662,7 @@ export type CompanyUncheckedCreateWithoutUserInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -678,6 +706,7 @@ export type CompanyScalarWhereInput = {
   name?: Prisma.StringFilter<"Company"> | string
   email?: Prisma.StringFilter<"Company"> | string
   PhoneNumber?: Prisma.StringFilter<"Company"> | string
+  contactName?: Prisma.StringNullableFilter<"Company"> | string | null
   logo?: Prisma.StringNullableFilter<"Company"> | string | null
   tags?: Prisma.StringNullableListFilter<"Company">
   assignUsername?: Prisma.StringNullableFilter<"Company"> | string | null
@@ -692,6 +721,7 @@ export type CompanyCreateManyUserInput = {
   name: string
   email: string
   PhoneNumber: string
+  contactName?: string | null
   logo?: string | null
   tags?: Prisma.CompanyCreatetagsInput | string[]
   assignUsername?: string | null
@@ -705,6 +735,7 @@ export type CompanyUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -719,6 +750,7 @@ export type CompanyUncheckedUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -733,6 +765,7 @@ export type CompanyUncheckedUpdateManyWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   PhoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  contactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.CompanyUpdatetagsInput | string[]
   assignUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -777,6 +810,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name?: boolean
   email?: boolean
   PhoneNumber?: boolean
+  contactName?: boolean
   logo?: boolean
   tags?: boolean
   assignUsername?: boolean
@@ -794,6 +828,7 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   email?: boolean
   PhoneNumber?: boolean
+  contactName?: boolean
   logo?: boolean
   tags?: boolean
   assignUsername?: boolean
@@ -809,6 +844,7 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   email?: boolean
   PhoneNumber?: boolean
+  contactName?: boolean
   logo?: boolean
   tags?: boolean
   assignUsername?: boolean
@@ -824,6 +860,7 @@ export type CompanySelectScalar = {
   name?: boolean
   email?: boolean
   PhoneNumber?: boolean
+  contactName?: boolean
   logo?: boolean
   tags?: boolean
   assignUsername?: boolean
@@ -833,7 +870,7 @@ export type CompanySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "PhoneNumber" | "logo" | "tags" | "assignUsername" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "PhoneNumber" | "contactName" | "logo" | "tags" | "assignUsername" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   notes?: boolean | Prisma.Company$notesArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -857,6 +894,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     name: string
     email: string
     PhoneNumber: string
+    contactName: string | null
     logo: string | null
     tags: string[]
     assignUsername: string | null
@@ -1293,6 +1331,7 @@ export interface CompanyFieldRefs {
   readonly name: Prisma.FieldRef<"Company", 'String'>
   readonly email: Prisma.FieldRef<"Company", 'String'>
   readonly PhoneNumber: Prisma.FieldRef<"Company", 'String'>
+  readonly contactName: Prisma.FieldRef<"Company", 'String'>
   readonly logo: Prisma.FieldRef<"Company", 'String'>
   readonly tags: Prisma.FieldRef<"Company", 'String[]'>
   readonly assignUsername: Prisma.FieldRef<"Company", 'String'>

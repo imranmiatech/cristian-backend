@@ -3,6 +3,7 @@ model Company {
   name           String
   email          String
   PhoneNumber    String
+  contactName    String?
   logo           String?
   tags           String[]
   assignUsername String?

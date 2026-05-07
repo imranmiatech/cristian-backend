@@ -99,7 +99,8 @@ export class CompanyService {
                     OR: [
                         { name: { contains: search, mode: 'insensitive' } },
                         { email: { contains: search, mode: 'insensitive' } },
-                        { PhoneNumber: { contains: search } },
+                        { PhoneNumber: { contains: search, mode: 'insensitive' } },
+                        { contactName: { contains: search, mode: 'insensitive' } },
                         { tags: { has: search } },
                         {
                             notes: {
@@ -108,6 +109,7 @@ export class CompanyService {
                                     OR: [
                                         { title: { contains: search, mode: 'insensitive' } },
                                         { content: { contains: search, mode: 'insensitive' } },
+                                        { contactName: { contains: search, mode: 'insensitive' } },
                                         { interactionTypes: { some: { name: { contains: search, mode: 'insensitive' } } } },
                                         { services: { some: { name: { contains: search, mode: 'insensitive' } } } }
                                     ]

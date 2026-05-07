@@ -67,7 +67,7 @@ export class CompanyController {
         name: 'search',
         required: false,
         type: String,
-        description: 'Search by name, email, phone, tags, or note content'
+        description: 'Search by name, email, phone, contact name, tags, or note content'
     })
     @ApiQuery({ name: 'status', required: false, enum: CompanyStatus })
     async findAll(
