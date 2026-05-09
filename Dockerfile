@@ -5,6 +5,8 @@ RUN npm install -g pnpm
 
 FROM base AS builder
 COPY package.json pnpm-lock.yaml prisma.config.ts ./
+RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm approve-builds
 RUN pnpm install --frozen-lockfile
 COPY prisma ./prisma
 RUN pnpm exec prisma generate
@@ -13,6 +15,8 @@ RUN pnpm run build
 
 FROM base AS prod-deps
 COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm approve-builds
 RUN pnpm install --frozen-lockfile
 
 FROM base AS production
