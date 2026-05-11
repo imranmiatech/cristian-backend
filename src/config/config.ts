@@ -2,7 +2,7 @@ export default () => ({
   port: parseInt(process.env.PORT || '9000', 10),
   node_env: process.env.NODE_ENV || 'development',
 
-  database_url: 'postgresql://imran:2427@localhost:5432/ihan?schema=public',
+  database_url: process.env.DATABASE_URL,
 
   security: {
     bcrypt_salt_rounds: parseInt(process.env.BCRYPT_SALT_ROUNDS || '12', 10),

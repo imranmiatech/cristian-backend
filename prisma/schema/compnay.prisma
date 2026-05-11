@@ -1,24 +1,18 @@
 model Company {
-  id             String   @id @default(uuid())
+  id             String        @id @default(uuid())
   name           String
   email          String
   PhoneNumber    String
-  contactName    String?
   logo           String?
   tags           String[]
+  status         CompanyStatus @default(ACTIVE)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
   assignUsername String?
-
-  status CompanyStatus @default(ACTIVE)
-
-  notes    Note[]
-
-
-
-  userId String
-  user   User @relation(fields: [userId], references: [id])
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  userId         String
+  contactName    String?
+  user           User          @relation(fields: [userId], references: [id])
+  notes          Note[]
 }
 
 enum CompanyStatus {

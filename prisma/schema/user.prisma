@@ -1,30 +1,25 @@
 model User {
-  id           String         @id @default(uuid())
-  email        String         @unique
-  name         String
-  password     String
-  mobile       String?
-  profile      String?
-  role         UserRole
-  status       UserStatus     @default(PENDING)
-  
-  // Back-relations
-  refreshTokens RefreshToken[]
-  company       Company[]
-  notes         Note[]
-  noteHistories NoteHistory[]
-
-  failedLoginAttempts Int       @default(0)
+  id                  String         @id @default(uuid())
+  email               String         @unique
+  name                String
+  password            String
+  mobile              String?
+  profile             String?
+  role                UserRole
+  status              UserStatus     @default(PENDING)
+  failedLoginAttempts Int            @default(0)
   lastFailedAttempt   DateTime?
   lockUntil           DateTime?
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  deletedAt           DateTime?
+  company             Company[]
+  notes               Note[]
+  noteHistories       NoteHistory[]
+  refreshTokens       RefreshToken[]
 
   @@index([email, status, deletedAt])
 }
-
 
 enum UserStatus {
   PENDING

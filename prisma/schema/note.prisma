@@ -1,38 +1,24 @@
 model Note {
-  id        String   @id @default(uuid())
-  title     String?
-  content   String?
-  contactName String?
-
-  // Structured relations (NO String[])
-  services         Service[]         @relation("NoteServices")
+  id               String            @id @default(uuid())
+  title            String?
+  content          String?
+  companyId        String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  isPinned         Boolean           @default(false)
+  authorId         String?
+  type             String?           @default("GENERAL")
+  deletedAt        DateTime?
+  parentId         String?
+  contactName      String?
+  documents        Attachment[]
+  author           User?             @relation(fields: [authorId], references: [id])
+  company          Company           @relation(fields: [companyId], references: [id])
+  parent           Note?             @relation("FollowUps", fields: [parentId], references: [id])
+  followUps        Note[]            @relation("FollowUps")
+  history          NoteHistory[]
   interactionTypes InteractionType[] @relation("NoteInteractions")
-
-
-  isPinned Boolean @default(false)
-  type     String? @default("GENERAL")
-
-  // --- Relations ---
-  companyId String
-  company   Company @relation(fields: [companyId], references: [id])
-
-  authorId String?
-  author   User?   @relation(fields: [authorId], references: [id])
-
-  documents Attachment[]
-
-  // --- History (Audit trail) ---
-  history NoteHistory[]
-
-  // --- Follow-up chain (chronological system)
-  parentId  String?
-  parent    Note?  @relation("FollowUps", fields: [parentId], references: [id])
-  followUps Note[] @relation("FollowUps")
-
-  // --- State ---
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deletedAt DateTime?
+  services         Service[]         @relation("NoteServices")
 
   @@index([companyId, deletedAt])
   @@index([parentId])
@@ -42,38 +28,29 @@ model Note {
 }
 
 model NoteHistory {
-  id     String @id @default(uuid())
-
-  noteId String
-  note   Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
-
-  // Old values
+  id                  String   @id @default(uuid())
+  noteId              String
   oldTitle            String?
   oldContent          String?
-  oldContactName      String?
-  oldServices         Json?
-  oldInteractionTypes Json?
+  changedById         String
+  createdAt           DateTime @default(now())
+  action              String
   oldDocuments        Json?
+  oldInteractionTypes Json?
+  oldServices         Json?
+  newContactName      String?
+  newContent          String?
+  newDocuments        Json?
+  newInteractionTypes Json?
+  newIsPinned         Boolean?
+  newServices         Json?
+  newTitle            String?
+  newType             String?
+  oldContactName      String?
   oldIsPinned         Boolean?
   oldType             String?
-
-  // New values
-  newTitle            String?
-  newContent          String?
-  newContactName      String?
-  newServices         Json?
-  newInteractionTypes Json?
-  newDocuments        Json?
-  newIsPinned         Boolean?
-  newType             String?
-
-  // Audit info
-  changedById String
-  changedBy   User @relation(fields: [changedById], references: [id])
-
-  action String
-
-  createdAt DateTime @default(now())
+  changedBy           User     @relation(fields: [changedById], references: [id])
+  note                Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
 }
 
 model Attachment {
@@ -84,7 +61,6 @@ model Attachment {
   fileSize  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  noteId String?
-  note   Note?   @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  noteId    String?
+  note      Note?    @relation(fields: [noteId], references: [id], onDelete: Cascade)
 }
