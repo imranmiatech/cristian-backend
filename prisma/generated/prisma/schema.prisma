@@ -1,0 +1,209 @@
+model Company {
+  id             String   @id @default(uuid())
+  name           String
+  email          String
+  PhoneNumber    String
+  contactName    String?
+  logo           String?
+  tags           String[]
+  assignUsername String?
+
+  status CompanyStatus @default(ACTIVE)
+
+  notes Note[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum CompanyStatus {
+  ACTIVE
+  PENDING
+}
+
+model Note {
+  id          String  @id @default(uuid())
+  title       String?
+  content     String?
+  contactName String?
+
+  // Structured relations (NO String[])
+  services         Service[]         @relation("NoteServices")
+  interactionTypes InteractionType[] @relation("NoteInteractions")
+
+  isPinned Boolean @default(false)
+  type     String? @default("GENERAL")
+
+  // --- Relations ---
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+
+  authorId String?
+  author   User?   @relation(fields: [authorId], references: [id])
+
+  documents Attachment[]
+
+  // --- History (Audit trail) ---
+  history NoteHistory[]
+
+  // --- Follow-up chain (chronological system)
+  parentId  String?
+  parent    Note?   @relation("FollowUps", fields: [parentId], references: [id])
+  followUps Note[]  @relation("FollowUps")
+
+  // --- State ---
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([companyId, deletedAt])
+  @@index([parentId])
+  @@index([authorId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model NoteHistory {
+  id String @id @default(uuid())
+
+  noteId String
+  note   Note   @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  // Old values
+  oldTitle            String?
+  oldContent          String?
+  oldContactName      String?
+  oldServices         Json?
+  oldInteractionTypes Json?
+  oldDocuments        Json?
+  oldIsPinned         Boolean?
+  oldType             String?
+
+  // New values
+  newTitle            String?
+  newContent          String?
+  newContactName      String?
+  newServices         Json?
+  newInteractionTypes Json?
+  newDocuments        Json?
+  newIsPinned         Boolean?
+  newType             String?
+
+  // Audit info
+  changedById String
+  changedBy   User   @relation(fields: [changedById], references: [id])
+
+  action String
+
+  createdAt DateTime @default(now())
+}
+
+model Attachment {
+  id        String   @id @default(uuid())
+  fileName  String?
+  fileUrl   String
+  fileType  String?
+  fileSize  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  noteId String?
+  note   Note?   @relation(fields: [noteId], references: [id], onDelete: Cascade)
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  jti       String @unique
+  tokenHash String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deviceId  String?
+  userAgent String?
+  ipAddress String?
+
+  lastUsedAt DateTime? @default(now())
+  expiresAt  DateTime
+  isRevoked  Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([userId, deviceId, isRevoked])
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../generated/prisma"
+  moduleFormat  = "cjs"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+// datasource db {
+//   provider = "postgresql"
+// }
+datasource db {
+  provider = "postgresql"
+}
+
+model Service {
+  id   String @id @default(uuid())
+  name String @unique
+
+  notes Note[] @relation("NoteServices")
+}
+
+model InteractionType {
+  id   String @id @default(uuid())
+  name String @unique
+
+  notes Note[] @relation("NoteInteractions")
+}
+
+model Tag {
+  id   String @id @default(uuid())
+  name String @unique
+}
+
+model User {
+  id       String     @id @default(uuid())
+  email    String     @unique
+  name     String
+  password String
+  mobile   String?
+  profile  String?
+  role     UserRole
+  status   UserStatus @default(PENDING)
+
+  // Back-relations
+  refreshTokens RefreshToken[]
+  company       Company[]
+  notes         Note[]
+  noteHistories NoteHistory[]
+
+  failedLoginAttempts Int       @default(0)
+  lastFailedAttempt   DateTime?
+  lockUntil           DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([email, status, deletedAt])
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum UserRole {
+  ADMIN
+  SUPER_ADMIN
+}
