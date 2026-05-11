@@ -10,22 +10,29 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   private readonly logger = new Logger(PrismaService.name);
 
   constructor() {
-    const connectionString = process.env.DATABASE_URL;
-    const isLocal = connectionString?.includes('localhost') || connectionString?.includes('127.0.0.1');
-    
-    const pool = new Pool({
-      connectionString,
-      ssl: isLocal ? false : { rejectUnauthorized: false },
-      connectionTimeoutMillis: 10000,
+    const dbUrl = process.env.DATABASE_URL;
+    const pool = new Pool({ 
+      connectionString: dbUrl,
       max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
     });
-    
     const adapter = new PrismaPg(pool);
 
     super({ adapter });
     this.pool = pool;
 
+    if (!dbUrl) {
+      this.logger.error('❌ DATABASE_URL is not defined in environment variables!');
+    }
+
+    const isLocal = dbUrl?.includes('localhost') || !dbUrl;
     this.logger.log(`PrismaService initialized (Mode: ${isLocal ? 'Local' : 'Remote'})`);
+    
+    if (!isLocal && dbUrl) {
+      const host = dbUrl.split('@')[1]?.split('/')[0] || 'unknown';
+      this.logger.log(`Connecting to remote database at: ${host}`);
+    }
   }
 
   async onModuleInit() {
