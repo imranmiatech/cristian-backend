@@ -24,8 +24,15 @@ import { TagModule } from './modules/tag/tag.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         connection: {
-          host: config.get('redis.host') || 'redis_cache',
-          port: config.get('redis.port') || 6379,
+          host: config.get('redis.host'),
+          port: config.get('redis.port'),
+          password: config.get('redis.password'),
+          tls: config.get('redis.host')?.includes('upstash.io') ? {
+            rejectUnauthorized: false,
+          } : undefined,
+          maxRetriesPerRequest: null,
+          connectTimeout: 20000,
+          keepAlive: 30000,
         },
       }),
     }),

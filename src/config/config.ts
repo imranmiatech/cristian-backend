@@ -34,9 +34,11 @@ export default () => ({
   },
 
   redis: {
-    host: process.env.REDIS_HOST,
+    host: process.env.UPSTASH_REDIS_REST_URL ? process.env.UPSTASH_REDIS_REST_URL.replace('https://', '').split('/')[0] : (process.env.REDIS_HOST || 'localhost'),
     port: parseInt(process.env.REDIS_PORT || '6379', 10),
-    url: process.env.REDIS_CONNECTION_URL,
+    password: process.env.UPSTASH_REDIS_REST_TOKEN || process.env.REDIS_PASSWORD,
+    upstash_rest_url: process.env.UPSTASH_REDIS_REST_URL,
+    upstash_rest_token: process.env.UPSTASH_REDIS_REST_TOKEN,
   },
 
   smtp: {

@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import Redis from 'ioredis';
+import { Redis } from '@upstash/redis';
 
 @Injectable()
 export class RedisService implements OnModuleInit {
@@ -8,44 +8,32 @@ export class RedisService implements OnModuleInit {
 
   constructor(private readonly configService: ConfigService) { }
 
-  // onModuleInit() {
-  //   const redisUrl =
-  //     this.configService.get<string>('redis.url') ||
-  //     `redis://${this.configService.get<string>('redis.host') || 'localhost'}:${this.configService.get<number>('redis.port') || 6379}`;
-
-  //   this.redis = new Redis(redisUrl);
-  // }
   onModuleInit() {
-    const redisUrl = this.configService.get<string>('redis.url');
-    const host = this.configService.get<string>('redis.host');
-    const port = this.configService.get<number>('redis.port');
+    const url = this.configService.get<string>('redis.upstash_rest_url');
+    const token = this.configService.get<string>('redis.upstash_rest_token');
 
-    if (redisUrl) {
-      this.redis = new Redis(redisUrl);
+    if (url && token) {
+      this.redis = new Redis({
+        url: url,
+        token: token,
+      });
+      console.log('🚀 Redis Connected via Upstash REST');
     } else {
-      this.redis = new Redis({ host, port });
+      console.warn('⚠️ Upstash Redis REST credentials missing. RedisService might not work.');
     }
-
-    this.redis.on('connect', () => {
-      console.log(` Redis Connected via ${redisUrl ? 'URL' : host + ':' + port}`);
-    });
-
-    this.redis.on('error', (err) => {
-      console.error(' Redis Connection Error:', err.message);
-    });
   }
   // --- Basic Key-Value Operations ---
 
   async set(key: string, value: string, ttl?: number) {
     if (ttl) {
-      await this.redis.set(key, value, 'EX', ttl);
+      await this.redis.set(key, value, { ex: ttl });
     } else {
       await this.redis.set(key, value);
     }
   }
 
   async get(key: string) {
-    return this.redis.get(key);
+    return this.redis.get<string>(key);
   }
 
   async del(key: string) {
@@ -55,11 +43,11 @@ export class RedisService implements OnModuleInit {
   // --- Hash Operations (Keeping your original names) ---
 
   async hSet(hash: string, key: string, value: string) {
-    await this.redis.hset(hash, key, value);
+    await this.redis.hset(hash, { [key]: value });
   }
 
   async hGet(hash: string, key: string) {
-    return this.redis.hget(hash, key);
+    return this.redis.hget<string>(hash, key);
   }
 
   async hDel(hash: string, key: string) {
@@ -74,7 +62,7 @@ export class RedisService implements OnModuleInit {
 
   async exists(key: string): Promise<boolean> {
     const result = await this.redis.exists(key);
-    return result === 1;
+    return result > 0;
   }
 }
 
