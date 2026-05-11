@@ -12,11 +12,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
   constructor(private readonly config: ConfigService) {
     const dbUrl = config.get<string>('database_url');
+    const isLocal = dbUrl?.includes('localhost') || !dbUrl;
     const pool = new Pool({ 
       connectionString: dbUrl,
       max: 10,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 15000,
+      ssl: isLocal ? false : { rejectUnauthorized: false },
     });
     const adapter = new PrismaPg(pool);
 
@@ -27,7 +29,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       this.logger.error('❌ DATABASE_URL is not defined in environment variables!');
     }
 
-    const isLocal = dbUrl?.includes('localhost') || !dbUrl;
     this.logger.log(`PrismaService initialized (Mode: ${isLocal ? 'Local' : 'Remote'})`);
     
     if (!isLocal && dbUrl) {
