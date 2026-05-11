@@ -125,29 +125,29 @@ exports.Prisma.CompanyScalarFieldEnum = {
   name: 'name',
   email: 'email',
   PhoneNumber: 'PhoneNumber',
-  contactName: 'contactName',
   logo: 'logo',
   tags: 'tags',
-  assignUsername: 'assignUsername',
   status: 'status',
-  userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  assignUsername: 'assignUsername',
+  userId: 'userId',
+  contactName: 'contactName'
 };
 
 exports.Prisma.NoteScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
-  contactName: 'contactName',
-  isPinned: 'isPinned',
-  type: 'type',
   companyId: 'companyId',
-  authorId: 'authorId',
-  parentId: 'parentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  isPinned: 'isPinned',
+  authorId: 'authorId',
+  type: 'type',
+  deletedAt: 'deletedAt',
+  parentId: 'parentId',
+  contactName: 'contactName'
 };
 
 exports.Prisma.NoteHistoryScalarFieldEnum = {
@@ -155,23 +155,23 @@ exports.Prisma.NoteHistoryScalarFieldEnum = {
   noteId: 'noteId',
   oldTitle: 'oldTitle',
   oldContent: 'oldContent',
-  oldContactName: 'oldContactName',
-  oldServices: 'oldServices',
-  oldInteractionTypes: 'oldInteractionTypes',
-  oldDocuments: 'oldDocuments',
-  oldIsPinned: 'oldIsPinned',
-  oldType: 'oldType',
-  newTitle: 'newTitle',
-  newContent: 'newContent',
-  newContactName: 'newContactName',
-  newServices: 'newServices',
-  newInteractionTypes: 'newInteractionTypes',
-  newDocuments: 'newDocuments',
-  newIsPinned: 'newIsPinned',
-  newType: 'newType',
   changedById: 'changedById',
+  createdAt: 'createdAt',
   action: 'action',
-  createdAt: 'createdAt'
+  oldDocuments: 'oldDocuments',
+  oldInteractionTypes: 'oldInteractionTypes',
+  oldServices: 'oldServices',
+  newContactName: 'newContactName',
+  newContent: 'newContent',
+  newDocuments: 'newDocuments',
+  newInteractionTypes: 'newInteractionTypes',
+  newIsPinned: 'newIsPinned',
+  newServices: 'newServices',
+  newTitle: 'newTitle',
+  newType: 'newType',
+  oldContactName: 'oldContactName',
+  oldIsPinned: 'oldIsPinned',
+  oldType: 'oldType'
 };
 
 exports.Prisma.AttachmentScalarFieldEnum = {

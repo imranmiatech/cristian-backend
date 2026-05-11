@@ -1664,19 +1664,19 @@ export namespace Prisma {
    */
 
   export type NoteCountOutputType = {
-    services: number
-    interactionTypes: number
     documents: number
-    history: number
     followUps: number
+    history: number
+    interactionTypes: number
+    services: number
   }
 
   export type NoteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    services?: boolean | NoteCountOutputTypeCountServicesArgs
-    interactionTypes?: boolean | NoteCountOutputTypeCountInteractionTypesArgs
     documents?: boolean | NoteCountOutputTypeCountDocumentsArgs
-    history?: boolean | NoteCountOutputTypeCountHistoryArgs
     followUps?: boolean | NoteCountOutputTypeCountFollowUpsArgs
+    history?: boolean | NoteCountOutputTypeCountHistoryArgs
+    interactionTypes?: boolean | NoteCountOutputTypeCountInteractionTypesArgs
+    services?: boolean | NoteCountOutputTypeCountServicesArgs
   }
 
   // Custom InputTypes
@@ -1693,22 +1693,15 @@ export namespace Prisma {
   /**
    * NoteCountOutputType without action
    */
-  export type NoteCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServiceWhereInput
-  }
-
-  /**
-   * NoteCountOutputType without action
-   */
-  export type NoteCountOutputTypeCountInteractionTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: InteractionTypeWhereInput
-  }
-
-  /**
-   * NoteCountOutputType without action
-   */
   export type NoteCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AttachmentWhereInput
+  }
+
+  /**
+   * NoteCountOutputType without action
+   */
+  export type NoteCountOutputTypeCountFollowUpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NoteWhereInput
   }
 
   /**
@@ -1721,8 +1714,15 @@ export namespace Prisma {
   /**
    * NoteCountOutputType without action
    */
-  export type NoteCountOutputTypeCountFollowUpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NoteWhereInput
+  export type NoteCountOutputTypeCountInteractionTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InteractionTypeWhereInput
+  }
+
+  /**
+   * NoteCountOutputType without action
+   */
+  export type NoteCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
   }
 
 
@@ -1793,17 +1793,17 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    refreshTokens: number
     company: number
     notes: number
     noteHistories: number
+    refreshTokens: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
     company?: boolean | UserCountOutputTypeCountCompanyArgs
     notes?: boolean | UserCountOutputTypeCountNotesArgs
     noteHistories?: boolean | UserCountOutputTypeCountNoteHistoriesArgs
+    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   }
 
   // Custom InputTypes
@@ -1815,13 +1815,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RefreshTokenWhereInput
   }
 
   /**
@@ -1845,6 +1838,13 @@ export namespace Prisma {
     where?: NoteHistoryWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefreshTokenWhereInput
+  }
+
 
   /**
    * Models
@@ -1865,13 +1865,13 @@ export namespace Prisma {
     name: string | null
     email: string | null
     PhoneNumber: string | null
-    contactName: string | null
     logo: string | null
-    assignUsername: string | null
     status: $Enums.CompanyStatus | null
-    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    assignUsername: string | null
+    userId: string | null
+    contactName: string | null
   }
 
   export type CompanyMaxAggregateOutputType = {
@@ -1879,13 +1879,13 @@ export namespace Prisma {
     name: string | null
     email: string | null
     PhoneNumber: string | null
-    contactName: string | null
     logo: string | null
-    assignUsername: string | null
     status: $Enums.CompanyStatus | null
-    userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    assignUsername: string | null
+    userId: string | null
+    contactName: string | null
   }
 
   export type CompanyCountAggregateOutputType = {
@@ -1893,14 +1893,14 @@ export namespace Prisma {
     name: number
     email: number
     PhoneNumber: number
-    contactName: number
     logo: number
     tags: number
-    assignUsername: number
     status: number
-    userId: number
     createdAt: number
     updatedAt: number
+    assignUsername: number
+    userId: number
+    contactName: number
     _all: number
   }
 
@@ -1910,13 +1910,13 @@ export namespace Prisma {
     name?: true
     email?: true
     PhoneNumber?: true
-    contactName?: true
     logo?: true
-    assignUsername?: true
     status?: true
-    userId?: true
     createdAt?: true
     updatedAt?: true
+    assignUsername?: true
+    userId?: true
+    contactName?: true
   }
 
   export type CompanyMaxAggregateInputType = {
@@ -1924,13 +1924,13 @@ export namespace Prisma {
     name?: true
     email?: true
     PhoneNumber?: true
-    contactName?: true
     logo?: true
-    assignUsername?: true
     status?: true
-    userId?: true
     createdAt?: true
     updatedAt?: true
+    assignUsername?: true
+    userId?: true
+    contactName?: true
   }
 
   export type CompanyCountAggregateInputType = {
@@ -1938,14 +1938,14 @@ export namespace Prisma {
     name?: true
     email?: true
     PhoneNumber?: true
-    contactName?: true
     logo?: true
     tags?: true
-    assignUsername?: true
     status?: true
-    userId?: true
     createdAt?: true
     updatedAt?: true
+    assignUsername?: true
+    userId?: true
+    contactName?: true
     _all?: true
   }
 
@@ -2026,14 +2026,14 @@ export namespace Prisma {
     name: string
     email: string
     PhoneNumber: string
-    contactName: string | null
     logo: string | null
     tags: string[]
-    assignUsername: string | null
     status: $Enums.CompanyStatus
-    userId: string
     createdAt: Date
     updatedAt: Date
+    assignUsername: string | null
+    userId: string
+    contactName: string | null
     _count: CompanyCountAggregateOutputType | null
     _min: CompanyMinAggregateOutputType | null
     _max: CompanyMaxAggregateOutputType | null
@@ -2058,16 +2058,16 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     PhoneNumber?: boolean
-    contactName?: boolean
     logo?: boolean
     tags?: boolean
-    assignUsername?: boolean
     status?: boolean
-    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    notes?: boolean | Company$notesArgs<ExtArgs>
+    assignUsername?: boolean
+    userId?: boolean
+    contactName?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    notes?: boolean | Company$notesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -2076,14 +2076,14 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     PhoneNumber?: boolean
-    contactName?: boolean
     logo?: boolean
     tags?: boolean
-    assignUsername?: boolean
     status?: boolean
-    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    assignUsername?: boolean
+    userId?: boolean
+    contactName?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -2092,14 +2092,14 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     PhoneNumber?: boolean
-    contactName?: boolean
     logo?: boolean
     tags?: boolean
-    assignUsername?: boolean
     status?: boolean
-    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    assignUsername?: boolean
+    userId?: boolean
+    contactName?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -2108,20 +2108,20 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     PhoneNumber?: boolean
-    contactName?: boolean
     logo?: boolean
     tags?: boolean
-    assignUsername?: boolean
     status?: boolean
-    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    assignUsername?: boolean
+    userId?: boolean
+    contactName?: boolean
   }
 
-  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "PhoneNumber" | "contactName" | "logo" | "tags" | "assignUsername" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "PhoneNumber" | "logo" | "tags" | "status" | "createdAt" | "updatedAt" | "assignUsername" | "userId" | "contactName", ExtArgs["result"]["company"]>
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    notes?: boolean | Company$notesArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    notes?: boolean | Company$notesArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2134,22 +2134,22 @@ export namespace Prisma {
   export type $CompanyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Company"
     objects: {
-      notes: Prisma.$NotePayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
+      notes: Prisma.$NotePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       email: string
       PhoneNumber: string
-      contactName: string | null
       logo: string | null
       tags: string[]
-      assignUsername: string | null
       status: $Enums.CompanyStatus
-      userId: string
       createdAt: Date
       updatedAt: Date
+      assignUsername: string | null
+      userId: string
+      contactName: string | null
     }, ExtArgs["result"]["company"]>
     composites: {}
   }
@@ -2544,8 +2544,8 @@ export namespace Prisma {
    */
   export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    notes<T extends Company$notesArgs<ExtArgs> = {}>(args?: Subset<T, Company$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    notes<T extends Company$notesArgs<ExtArgs> = {}>(args?: Subset<T, Company$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2579,14 +2579,14 @@ export namespace Prisma {
     readonly name: FieldRef<"Company", 'String'>
     readonly email: FieldRef<"Company", 'String'>
     readonly PhoneNumber: FieldRef<"Company", 'String'>
-    readonly contactName: FieldRef<"Company", 'String'>
     readonly logo: FieldRef<"Company", 'String'>
     readonly tags: FieldRef<"Company", 'String[]'>
-    readonly assignUsername: FieldRef<"Company", 'String'>
     readonly status: FieldRef<"Company", 'CompanyStatus'>
-    readonly userId: FieldRef<"Company", 'String'>
     readonly createdAt: FieldRef<"Company", 'DateTime'>
     readonly updatedAt: FieldRef<"Company", 'DateTime'>
+    readonly assignUsername: FieldRef<"Company", 'String'>
+    readonly userId: FieldRef<"Company", 'String'>
+    readonly contactName: FieldRef<"Company", 'String'>
   }
     
 
@@ -3039,45 +3039,45 @@ export namespace Prisma {
     id: string | null
     title: string | null
     content: string | null
-    contactName: string | null
-    isPinned: boolean | null
-    type: string | null
     companyId: string | null
-    authorId: string | null
-    parentId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    isPinned: boolean | null
+    authorId: string | null
+    type: string | null
     deletedAt: Date | null
+    parentId: string | null
+    contactName: string | null
   }
 
   export type NoteMaxAggregateOutputType = {
     id: string | null
     title: string | null
     content: string | null
-    contactName: string | null
-    isPinned: boolean | null
-    type: string | null
     companyId: string | null
-    authorId: string | null
-    parentId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    isPinned: boolean | null
+    authorId: string | null
+    type: string | null
     deletedAt: Date | null
+    parentId: string | null
+    contactName: string | null
   }
 
   export type NoteCountAggregateOutputType = {
     id: number
     title: number
     content: number
-    contactName: number
-    isPinned: number
-    type: number
     companyId: number
-    authorId: number
-    parentId: number
     createdAt: number
     updatedAt: number
+    isPinned: number
+    authorId: number
+    type: number
     deletedAt: number
+    parentId: number
+    contactName: number
     _all: number
   }
 
@@ -3086,45 +3086,45 @@ export namespace Prisma {
     id?: true
     title?: true
     content?: true
-    contactName?: true
-    isPinned?: true
-    type?: true
     companyId?: true
-    authorId?: true
-    parentId?: true
     createdAt?: true
     updatedAt?: true
+    isPinned?: true
+    authorId?: true
+    type?: true
     deletedAt?: true
+    parentId?: true
+    contactName?: true
   }
 
   export type NoteMaxAggregateInputType = {
     id?: true
     title?: true
     content?: true
-    contactName?: true
-    isPinned?: true
-    type?: true
     companyId?: true
-    authorId?: true
-    parentId?: true
     createdAt?: true
     updatedAt?: true
+    isPinned?: true
+    authorId?: true
+    type?: true
     deletedAt?: true
+    parentId?: true
+    contactName?: true
   }
 
   export type NoteCountAggregateInputType = {
     id?: true
     title?: true
     content?: true
-    contactName?: true
-    isPinned?: true
-    type?: true
     companyId?: true
-    authorId?: true
-    parentId?: true
     createdAt?: true
     updatedAt?: true
+    isPinned?: true
+    authorId?: true
+    type?: true
     deletedAt?: true
+    parentId?: true
+    contactName?: true
     _all?: true
   }
 
@@ -3204,15 +3204,15 @@ export namespace Prisma {
     id: string
     title: string | null
     content: string | null
-    contactName: string | null
-    isPinned: boolean
-    type: string | null
     companyId: string
-    authorId: string | null
-    parentId: string | null
     createdAt: Date
     updatedAt: Date
+    isPinned: boolean
+    authorId: string | null
+    type: string | null
     deletedAt: Date | null
+    parentId: string | null
+    contactName: string | null
     _count: NoteCountAggregateOutputType | null
     _min: NoteMinAggregateOutputType | null
     _max: NoteMaxAggregateOutputType | null
@@ -3236,23 +3236,23 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
-    contactName?: boolean
-    isPinned?: boolean
-    type?: boolean
     companyId?: boolean
-    authorId?: boolean
-    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isPinned?: boolean
+    authorId?: boolean
+    type?: boolean
     deletedAt?: boolean
-    services?: boolean | Note$servicesArgs<ExtArgs>
-    interactionTypes?: boolean | Note$interactionTypesArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    author?: boolean | Note$authorArgs<ExtArgs>
+    parentId?: boolean
+    contactName?: boolean
     documents?: boolean | Note$documentsArgs<ExtArgs>
-    history?: boolean | Note$historyArgs<ExtArgs>
+    author?: boolean | Note$authorArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     parent?: boolean | Note$parentArgs<ExtArgs>
     followUps?: boolean | Note$followUpsArgs<ExtArgs>
+    history?: boolean | Note$historyArgs<ExtArgs>
+    interactionTypes?: boolean | Note$interactionTypesArgs<ExtArgs>
+    services?: boolean | Note$servicesArgs<ExtArgs>
     _count?: boolean | NoteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["note"]>
 
@@ -3260,17 +3260,17 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
-    contactName?: boolean
-    isPinned?: boolean
-    type?: boolean
     companyId?: boolean
-    authorId?: boolean
-    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isPinned?: boolean
+    authorId?: boolean
+    type?: boolean
     deletedAt?: boolean
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
+    parentId?: boolean
+    contactName?: boolean
     author?: boolean | Note$authorArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     parent?: boolean | Note$parentArgs<ExtArgs>
   }, ExtArgs["result"]["note"]>
 
@@ -3278,17 +3278,17 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
-    contactName?: boolean
-    isPinned?: boolean
-    type?: boolean
     companyId?: boolean
-    authorId?: boolean
-    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isPinned?: boolean
+    authorId?: boolean
+    type?: boolean
     deletedAt?: boolean
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
+    parentId?: boolean
+    contactName?: boolean
     author?: boolean | Note$authorArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     parent?: boolean | Note$parentArgs<ExtArgs>
   }, ExtArgs["result"]["note"]>
 
@@ -3296,65 +3296,65 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
-    contactName?: boolean
-    isPinned?: boolean
-    type?: boolean
     companyId?: boolean
-    authorId?: boolean
-    parentId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isPinned?: boolean
+    authorId?: boolean
+    type?: boolean
     deletedAt?: boolean
+    parentId?: boolean
+    contactName?: boolean
   }
 
-  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "contactName" | "isPinned" | "type" | "companyId" | "authorId" | "parentId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["note"]>
+  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "companyId" | "createdAt" | "updatedAt" | "isPinned" | "authorId" | "type" | "deletedAt" | "parentId" | "contactName", ExtArgs["result"]["note"]>
   export type NoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    services?: boolean | Note$servicesArgs<ExtArgs>
-    interactionTypes?: boolean | Note$interactionTypesArgs<ExtArgs>
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
-    author?: boolean | Note$authorArgs<ExtArgs>
     documents?: boolean | Note$documentsArgs<ExtArgs>
-    history?: boolean | Note$historyArgs<ExtArgs>
+    author?: boolean | Note$authorArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     parent?: boolean | Note$parentArgs<ExtArgs>
     followUps?: boolean | Note$followUpsArgs<ExtArgs>
+    history?: boolean | Note$historyArgs<ExtArgs>
+    interactionTypes?: boolean | Note$interactionTypesArgs<ExtArgs>
+    services?: boolean | Note$servicesArgs<ExtArgs>
     _count?: boolean | NoteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
     author?: boolean | Note$authorArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     parent?: boolean | Note$parentArgs<ExtArgs>
   }
   export type NoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    company?: boolean | CompanyDefaultArgs<ExtArgs>
     author?: boolean | Note$authorArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     parent?: boolean | Note$parentArgs<ExtArgs>
   }
 
   export type $NotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Note"
     objects: {
-      services: Prisma.$ServicePayload<ExtArgs>[]
-      interactionTypes: Prisma.$InteractionTypePayload<ExtArgs>[]
-      company: Prisma.$CompanyPayload<ExtArgs>
-      author: Prisma.$UserPayload<ExtArgs> | null
       documents: Prisma.$AttachmentPayload<ExtArgs>[]
-      history: Prisma.$NoteHistoryPayload<ExtArgs>[]
+      author: Prisma.$UserPayload<ExtArgs> | null
+      company: Prisma.$CompanyPayload<ExtArgs>
       parent: Prisma.$NotePayload<ExtArgs> | null
       followUps: Prisma.$NotePayload<ExtArgs>[]
+      history: Prisma.$NoteHistoryPayload<ExtArgs>[]
+      interactionTypes: Prisma.$InteractionTypePayload<ExtArgs>[]
+      services: Prisma.$ServicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string | null
       content: string | null
-      contactName: string | null
-      isPinned: boolean
-      type: string | null
       companyId: string
-      authorId: string | null
-      parentId: string | null
       createdAt: Date
       updatedAt: Date
+      isPinned: boolean
+      authorId: string | null
+      type: string | null
       deletedAt: Date | null
+      parentId: string | null
+      contactName: string | null
     }, ExtArgs["result"]["note"]>
     composites: {}
   }
@@ -3749,14 +3749,14 @@ export namespace Prisma {
    */
   export interface Prisma__NoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    services<T extends Note$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Note$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    interactionTypes<T extends Note$interactionTypesArgs<ExtArgs> = {}>(args?: Subset<T, Note$interactionTypesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    author<T extends Note$authorArgs<ExtArgs> = {}>(args?: Subset<T, Note$authorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     documents<T extends Note$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Note$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    history<T extends Note$historyArgs<ExtArgs> = {}>(args?: Subset<T, Note$historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NoteHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    author<T extends Note$authorArgs<ExtArgs> = {}>(args?: Subset<T, Note$authorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     parent<T extends Note$parentArgs<ExtArgs> = {}>(args?: Subset<T, Note$parentArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     followUps<T extends Note$followUpsArgs<ExtArgs> = {}>(args?: Subset<T, Note$followUpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    history<T extends Note$historyArgs<ExtArgs> = {}>(args?: Subset<T, Note$historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NoteHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    interactionTypes<T extends Note$interactionTypesArgs<ExtArgs> = {}>(args?: Subset<T, Note$interactionTypesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    services<T extends Note$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Note$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3789,15 +3789,15 @@ export namespace Prisma {
     readonly id: FieldRef<"Note", 'String'>
     readonly title: FieldRef<"Note", 'String'>
     readonly content: FieldRef<"Note", 'String'>
-    readonly contactName: FieldRef<"Note", 'String'>
-    readonly isPinned: FieldRef<"Note", 'Boolean'>
-    readonly type: FieldRef<"Note", 'String'>
     readonly companyId: FieldRef<"Note", 'String'>
-    readonly authorId: FieldRef<"Note", 'String'>
-    readonly parentId: FieldRef<"Note", 'String'>
     readonly createdAt: FieldRef<"Note", 'DateTime'>
     readonly updatedAt: FieldRef<"Note", 'DateTime'>
+    readonly isPinned: FieldRef<"Note", 'Boolean'>
+    readonly authorId: FieldRef<"Note", 'String'>
+    readonly type: FieldRef<"Note", 'String'>
     readonly deletedAt: FieldRef<"Note", 'DateTime'>
+    readonly parentId: FieldRef<"Note", 'String'>
+    readonly contactName: FieldRef<"Note", 'String'>
   }
     
 
@@ -4194,73 +4194,6 @@ export namespace Prisma {
   }
 
   /**
-   * Note.services
-   */
-  export type Note$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Service
-     */
-    select?: ServiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Service
-     */
-    omit?: ServiceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ServiceInclude<ExtArgs> | null
-    where?: ServiceWhereInput
-    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
-    cursor?: ServiceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
-  }
-
-  /**
-   * Note.interactionTypes
-   */
-  export type Note$interactionTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the InteractionType
-     */
-    select?: InteractionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the InteractionType
-     */
-    omit?: InteractionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InteractionTypeInclude<ExtArgs> | null
-    where?: InteractionTypeWhereInput
-    orderBy?: InteractionTypeOrderByWithRelationInput | InteractionTypeOrderByWithRelationInput[]
-    cursor?: InteractionTypeWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: InteractionTypeScalarFieldEnum | InteractionTypeScalarFieldEnum[]
-  }
-
-  /**
-   * Note.author
-   */
-  export type Note$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
    * Note.documents
    */
   export type Note$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4285,27 +4218,22 @@ export namespace Prisma {
   }
 
   /**
-   * Note.history
+   * Note.author
    */
-  export type Note$historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Note$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the NoteHistory
+     * Select specific fields to fetch from the User
      */
-    select?: NoteHistorySelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the NoteHistory
+     * Omit specific fields from the User
      */
-    omit?: NoteHistoryOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: NoteHistoryInclude<ExtArgs> | null
-    where?: NoteHistoryWhereInput
-    orderBy?: NoteHistoryOrderByWithRelationInput | NoteHistoryOrderByWithRelationInput[]
-    cursor?: NoteHistoryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NoteHistoryScalarFieldEnum | NoteHistoryScalarFieldEnum[]
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -4352,6 +4280,78 @@ export namespace Prisma {
   }
 
   /**
+   * Note.history
+   */
+  export type Note$historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NoteHistory
+     */
+    select?: NoteHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NoteHistory
+     */
+    omit?: NoteHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NoteHistoryInclude<ExtArgs> | null
+    where?: NoteHistoryWhereInput
+    orderBy?: NoteHistoryOrderByWithRelationInput | NoteHistoryOrderByWithRelationInput[]
+    cursor?: NoteHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NoteHistoryScalarFieldEnum | NoteHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Note.interactionTypes
+   */
+  export type Note$interactionTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InteractionType
+     */
+    select?: InteractionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InteractionType
+     */
+    omit?: InteractionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InteractionTypeInclude<ExtArgs> | null
+    where?: InteractionTypeWhereInput
+    orderBy?: InteractionTypeOrderByWithRelationInput | InteractionTypeOrderByWithRelationInput[]
+    cursor?: InteractionTypeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InteractionTypeScalarFieldEnum | InteractionTypeScalarFieldEnum[]
+  }
+
+  /**
+   * Note.services
+   */
+  export type Note$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    cursor?: ServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
    * Note without action
    */
   export type NoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4385,17 +4385,17 @@ export namespace Prisma {
     noteId: string | null
     oldTitle: string | null
     oldContent: string | null
+    changedById: string | null
+    createdAt: Date | null
+    action: string | null
+    newContactName: string | null
+    newContent: string | null
+    newIsPinned: boolean | null
+    newTitle: string | null
+    newType: string | null
     oldContactName: string | null
     oldIsPinned: boolean | null
     oldType: string | null
-    newTitle: string | null
-    newContent: string | null
-    newContactName: string | null
-    newIsPinned: boolean | null
-    newType: string | null
-    changedById: string | null
-    action: string | null
-    createdAt: Date | null
   }
 
   export type NoteHistoryMaxAggregateOutputType = {
@@ -4403,17 +4403,17 @@ export namespace Prisma {
     noteId: string | null
     oldTitle: string | null
     oldContent: string | null
+    changedById: string | null
+    createdAt: Date | null
+    action: string | null
+    newContactName: string | null
+    newContent: string | null
+    newIsPinned: boolean | null
+    newTitle: string | null
+    newType: string | null
     oldContactName: string | null
     oldIsPinned: boolean | null
     oldType: string | null
-    newTitle: string | null
-    newContent: string | null
-    newContactName: string | null
-    newIsPinned: boolean | null
-    newType: string | null
-    changedById: string | null
-    action: string | null
-    createdAt: Date | null
   }
 
   export type NoteHistoryCountAggregateOutputType = {
@@ -4421,23 +4421,23 @@ export namespace Prisma {
     noteId: number
     oldTitle: number
     oldContent: number
-    oldContactName: number
-    oldServices: number
-    oldInteractionTypes: number
+    changedById: number
+    createdAt: number
+    action: number
     oldDocuments: number
+    oldInteractionTypes: number
+    oldServices: number
+    newContactName: number
+    newContent: number
+    newDocuments: number
+    newInteractionTypes: number
+    newIsPinned: number
+    newServices: number
+    newTitle: number
+    newType: number
+    oldContactName: number
     oldIsPinned: number
     oldType: number
-    newTitle: number
-    newContent: number
-    newContactName: number
-    newServices: number
-    newInteractionTypes: number
-    newDocuments: number
-    newIsPinned: number
-    newType: number
-    changedById: number
-    action: number
-    createdAt: number
     _all: number
   }
 
@@ -4447,17 +4447,17 @@ export namespace Prisma {
     noteId?: true
     oldTitle?: true
     oldContent?: true
+    changedById?: true
+    createdAt?: true
+    action?: true
+    newContactName?: true
+    newContent?: true
+    newIsPinned?: true
+    newTitle?: true
+    newType?: true
     oldContactName?: true
     oldIsPinned?: true
     oldType?: true
-    newTitle?: true
-    newContent?: true
-    newContactName?: true
-    newIsPinned?: true
-    newType?: true
-    changedById?: true
-    action?: true
-    createdAt?: true
   }
 
   export type NoteHistoryMaxAggregateInputType = {
@@ -4465,17 +4465,17 @@ export namespace Prisma {
     noteId?: true
     oldTitle?: true
     oldContent?: true
+    changedById?: true
+    createdAt?: true
+    action?: true
+    newContactName?: true
+    newContent?: true
+    newIsPinned?: true
+    newTitle?: true
+    newType?: true
     oldContactName?: true
     oldIsPinned?: true
     oldType?: true
-    newTitle?: true
-    newContent?: true
-    newContactName?: true
-    newIsPinned?: true
-    newType?: true
-    changedById?: true
-    action?: true
-    createdAt?: true
   }
 
   export type NoteHistoryCountAggregateInputType = {
@@ -4483,23 +4483,23 @@ export namespace Prisma {
     noteId?: true
     oldTitle?: true
     oldContent?: true
-    oldContactName?: true
-    oldServices?: true
-    oldInteractionTypes?: true
+    changedById?: true
+    createdAt?: true
+    action?: true
     oldDocuments?: true
+    oldInteractionTypes?: true
+    oldServices?: true
+    newContactName?: true
+    newContent?: true
+    newDocuments?: true
+    newInteractionTypes?: true
+    newIsPinned?: true
+    newServices?: true
+    newTitle?: true
+    newType?: true
+    oldContactName?: true
     oldIsPinned?: true
     oldType?: true
-    newTitle?: true
-    newContent?: true
-    newContactName?: true
-    newServices?: true
-    newInteractionTypes?: true
-    newDocuments?: true
-    newIsPinned?: true
-    newType?: true
-    changedById?: true
-    action?: true
-    createdAt?: true
     _all?: true
   }
 
@@ -4580,23 +4580,23 @@ export namespace Prisma {
     noteId: string
     oldTitle: string | null
     oldContent: string | null
-    oldContactName: string | null
-    oldServices: JsonValue | null
-    oldInteractionTypes: JsonValue | null
+    changedById: string
+    createdAt: Date
+    action: string
     oldDocuments: JsonValue | null
+    oldInteractionTypes: JsonValue | null
+    oldServices: JsonValue | null
+    newContactName: string | null
+    newContent: string | null
+    newDocuments: JsonValue | null
+    newInteractionTypes: JsonValue | null
+    newIsPinned: boolean | null
+    newServices: JsonValue | null
+    newTitle: string | null
+    newType: string | null
+    oldContactName: string | null
     oldIsPinned: boolean | null
     oldType: string | null
-    newTitle: string | null
-    newContent: string | null
-    newContactName: string | null
-    newServices: JsonValue | null
-    newInteractionTypes: JsonValue | null
-    newDocuments: JsonValue | null
-    newIsPinned: boolean | null
-    newType: string | null
-    changedById: string
-    action: string
-    createdAt: Date
     _count: NoteHistoryCountAggregateOutputType | null
     _min: NoteHistoryMinAggregateOutputType | null
     _max: NoteHistoryMaxAggregateOutputType | null
@@ -4621,25 +4621,25 @@ export namespace Prisma {
     noteId?: boolean
     oldTitle?: boolean
     oldContent?: boolean
-    oldContactName?: boolean
-    oldServices?: boolean
-    oldInteractionTypes?: boolean
+    changedById?: boolean
+    createdAt?: boolean
+    action?: boolean
     oldDocuments?: boolean
+    oldInteractionTypes?: boolean
+    oldServices?: boolean
+    newContactName?: boolean
+    newContent?: boolean
+    newDocuments?: boolean
+    newInteractionTypes?: boolean
+    newIsPinned?: boolean
+    newServices?: boolean
+    newTitle?: boolean
+    newType?: boolean
+    oldContactName?: boolean
     oldIsPinned?: boolean
     oldType?: boolean
-    newTitle?: boolean
-    newContent?: boolean
-    newContactName?: boolean
-    newServices?: boolean
-    newInteractionTypes?: boolean
-    newDocuments?: boolean
-    newIsPinned?: boolean
-    newType?: boolean
-    changedById?: boolean
-    action?: boolean
-    createdAt?: boolean
-    note?: boolean | NoteDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    note?: boolean | NoteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["noteHistory"]>
 
   export type NoteHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4647,25 +4647,25 @@ export namespace Prisma {
     noteId?: boolean
     oldTitle?: boolean
     oldContent?: boolean
-    oldContactName?: boolean
-    oldServices?: boolean
-    oldInteractionTypes?: boolean
+    changedById?: boolean
+    createdAt?: boolean
+    action?: boolean
     oldDocuments?: boolean
+    oldInteractionTypes?: boolean
+    oldServices?: boolean
+    newContactName?: boolean
+    newContent?: boolean
+    newDocuments?: boolean
+    newInteractionTypes?: boolean
+    newIsPinned?: boolean
+    newServices?: boolean
+    newTitle?: boolean
+    newType?: boolean
+    oldContactName?: boolean
     oldIsPinned?: boolean
     oldType?: boolean
-    newTitle?: boolean
-    newContent?: boolean
-    newContactName?: boolean
-    newServices?: boolean
-    newInteractionTypes?: boolean
-    newDocuments?: boolean
-    newIsPinned?: boolean
-    newType?: boolean
-    changedById?: boolean
-    action?: boolean
-    createdAt?: boolean
-    note?: boolean | NoteDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    note?: boolean | NoteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["noteHistory"]>
 
   export type NoteHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4673,25 +4673,25 @@ export namespace Prisma {
     noteId?: boolean
     oldTitle?: boolean
     oldContent?: boolean
-    oldContactName?: boolean
-    oldServices?: boolean
-    oldInteractionTypes?: boolean
+    changedById?: boolean
+    createdAt?: boolean
+    action?: boolean
     oldDocuments?: boolean
+    oldInteractionTypes?: boolean
+    oldServices?: boolean
+    newContactName?: boolean
+    newContent?: boolean
+    newDocuments?: boolean
+    newInteractionTypes?: boolean
+    newIsPinned?: boolean
+    newServices?: boolean
+    newTitle?: boolean
+    newType?: boolean
+    oldContactName?: boolean
     oldIsPinned?: boolean
     oldType?: boolean
-    newTitle?: boolean
-    newContent?: boolean
-    newContactName?: boolean
-    newServices?: boolean
-    newInteractionTypes?: boolean
-    newDocuments?: boolean
-    newIsPinned?: boolean
-    newType?: boolean
-    changedById?: boolean
-    action?: boolean
-    createdAt?: boolean
-    note?: boolean | NoteDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    note?: boolean | NoteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["noteHistory"]>
 
   export type NoteHistorySelectScalar = {
@@ -4699,67 +4699,67 @@ export namespace Prisma {
     noteId?: boolean
     oldTitle?: boolean
     oldContent?: boolean
-    oldContactName?: boolean
-    oldServices?: boolean
-    oldInteractionTypes?: boolean
+    changedById?: boolean
+    createdAt?: boolean
+    action?: boolean
     oldDocuments?: boolean
+    oldInteractionTypes?: boolean
+    oldServices?: boolean
+    newContactName?: boolean
+    newContent?: boolean
+    newDocuments?: boolean
+    newInteractionTypes?: boolean
+    newIsPinned?: boolean
+    newServices?: boolean
+    newTitle?: boolean
+    newType?: boolean
+    oldContactName?: boolean
     oldIsPinned?: boolean
     oldType?: boolean
-    newTitle?: boolean
-    newContent?: boolean
-    newContactName?: boolean
-    newServices?: boolean
-    newInteractionTypes?: boolean
-    newDocuments?: boolean
-    newIsPinned?: boolean
-    newType?: boolean
-    changedById?: boolean
-    action?: boolean
-    createdAt?: boolean
   }
 
-  export type NoteHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "noteId" | "oldTitle" | "oldContent" | "oldContactName" | "oldServices" | "oldInteractionTypes" | "oldDocuments" | "oldIsPinned" | "oldType" | "newTitle" | "newContent" | "newContactName" | "newServices" | "newInteractionTypes" | "newDocuments" | "newIsPinned" | "newType" | "changedById" | "action" | "createdAt", ExtArgs["result"]["noteHistory"]>
+  export type NoteHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "noteId" | "oldTitle" | "oldContent" | "changedById" | "createdAt" | "action" | "oldDocuments" | "oldInteractionTypes" | "oldServices" | "newContactName" | "newContent" | "newDocuments" | "newInteractionTypes" | "newIsPinned" | "newServices" | "newTitle" | "newType" | "oldContactName" | "oldIsPinned" | "oldType", ExtArgs["result"]["noteHistory"]>
   export type NoteHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    note?: boolean | NoteDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    note?: boolean | NoteDefaultArgs<ExtArgs>
   }
   export type NoteHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    note?: boolean | NoteDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    note?: boolean | NoteDefaultArgs<ExtArgs>
   }
   export type NoteHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    note?: boolean | NoteDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    note?: boolean | NoteDefaultArgs<ExtArgs>
   }
 
   export type $NoteHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "NoteHistory"
     objects: {
-      note: Prisma.$NotePayload<ExtArgs>
       changedBy: Prisma.$UserPayload<ExtArgs>
+      note: Prisma.$NotePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       noteId: string
       oldTitle: string | null
       oldContent: string | null
-      oldContactName: string | null
-      oldServices: Prisma.JsonValue | null
-      oldInteractionTypes: Prisma.JsonValue | null
+      changedById: string
+      createdAt: Date
+      action: string
       oldDocuments: Prisma.JsonValue | null
+      oldInteractionTypes: Prisma.JsonValue | null
+      oldServices: Prisma.JsonValue | null
+      newContactName: string | null
+      newContent: string | null
+      newDocuments: Prisma.JsonValue | null
+      newInteractionTypes: Prisma.JsonValue | null
+      newIsPinned: boolean | null
+      newServices: Prisma.JsonValue | null
+      newTitle: string | null
+      newType: string | null
+      oldContactName: string | null
       oldIsPinned: boolean | null
       oldType: string | null
-      newTitle: string | null
-      newContent: string | null
-      newContactName: string | null
-      newServices: Prisma.JsonValue | null
-      newInteractionTypes: Prisma.JsonValue | null
-      newDocuments: Prisma.JsonValue | null
-      newIsPinned: boolean | null
-      newType: string | null
-      changedById: string
-      action: string
-      createdAt: Date
     }, ExtArgs["result"]["noteHistory"]>
     composites: {}
   }
@@ -5154,8 +5154,8 @@ export namespace Prisma {
    */
   export interface Prisma__NoteHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    note<T extends NoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NoteDefaultArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     changedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    note<T extends NoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NoteDefaultArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5189,23 +5189,23 @@ export namespace Prisma {
     readonly noteId: FieldRef<"NoteHistory", 'String'>
     readonly oldTitle: FieldRef<"NoteHistory", 'String'>
     readonly oldContent: FieldRef<"NoteHistory", 'String'>
-    readonly oldContactName: FieldRef<"NoteHistory", 'String'>
-    readonly oldServices: FieldRef<"NoteHistory", 'Json'>
-    readonly oldInteractionTypes: FieldRef<"NoteHistory", 'Json'>
+    readonly changedById: FieldRef<"NoteHistory", 'String'>
+    readonly createdAt: FieldRef<"NoteHistory", 'DateTime'>
+    readonly action: FieldRef<"NoteHistory", 'String'>
     readonly oldDocuments: FieldRef<"NoteHistory", 'Json'>
+    readonly oldInteractionTypes: FieldRef<"NoteHistory", 'Json'>
+    readonly oldServices: FieldRef<"NoteHistory", 'Json'>
+    readonly newContactName: FieldRef<"NoteHistory", 'String'>
+    readonly newContent: FieldRef<"NoteHistory", 'String'>
+    readonly newDocuments: FieldRef<"NoteHistory", 'Json'>
+    readonly newInteractionTypes: FieldRef<"NoteHistory", 'Json'>
+    readonly newIsPinned: FieldRef<"NoteHistory", 'Boolean'>
+    readonly newServices: FieldRef<"NoteHistory", 'Json'>
+    readonly newTitle: FieldRef<"NoteHistory", 'String'>
+    readonly newType: FieldRef<"NoteHistory", 'String'>
+    readonly oldContactName: FieldRef<"NoteHistory", 'String'>
     readonly oldIsPinned: FieldRef<"NoteHistory", 'Boolean'>
     readonly oldType: FieldRef<"NoteHistory", 'String'>
-    readonly newTitle: FieldRef<"NoteHistory", 'String'>
-    readonly newContent: FieldRef<"NoteHistory", 'String'>
-    readonly newContactName: FieldRef<"NoteHistory", 'String'>
-    readonly newServices: FieldRef<"NoteHistory", 'Json'>
-    readonly newInteractionTypes: FieldRef<"NoteHistory", 'Json'>
-    readonly newDocuments: FieldRef<"NoteHistory", 'Json'>
-    readonly newIsPinned: FieldRef<"NoteHistory", 'Boolean'>
-    readonly newType: FieldRef<"NoteHistory", 'String'>
-    readonly changedById: FieldRef<"NoteHistory", 'String'>
-    readonly action: FieldRef<"NoteHistory", 'String'>
-    readonly createdAt: FieldRef<"NoteHistory", 'DateTime'>
   }
     
 
@@ -11194,10 +11194,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
     notes?: boolean | User$notesArgs<ExtArgs>
     noteHistories?: boolean | User$noteHistoriesArgs<ExtArgs>
+    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -11254,10 +11254,10 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "mobile" | "profile" | "role" | "status" | "failedLoginAttempts" | "lastFailedAttempt" | "lockUntil" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     company?: boolean | User$companyArgs<ExtArgs>
     notes?: boolean | User$notesArgs<ExtArgs>
     noteHistories?: boolean | User$noteHistoriesArgs<ExtArgs>
+    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -11266,10 +11266,10 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
       company: Prisma.$CompanyPayload<ExtArgs>[]
       notes: Prisma.$NotePayload<ExtArgs>[]
       noteHistories: Prisma.$NoteHistoryPayload<ExtArgs>[]
+      refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11680,10 +11680,10 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     company<T extends User$companyArgs<ExtArgs> = {}>(args?: Subset<T, User$companyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notes<T extends User$notesArgs<ExtArgs> = {}>(args?: Subset<T, User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     noteHistories<T extends User$noteHistoriesArgs<ExtArgs> = {}>(args?: Subset<T, User$noteHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NoteHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12115,30 +12115,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.refreshTokens
-   */
-  export type User$refreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RefreshToken
-     */
-    select?: RefreshTokenSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RefreshToken
-     */
-    omit?: RefreshTokenOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RefreshTokenInclude<ExtArgs> | null
-    where?: RefreshTokenWhereInput
-    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
-    cursor?: RefreshTokenWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
-  }
-
-  /**
    * User.company
    */
   export type User$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12211,6 +12187,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.refreshTokens
+   */
+  export type User$refreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    where?: RefreshTokenWhereInput
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    cursor?: RefreshTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12248,14 +12248,14 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     PhoneNumber: 'PhoneNumber',
-    contactName: 'contactName',
     logo: 'logo',
     tags: 'tags',
-    assignUsername: 'assignUsername',
     status: 'status',
-    userId: 'userId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    assignUsername: 'assignUsername',
+    userId: 'userId',
+    contactName: 'contactName'
   };
 
   export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
@@ -12265,15 +12265,15 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     content: 'content',
-    contactName: 'contactName',
-    isPinned: 'isPinned',
-    type: 'type',
     companyId: 'companyId',
-    authorId: 'authorId',
-    parentId: 'parentId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    isPinned: 'isPinned',
+    authorId: 'authorId',
+    type: 'type',
+    deletedAt: 'deletedAt',
+    parentId: 'parentId',
+    contactName: 'contactName'
   };
 
   export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
@@ -12284,23 +12284,23 @@ export namespace Prisma {
     noteId: 'noteId',
     oldTitle: 'oldTitle',
     oldContent: 'oldContent',
-    oldContactName: 'oldContactName',
-    oldServices: 'oldServices',
-    oldInteractionTypes: 'oldInteractionTypes',
-    oldDocuments: 'oldDocuments',
-    oldIsPinned: 'oldIsPinned',
-    oldType: 'oldType',
-    newTitle: 'newTitle',
-    newContent: 'newContent',
-    newContactName: 'newContactName',
-    newServices: 'newServices',
-    newInteractionTypes: 'newInteractionTypes',
-    newDocuments: 'newDocuments',
-    newIsPinned: 'newIsPinned',
-    newType: 'newType',
     changedById: 'changedById',
+    createdAt: 'createdAt',
     action: 'action',
-    createdAt: 'createdAt'
+    oldDocuments: 'oldDocuments',
+    oldInteractionTypes: 'oldInteractionTypes',
+    oldServices: 'oldServices',
+    newContactName: 'newContactName',
+    newContent: 'newContent',
+    newDocuments: 'newDocuments',
+    newInteractionTypes: 'newInteractionTypes',
+    newIsPinned: 'newIsPinned',
+    newServices: 'newServices',
+    newTitle: 'newTitle',
+    newType: 'newType',
+    oldContactName: 'oldContactName',
+    oldIsPinned: 'oldIsPinned',
+    oldType: 'oldType'
   };
 
   export type NoteHistoryScalarFieldEnum = (typeof NoteHistoryScalarFieldEnum)[keyof typeof NoteHistoryScalarFieldEnum]
@@ -12557,16 +12557,16 @@ export namespace Prisma {
     name?: StringFilter<"Company"> | string
     email?: StringFilter<"Company"> | string
     PhoneNumber?: StringFilter<"Company"> | string
-    contactName?: StringNullableFilter<"Company"> | string | null
     logo?: StringNullableFilter<"Company"> | string | null
     tags?: StringNullableListFilter<"Company">
-    assignUsername?: StringNullableFilter<"Company"> | string | null
     status?: EnumCompanyStatusFilter<"Company"> | $Enums.CompanyStatus
-    userId?: StringFilter<"Company"> | string
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
-    notes?: NoteListRelationFilter
+    assignUsername?: StringNullableFilter<"Company"> | string | null
+    userId?: StringFilter<"Company"> | string
+    contactName?: StringNullableFilter<"Company"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    notes?: NoteListRelationFilter
   }
 
   export type CompanyOrderByWithRelationInput = {
@@ -12574,16 +12574,16 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     PhoneNumber?: SortOrder
-    contactName?: SortOrderInput | SortOrder
     logo?: SortOrderInput | SortOrder
     tags?: SortOrder
-    assignUsername?: SortOrderInput | SortOrder
     status?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    notes?: NoteOrderByRelationAggregateInput
+    assignUsername?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    contactName?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
+    notes?: NoteOrderByRelationAggregateInput
   }
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -12594,16 +12594,16 @@ export namespace Prisma {
     name?: StringFilter<"Company"> | string
     email?: StringFilter<"Company"> | string
     PhoneNumber?: StringFilter<"Company"> | string
-    contactName?: StringNullableFilter<"Company"> | string | null
     logo?: StringNullableFilter<"Company"> | string | null
     tags?: StringNullableListFilter<"Company">
-    assignUsername?: StringNullableFilter<"Company"> | string | null
     status?: EnumCompanyStatusFilter<"Company"> | $Enums.CompanyStatus
-    userId?: StringFilter<"Company"> | string
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
-    notes?: NoteListRelationFilter
+    assignUsername?: StringNullableFilter<"Company"> | string | null
+    userId?: StringFilter<"Company"> | string
+    contactName?: StringNullableFilter<"Company"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    notes?: NoteListRelationFilter
   }, "id">
 
   export type CompanyOrderByWithAggregationInput = {
@@ -12611,14 +12611,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     PhoneNumber?: SortOrder
-    contactName?: SortOrderInput | SortOrder
     logo?: SortOrderInput | SortOrder
     tags?: SortOrder
-    assignUsername?: SortOrderInput | SortOrder
     status?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignUsername?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    contactName?: SortOrderInput | SortOrder
     _count?: CompanyCountOrderByAggregateInput
     _max?: CompanyMaxOrderByAggregateInput
     _min?: CompanyMinOrderByAggregateInput
@@ -12632,14 +12632,14 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Company"> | string
     email?: StringWithAggregatesFilter<"Company"> | string
     PhoneNumber?: StringWithAggregatesFilter<"Company"> | string
-    contactName?: StringNullableWithAggregatesFilter<"Company"> | string | null
     logo?: StringNullableWithAggregatesFilter<"Company"> | string | null
     tags?: StringNullableListFilter<"Company">
-    assignUsername?: StringNullableWithAggregatesFilter<"Company"> | string | null
     status?: EnumCompanyStatusWithAggregatesFilter<"Company"> | $Enums.CompanyStatus
-    userId?: StringWithAggregatesFilter<"Company"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
+    assignUsername?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    userId?: StringWithAggregatesFilter<"Company"> | string
+    contactName?: StringNullableWithAggregatesFilter<"Company"> | string | null
   }
 
   export type NoteWhereInput = {
@@ -12649,46 +12649,46 @@ export namespace Prisma {
     id?: StringFilter<"Note"> | string
     title?: StringNullableFilter<"Note"> | string | null
     content?: StringNullableFilter<"Note"> | string | null
-    contactName?: StringNullableFilter<"Note"> | string | null
-    isPinned?: BoolFilter<"Note"> | boolean
-    type?: StringNullableFilter<"Note"> | string | null
     companyId?: StringFilter<"Note"> | string
-    authorId?: StringNullableFilter<"Note"> | string | null
-    parentId?: StringNullableFilter<"Note"> | string | null
     createdAt?: DateTimeFilter<"Note"> | Date | string
     updatedAt?: DateTimeFilter<"Note"> | Date | string
+    isPinned?: BoolFilter<"Note"> | boolean
+    authorId?: StringNullableFilter<"Note"> | string | null
+    type?: StringNullableFilter<"Note"> | string | null
     deletedAt?: DateTimeNullableFilter<"Note"> | Date | string | null
-    services?: ServiceListRelationFilter
-    interactionTypes?: InteractionTypeListRelationFilter
-    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
-    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    parentId?: StringNullableFilter<"Note"> | string | null
+    contactName?: StringNullableFilter<"Note"> | string | null
     documents?: AttachmentListRelationFilter
-    history?: NoteHistoryListRelationFilter
+    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     parent?: XOR<NoteNullableScalarRelationFilter, NoteWhereInput> | null
     followUps?: NoteListRelationFilter
+    history?: NoteHistoryListRelationFilter
+    interactionTypes?: InteractionTypeListRelationFilter
+    services?: ServiceListRelationFilter
   }
 
   export type NoteOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrderInput | SortOrder
     content?: SortOrderInput | SortOrder
-    contactName?: SortOrderInput | SortOrder
-    isPinned?: SortOrder
-    type?: SortOrderInput | SortOrder
     companyId?: SortOrder
-    authorId?: SortOrderInput | SortOrder
-    parentId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isPinned?: SortOrder
+    authorId?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    services?: ServiceOrderByRelationAggregateInput
-    interactionTypes?: InteractionTypeOrderByRelationAggregateInput
-    company?: CompanyOrderByWithRelationInput
-    author?: UserOrderByWithRelationInput
+    parentId?: SortOrderInput | SortOrder
+    contactName?: SortOrderInput | SortOrder
     documents?: AttachmentOrderByRelationAggregateInput
-    history?: NoteHistoryOrderByRelationAggregateInput
+    author?: UserOrderByWithRelationInput
+    company?: CompanyOrderByWithRelationInput
     parent?: NoteOrderByWithRelationInput
     followUps?: NoteOrderByRelationAggregateInput
+    history?: NoteHistoryOrderByRelationAggregateInput
+    interactionTypes?: InteractionTypeOrderByRelationAggregateInput
+    services?: ServiceOrderByRelationAggregateInput
   }
 
   export type NoteWhereUniqueInput = Prisma.AtLeast<{
@@ -12698,38 +12698,38 @@ export namespace Prisma {
     NOT?: NoteWhereInput | NoteWhereInput[]
     title?: StringNullableFilter<"Note"> | string | null
     content?: StringNullableFilter<"Note"> | string | null
-    contactName?: StringNullableFilter<"Note"> | string | null
-    isPinned?: BoolFilter<"Note"> | boolean
-    type?: StringNullableFilter<"Note"> | string | null
     companyId?: StringFilter<"Note"> | string
-    authorId?: StringNullableFilter<"Note"> | string | null
-    parentId?: StringNullableFilter<"Note"> | string | null
     createdAt?: DateTimeFilter<"Note"> | Date | string
     updatedAt?: DateTimeFilter<"Note"> | Date | string
+    isPinned?: BoolFilter<"Note"> | boolean
+    authorId?: StringNullableFilter<"Note"> | string | null
+    type?: StringNullableFilter<"Note"> | string | null
     deletedAt?: DateTimeNullableFilter<"Note"> | Date | string | null
-    services?: ServiceListRelationFilter
-    interactionTypes?: InteractionTypeListRelationFilter
-    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
-    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    parentId?: StringNullableFilter<"Note"> | string | null
+    contactName?: StringNullableFilter<"Note"> | string | null
     documents?: AttachmentListRelationFilter
-    history?: NoteHistoryListRelationFilter
+    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     parent?: XOR<NoteNullableScalarRelationFilter, NoteWhereInput> | null
     followUps?: NoteListRelationFilter
+    history?: NoteHistoryListRelationFilter
+    interactionTypes?: InteractionTypeListRelationFilter
+    services?: ServiceListRelationFilter
   }, "id">
 
   export type NoteOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrderInput | SortOrder
     content?: SortOrderInput | SortOrder
-    contactName?: SortOrderInput | SortOrder
-    isPinned?: SortOrder
-    type?: SortOrderInput | SortOrder
     companyId?: SortOrder
-    authorId?: SortOrderInput | SortOrder
-    parentId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isPinned?: SortOrder
+    authorId?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    parentId?: SortOrderInput | SortOrder
+    contactName?: SortOrderInput | SortOrder
     _count?: NoteCountOrderByAggregateInput
     _max?: NoteMaxOrderByAggregateInput
     _min?: NoteMinOrderByAggregateInput
@@ -12742,15 +12742,15 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Note"> | string
     title?: StringNullableWithAggregatesFilter<"Note"> | string | null
     content?: StringNullableWithAggregatesFilter<"Note"> | string | null
-    contactName?: StringNullableWithAggregatesFilter<"Note"> | string | null
-    isPinned?: BoolWithAggregatesFilter<"Note"> | boolean
-    type?: StringNullableWithAggregatesFilter<"Note"> | string | null
     companyId?: StringWithAggregatesFilter<"Note"> | string
-    authorId?: StringNullableWithAggregatesFilter<"Note"> | string | null
-    parentId?: StringNullableWithAggregatesFilter<"Note"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
+    isPinned?: BoolWithAggregatesFilter<"Note"> | boolean
+    authorId?: StringNullableWithAggregatesFilter<"Note"> | string | null
+    type?: StringNullableWithAggregatesFilter<"Note"> | string | null
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Note"> | Date | string | null
+    parentId?: StringNullableWithAggregatesFilter<"Note"> | string | null
+    contactName?: StringNullableWithAggregatesFilter<"Note"> | string | null
   }
 
   export type NoteHistoryWhereInput = {
@@ -12761,25 +12761,25 @@ export namespace Prisma {
     noteId?: StringFilter<"NoteHistory"> | string
     oldTitle?: StringNullableFilter<"NoteHistory"> | string | null
     oldContent?: StringNullableFilter<"NoteHistory"> | string | null
-    oldContactName?: StringNullableFilter<"NoteHistory"> | string | null
-    oldServices?: JsonNullableFilter<"NoteHistory">
-    oldInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    changedById?: StringFilter<"NoteHistory"> | string
+    createdAt?: DateTimeFilter<"NoteHistory"> | Date | string
+    action?: StringFilter<"NoteHistory"> | string
     oldDocuments?: JsonNullableFilter<"NoteHistory">
+    oldInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    oldServices?: JsonNullableFilter<"NoteHistory">
+    newContactName?: StringNullableFilter<"NoteHistory"> | string | null
+    newContent?: StringNullableFilter<"NoteHistory"> | string | null
+    newDocuments?: JsonNullableFilter<"NoteHistory">
+    newInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    newIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
+    newServices?: JsonNullableFilter<"NoteHistory">
+    newTitle?: StringNullableFilter<"NoteHistory"> | string | null
+    newType?: StringNullableFilter<"NoteHistory"> | string | null
+    oldContactName?: StringNullableFilter<"NoteHistory"> | string | null
     oldIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
     oldType?: StringNullableFilter<"NoteHistory"> | string | null
-    newTitle?: StringNullableFilter<"NoteHistory"> | string | null
-    newContent?: StringNullableFilter<"NoteHistory"> | string | null
-    newContactName?: StringNullableFilter<"NoteHistory"> | string | null
-    newServices?: JsonNullableFilter<"NoteHistory">
-    newInteractionTypes?: JsonNullableFilter<"NoteHistory">
-    newDocuments?: JsonNullableFilter<"NoteHistory">
-    newIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
-    newType?: StringNullableFilter<"NoteHistory"> | string | null
-    changedById?: StringFilter<"NoteHistory"> | string
-    action?: StringFilter<"NoteHistory"> | string
-    createdAt?: DateTimeFilter<"NoteHistory"> | Date | string
-    note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
     changedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
   }
 
   export type NoteHistoryOrderByWithRelationInput = {
@@ -12787,25 +12787,25 @@ export namespace Prisma {
     noteId?: SortOrder
     oldTitle?: SortOrderInput | SortOrder
     oldContent?: SortOrderInput | SortOrder
-    oldContactName?: SortOrderInput | SortOrder
-    oldServices?: SortOrderInput | SortOrder
-    oldInteractionTypes?: SortOrderInput | SortOrder
+    changedById?: SortOrder
+    createdAt?: SortOrder
+    action?: SortOrder
     oldDocuments?: SortOrderInput | SortOrder
+    oldInteractionTypes?: SortOrderInput | SortOrder
+    oldServices?: SortOrderInput | SortOrder
+    newContactName?: SortOrderInput | SortOrder
+    newContent?: SortOrderInput | SortOrder
+    newDocuments?: SortOrderInput | SortOrder
+    newInteractionTypes?: SortOrderInput | SortOrder
+    newIsPinned?: SortOrderInput | SortOrder
+    newServices?: SortOrderInput | SortOrder
+    newTitle?: SortOrderInput | SortOrder
+    newType?: SortOrderInput | SortOrder
+    oldContactName?: SortOrderInput | SortOrder
     oldIsPinned?: SortOrderInput | SortOrder
     oldType?: SortOrderInput | SortOrder
-    newTitle?: SortOrderInput | SortOrder
-    newContent?: SortOrderInput | SortOrder
-    newContactName?: SortOrderInput | SortOrder
-    newServices?: SortOrderInput | SortOrder
-    newInteractionTypes?: SortOrderInput | SortOrder
-    newDocuments?: SortOrderInput | SortOrder
-    newIsPinned?: SortOrderInput | SortOrder
-    newType?: SortOrderInput | SortOrder
-    changedById?: SortOrder
-    action?: SortOrder
-    createdAt?: SortOrder
-    note?: NoteOrderByWithRelationInput
     changedBy?: UserOrderByWithRelationInput
+    note?: NoteOrderByWithRelationInput
   }
 
   export type NoteHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -12816,25 +12816,25 @@ export namespace Prisma {
     noteId?: StringFilter<"NoteHistory"> | string
     oldTitle?: StringNullableFilter<"NoteHistory"> | string | null
     oldContent?: StringNullableFilter<"NoteHistory"> | string | null
-    oldContactName?: StringNullableFilter<"NoteHistory"> | string | null
-    oldServices?: JsonNullableFilter<"NoteHistory">
-    oldInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    changedById?: StringFilter<"NoteHistory"> | string
+    createdAt?: DateTimeFilter<"NoteHistory"> | Date | string
+    action?: StringFilter<"NoteHistory"> | string
     oldDocuments?: JsonNullableFilter<"NoteHistory">
+    oldInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    oldServices?: JsonNullableFilter<"NoteHistory">
+    newContactName?: StringNullableFilter<"NoteHistory"> | string | null
+    newContent?: StringNullableFilter<"NoteHistory"> | string | null
+    newDocuments?: JsonNullableFilter<"NoteHistory">
+    newInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    newIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
+    newServices?: JsonNullableFilter<"NoteHistory">
+    newTitle?: StringNullableFilter<"NoteHistory"> | string | null
+    newType?: StringNullableFilter<"NoteHistory"> | string | null
+    oldContactName?: StringNullableFilter<"NoteHistory"> | string | null
     oldIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
     oldType?: StringNullableFilter<"NoteHistory"> | string | null
-    newTitle?: StringNullableFilter<"NoteHistory"> | string | null
-    newContent?: StringNullableFilter<"NoteHistory"> | string | null
-    newContactName?: StringNullableFilter<"NoteHistory"> | string | null
-    newServices?: JsonNullableFilter<"NoteHistory">
-    newInteractionTypes?: JsonNullableFilter<"NoteHistory">
-    newDocuments?: JsonNullableFilter<"NoteHistory">
-    newIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
-    newType?: StringNullableFilter<"NoteHistory"> | string | null
-    changedById?: StringFilter<"NoteHistory"> | string
-    action?: StringFilter<"NoteHistory"> | string
-    createdAt?: DateTimeFilter<"NoteHistory"> | Date | string
-    note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
     changedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
   }, "id">
 
   export type NoteHistoryOrderByWithAggregationInput = {
@@ -12842,23 +12842,23 @@ export namespace Prisma {
     noteId?: SortOrder
     oldTitle?: SortOrderInput | SortOrder
     oldContent?: SortOrderInput | SortOrder
-    oldContactName?: SortOrderInput | SortOrder
-    oldServices?: SortOrderInput | SortOrder
-    oldInteractionTypes?: SortOrderInput | SortOrder
+    changedById?: SortOrder
+    createdAt?: SortOrder
+    action?: SortOrder
     oldDocuments?: SortOrderInput | SortOrder
+    oldInteractionTypes?: SortOrderInput | SortOrder
+    oldServices?: SortOrderInput | SortOrder
+    newContactName?: SortOrderInput | SortOrder
+    newContent?: SortOrderInput | SortOrder
+    newDocuments?: SortOrderInput | SortOrder
+    newInteractionTypes?: SortOrderInput | SortOrder
+    newIsPinned?: SortOrderInput | SortOrder
+    newServices?: SortOrderInput | SortOrder
+    newTitle?: SortOrderInput | SortOrder
+    newType?: SortOrderInput | SortOrder
+    oldContactName?: SortOrderInput | SortOrder
     oldIsPinned?: SortOrderInput | SortOrder
     oldType?: SortOrderInput | SortOrder
-    newTitle?: SortOrderInput | SortOrder
-    newContent?: SortOrderInput | SortOrder
-    newContactName?: SortOrderInput | SortOrder
-    newServices?: SortOrderInput | SortOrder
-    newInteractionTypes?: SortOrderInput | SortOrder
-    newDocuments?: SortOrderInput | SortOrder
-    newIsPinned?: SortOrderInput | SortOrder
-    newType?: SortOrderInput | SortOrder
-    changedById?: SortOrder
-    action?: SortOrder
-    createdAt?: SortOrder
     _count?: NoteHistoryCountOrderByAggregateInput
     _max?: NoteHistoryMaxOrderByAggregateInput
     _min?: NoteHistoryMinOrderByAggregateInput
@@ -12872,23 +12872,23 @@ export namespace Prisma {
     noteId?: StringWithAggregatesFilter<"NoteHistory"> | string
     oldTitle?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
     oldContent?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
-    oldContactName?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
-    oldServices?: JsonNullableWithAggregatesFilter<"NoteHistory">
-    oldInteractionTypes?: JsonNullableWithAggregatesFilter<"NoteHistory">
+    changedById?: StringWithAggregatesFilter<"NoteHistory"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"NoteHistory"> | Date | string
+    action?: StringWithAggregatesFilter<"NoteHistory"> | string
     oldDocuments?: JsonNullableWithAggregatesFilter<"NoteHistory">
+    oldInteractionTypes?: JsonNullableWithAggregatesFilter<"NoteHistory">
+    oldServices?: JsonNullableWithAggregatesFilter<"NoteHistory">
+    newContactName?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
+    newContent?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
+    newDocuments?: JsonNullableWithAggregatesFilter<"NoteHistory">
+    newInteractionTypes?: JsonNullableWithAggregatesFilter<"NoteHistory">
+    newIsPinned?: BoolNullableWithAggregatesFilter<"NoteHistory"> | boolean | null
+    newServices?: JsonNullableWithAggregatesFilter<"NoteHistory">
+    newTitle?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
+    newType?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
+    oldContactName?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
     oldIsPinned?: BoolNullableWithAggregatesFilter<"NoteHistory"> | boolean | null
     oldType?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
-    newTitle?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
-    newContent?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
-    newContactName?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
-    newServices?: JsonNullableWithAggregatesFilter<"NoteHistory">
-    newInteractionTypes?: JsonNullableWithAggregatesFilter<"NoteHistory">
-    newDocuments?: JsonNullableWithAggregatesFilter<"NoteHistory">
-    newIsPinned?: BoolNullableWithAggregatesFilter<"NoteHistory"> | boolean | null
-    newType?: StringNullableWithAggregatesFilter<"NoteHistory"> | string | null
-    changedById?: StringWithAggregatesFilter<"NoteHistory"> | string
-    action?: StringWithAggregatesFilter<"NoteHistory"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"NoteHistory"> | Date | string
   }
 
   export type AttachmentWhereInput = {
@@ -13183,10 +13183,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    refreshTokens?: RefreshTokenListRelationFilter
     company?: CompanyListRelationFilter
     notes?: NoteListRelationFilter
     noteHistories?: NoteHistoryListRelationFilter
+    refreshTokens?: RefreshTokenListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13204,10 +13204,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    refreshTokens?: RefreshTokenOrderByRelationAggregateInput
     company?: CompanyOrderByRelationAggregateInput
     notes?: NoteOrderByRelationAggregateInput
     noteHistories?: NoteHistoryOrderByRelationAggregateInput
+    refreshTokens?: RefreshTokenOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13228,10 +13228,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    refreshTokens?: RefreshTokenListRelationFilter
     company?: CompanyListRelationFilter
     notes?: NoteListRelationFilter
     noteHistories?: NoteHistoryListRelationFilter
+    refreshTokens?: RefreshTokenListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -13281,15 +13281,15 @@ export namespace Prisma {
     name: string
     email: string
     PhoneNumber: string
-    contactName?: string | null
     logo?: string | null
     tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
     status?: $Enums.CompanyStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    notes?: NoteCreateNestedManyWithoutCompanyInput
+    assignUsername?: string | null
+    contactName?: string | null
     user: UserCreateNestedOneWithoutCompanyInput
+    notes?: NoteCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateInput = {
@@ -13297,14 +13297,14 @@ export namespace Prisma {
     name: string
     email: string
     PhoneNumber: string
-    contactName?: string | null
     logo?: string | null
     tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
     status?: $Enums.CompanyStatus
-    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignUsername?: string | null
+    userId: string
+    contactName?: string | null
     notes?: NoteUncheckedCreateNestedManyWithoutCompanyInput
   }
 
@@ -13313,15 +13313,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NoteUpdateManyWithoutCompanyNestedInput
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutCompanyNestedInput
+    notes?: NoteUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateInput = {
@@ -13329,14 +13329,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
-    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NoteUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
@@ -13345,14 +13345,14 @@ export namespace Prisma {
     name: string
     email: string
     PhoneNumber: string
-    contactName?: string | null
     logo?: string | null
     tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
     status?: $Enums.CompanyStatus
-    userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignUsername?: string | null
+    userId: string
+    contactName?: string | null
   }
 
   export type CompanyUpdateManyMutationInput = {
@@ -13360,13 +13360,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CompanyUncheckedUpdateManyInput = {
@@ -13374,160 +13374,160 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
-    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NoteCreateInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
-    author?: UserCreateNestedOneWithoutNotesInput
+    contactName?: string | null
     documents?: AttachmentCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    author?: UserCreateNestedOneWithoutNotesInput
+    company: CompanyCreateNestedOneWithoutNotesInput
     parent?: NoteCreateNestedOneWithoutFollowUpsInput
     followUps?: NoteCreateNestedManyWithoutParentInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
   }
 
   export type NoteUncheckedCreateInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
-    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    parentId?: string | null
+    contactName?: string | null
     documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
     followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
   }
 
   export type NoteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
-    author?: UserUpdateOneWithoutNotesNestedInput
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    author?: UserUpdateOneWithoutNotesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
     parent?: NoteUpdateOneWithoutFollowUpsNestedInput
     followUps?: NoteUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
     followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteCreateManyInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
-    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
+    parentId?: string | null
+    contactName?: string | null
   }
 
   export type NoteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NoteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NoteHistoryCreateInput = {
     id?: string
     oldTitle?: string | null
     oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    action: string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
     oldIsPinned?: boolean | null
     oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    action: string
-    createdAt?: Date | string
-    note: NoteCreateNestedOneWithoutHistoryInput
     changedBy: UserCreateNestedOneWithoutNoteHistoriesInput
+    note: NoteCreateNestedOneWithoutHistoryInput
   }
 
   export type NoteHistoryUncheckedCreateInput = {
@@ -13535,47 +13535,47 @@ export namespace Prisma {
     noteId: string
     oldTitle?: string | null
     oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    changedById: string
+    createdAt?: Date | string
+    action: string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
     oldIsPinned?: boolean | null
     oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    changedById: string
-    action: string
-    createdAt?: Date | string
   }
 
   export type NoteHistoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
     oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
     oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: NoteUpdateOneRequiredWithoutHistoryNestedInput
     changedBy?: UserUpdateOneRequiredWithoutNoteHistoriesNestedInput
+    note?: NoteUpdateOneRequiredWithoutHistoryNestedInput
   }
 
   export type NoteHistoryUncheckedUpdateInput = {
@@ -13583,23 +13583,23 @@ export namespace Prisma {
     noteId?: StringFieldUpdateOperationsInput | string
     oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
     oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    changedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
     oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    changedById?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NoteHistoryCreateManyInput = {
@@ -13607,45 +13607,45 @@ export namespace Prisma {
     noteId: string
     oldTitle?: string | null
     oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    changedById: string
+    createdAt?: Date | string
+    action: string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
     oldIsPinned?: boolean | null
     oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    changedById: string
-    action: string
-    createdAt?: Date | string
   }
 
   export type NoteHistoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
     oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
     oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NoteHistoryUncheckedUpdateManyInput = {
@@ -13653,23 +13653,23 @@ export namespace Prisma {
     noteId?: StringFieldUpdateOperationsInput | string
     oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
     oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    changedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
     oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    changedById?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AttachmentCreateInput = {
@@ -13973,10 +13973,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedManyWithoutUserInput
     notes?: NoteCreateNestedManyWithoutAuthorInput
     noteHistories?: NoteHistoryCreateNestedManyWithoutChangedByInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13994,10 +13994,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedManyWithoutUserInput
     notes?: NoteUncheckedCreateNestedManyWithoutAuthorInput
     noteHistories?: NoteHistoryUncheckedCreateNestedManyWithoutChangedByInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -14015,10 +14015,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateManyWithoutUserNestedInput
     notes?: NoteUpdateManyWithoutAuthorNestedInput
     noteHistories?: NoteHistoryUpdateManyWithoutChangedByNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14036,10 +14036,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateManyWithoutUserNestedInput
     notes?: NoteUncheckedUpdateManyWithoutAuthorNestedInput
     noteHistories?: NoteHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14149,15 +14149,15 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type NoteListRelationFilter = {
     every?: NoteWhereInput
     some?: NoteWhereInput
     none?: NoteWhereInput
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type SortOrderInput = {
@@ -14174,14 +14174,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     PhoneNumber?: SortOrder
-    contactName?: SortOrder
     logo?: SortOrder
     tags?: SortOrder
-    assignUsername?: SortOrder
     status?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignUsername?: SortOrder
+    userId?: SortOrder
+    contactName?: SortOrder
   }
 
   export type CompanyMaxOrderByAggregateInput = {
@@ -14189,13 +14189,13 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     PhoneNumber?: SortOrder
-    contactName?: SortOrder
     logo?: SortOrder
-    assignUsername?: SortOrder
     status?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignUsername?: SortOrder
+    userId?: SortOrder
+    contactName?: SortOrder
   }
 
   export type CompanyMinOrderByAggregateInput = {
@@ -14203,13 +14203,13 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     PhoneNumber?: SortOrder
-    contactName?: SortOrder
     logo?: SortOrder
-    assignUsername?: SortOrder
     status?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignUsername?: SortOrder
+    userId?: SortOrder
+    contactName?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -14288,21 +14288,10 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type ServiceListRelationFilter = {
-    every?: ServiceWhereInput
-    some?: ServiceWhereInput
-    none?: ServiceWhereInput
-  }
-
-  export type InteractionTypeListRelationFilter = {
-    every?: InteractionTypeWhereInput
-    some?: InteractionTypeWhereInput
-    none?: InteractionTypeWhereInput
-  }
-
-  export type CompanyScalarRelationFilter = {
-    is?: CompanyWhereInput
-    isNot?: CompanyWhereInput
+  export type AttachmentListRelationFilter = {
+    every?: AttachmentWhereInput
+    some?: AttachmentWhereInput
+    none?: AttachmentWhereInput
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -14310,10 +14299,14 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
-  export type AttachmentListRelationFilter = {
-    every?: AttachmentWhereInput
-    some?: AttachmentWhereInput
-    none?: AttachmentWhereInput
+  export type CompanyScalarRelationFilter = {
+    is?: CompanyWhereInput
+    isNot?: CompanyWhereInput
+  }
+
+  export type NoteNullableScalarRelationFilter = {
+    is?: NoteWhereInput | null
+    isNot?: NoteWhereInput | null
   }
 
   export type NoteHistoryListRelationFilter = {
@@ -14322,17 +14315,16 @@ export namespace Prisma {
     none?: NoteHistoryWhereInput
   }
 
-  export type NoteNullableScalarRelationFilter = {
-    is?: NoteWhereInput | null
-    isNot?: NoteWhereInput | null
+  export type InteractionTypeListRelationFilter = {
+    every?: InteractionTypeWhereInput
+    some?: InteractionTypeWhereInput
+    none?: InteractionTypeWhereInput
   }
 
-  export type ServiceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type InteractionTypeOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type ServiceListRelationFilter = {
+    every?: ServiceWhereInput
+    some?: ServiceWhereInput
+    none?: ServiceWhereInput
   }
 
   export type AttachmentOrderByRelationAggregateInput = {
@@ -14343,49 +14335,57 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type InteractionTypeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ServiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type NoteCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
-    contactName?: SortOrder
-    isPinned?: SortOrder
-    type?: SortOrder
     companyId?: SortOrder
-    authorId?: SortOrder
-    parentId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isPinned?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
     deletedAt?: SortOrder
+    parentId?: SortOrder
+    contactName?: SortOrder
   }
 
   export type NoteMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
-    contactName?: SortOrder
-    isPinned?: SortOrder
-    type?: SortOrder
     companyId?: SortOrder
-    authorId?: SortOrder
-    parentId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isPinned?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
     deletedAt?: SortOrder
+    parentId?: SortOrder
+    contactName?: SortOrder
   }
 
   export type NoteMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
-    contactName?: SortOrder
-    isPinned?: SortOrder
-    type?: SortOrder
     companyId?: SortOrder
-    authorId?: SortOrder
-    parentId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isPinned?: SortOrder
+    authorId?: SortOrder
+    type?: SortOrder
     deletedAt?: SortOrder
+    parentId?: SortOrder
+    contactName?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -14448,23 +14448,23 @@ export namespace Prisma {
     noteId?: SortOrder
     oldTitle?: SortOrder
     oldContent?: SortOrder
-    oldContactName?: SortOrder
-    oldServices?: SortOrder
-    oldInteractionTypes?: SortOrder
+    changedById?: SortOrder
+    createdAt?: SortOrder
+    action?: SortOrder
     oldDocuments?: SortOrder
+    oldInteractionTypes?: SortOrder
+    oldServices?: SortOrder
+    newContactName?: SortOrder
+    newContent?: SortOrder
+    newDocuments?: SortOrder
+    newInteractionTypes?: SortOrder
+    newIsPinned?: SortOrder
+    newServices?: SortOrder
+    newTitle?: SortOrder
+    newType?: SortOrder
+    oldContactName?: SortOrder
     oldIsPinned?: SortOrder
     oldType?: SortOrder
-    newTitle?: SortOrder
-    newContent?: SortOrder
-    newContactName?: SortOrder
-    newServices?: SortOrder
-    newInteractionTypes?: SortOrder
-    newDocuments?: SortOrder
-    newIsPinned?: SortOrder
-    newType?: SortOrder
-    changedById?: SortOrder
-    action?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type NoteHistoryMaxOrderByAggregateInput = {
@@ -14472,17 +14472,17 @@ export namespace Prisma {
     noteId?: SortOrder
     oldTitle?: SortOrder
     oldContent?: SortOrder
+    changedById?: SortOrder
+    createdAt?: SortOrder
+    action?: SortOrder
+    newContactName?: SortOrder
+    newContent?: SortOrder
+    newIsPinned?: SortOrder
+    newTitle?: SortOrder
+    newType?: SortOrder
     oldContactName?: SortOrder
     oldIsPinned?: SortOrder
     oldType?: SortOrder
-    newTitle?: SortOrder
-    newContent?: SortOrder
-    newContactName?: SortOrder
-    newIsPinned?: SortOrder
-    newType?: SortOrder
-    changedById?: SortOrder
-    action?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type NoteHistoryMinOrderByAggregateInput = {
@@ -14490,17 +14490,17 @@ export namespace Prisma {
     noteId?: SortOrder
     oldTitle?: SortOrder
     oldContent?: SortOrder
+    changedById?: SortOrder
+    createdAt?: SortOrder
+    action?: SortOrder
+    newContactName?: SortOrder
+    newContent?: SortOrder
+    newIsPinned?: SortOrder
+    newTitle?: SortOrder
+    newType?: SortOrder
     oldContactName?: SortOrder
     oldIsPinned?: SortOrder
     oldType?: SortOrder
-    newTitle?: SortOrder
-    newContent?: SortOrder
-    newContactName?: SortOrder
-    newIsPinned?: SortOrder
-    newType?: SortOrder
-    changedById?: SortOrder
-    action?: SortOrder
-    createdAt?: SortOrder
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -14717,23 +14717,23 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type RefreshTokenListRelationFilter = {
-    every?: RefreshTokenWhereInput
-    some?: RefreshTokenWhereInput
-    none?: RefreshTokenWhereInput
-  }
-
   export type CompanyListRelationFilter = {
     every?: CompanyWhereInput
     some?: CompanyWhereInput
     none?: CompanyWhereInput
   }
 
-  export type RefreshTokenOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type RefreshTokenListRelationFilter = {
+    every?: RefreshTokenWhereInput
+    some?: RefreshTokenWhereInput
+    none?: RefreshTokenWhereInput
   }
 
   export type CompanyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RefreshTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14836,17 +14836,17 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type UserCreateNestedOneWithoutCompanyInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type NoteCreateNestedManyWithoutCompanyInput = {
     create?: XOR<NoteCreateWithoutCompanyInput, NoteUncheckedCreateWithoutCompanyInput> | NoteCreateWithoutCompanyInput[] | NoteUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: NoteCreateOrConnectWithoutCompanyInput | NoteCreateOrConnectWithoutCompanyInput[]
     createMany?: NoteCreateManyCompanyInputEnvelope
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
-  }
-
-  export type UserCreateNestedOneWithoutCompanyInput = {
-    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
-    connect?: UserWhereUniqueInput
   }
 
   export type NoteUncheckedCreateNestedManyWithoutCompanyInput = {
@@ -14877,6 +14877,14 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type UserUpdateOneRequiredWithoutCompanyNestedInput = {
+    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
+    upsert?: UserUpsertWithoutCompanyInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCompanyInput, UserUpdateWithoutCompanyInput>, UserUncheckedUpdateWithoutCompanyInput>
+  }
+
   export type NoteUpdateManyWithoutCompanyNestedInput = {
     create?: XOR<NoteCreateWithoutCompanyInput, NoteUncheckedCreateWithoutCompanyInput> | NoteCreateWithoutCompanyInput[] | NoteUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: NoteCreateOrConnectWithoutCompanyInput | NoteCreateOrConnectWithoutCompanyInput[]
@@ -14889,14 +14897,6 @@ export namespace Prisma {
     update?: NoteUpdateWithWhereUniqueWithoutCompanyInput | NoteUpdateWithWhereUniqueWithoutCompanyInput[]
     updateMany?: NoteUpdateManyWithWhereWithoutCompanyInput | NoteUpdateManyWithWhereWithoutCompanyInput[]
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
-  }
-
-  export type UserUpdateOneRequiredWithoutCompanyNestedInput = {
-    create?: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCompanyInput
-    upsert?: UserUpsertWithoutCompanyInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCompanyInput, UserUpdateWithoutCompanyInput>, UserUncheckedUpdateWithoutCompanyInput>
   }
 
   export type NoteUncheckedUpdateManyWithoutCompanyNestedInput = {
@@ -14913,22 +14913,11 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
-  export type ServiceCreateNestedManyWithoutNotesInput = {
-    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
-    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-  }
-
-  export type InteractionTypeCreateNestedManyWithoutNotesInput = {
-    create?: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput> | InteractionTypeCreateWithoutNotesInput[] | InteractionTypeUncheckedCreateWithoutNotesInput[]
-    connectOrCreate?: InteractionTypeCreateOrConnectWithoutNotesInput | InteractionTypeCreateOrConnectWithoutNotesInput[]
-    connect?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
-  }
-
-  export type CompanyCreateNestedOneWithoutNotesInput = {
-    create?: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutNotesInput
-    connect?: CompanyWhereUniqueInput
+  export type AttachmentCreateNestedManyWithoutNoteInput = {
+    create?: XOR<AttachmentCreateWithoutNoteInput, AttachmentUncheckedCreateWithoutNoteInput> | AttachmentCreateWithoutNoteInput[] | AttachmentUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: AttachmentCreateOrConnectWithoutNoteInput | AttachmentCreateOrConnectWithoutNoteInput[]
+    createMany?: AttachmentCreateManyNoteInputEnvelope
+    connect?: AttachmentWhereUniqueInput | AttachmentWhereUniqueInput[]
   }
 
   export type UserCreateNestedOneWithoutNotesInput = {
@@ -14937,18 +14926,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type AttachmentCreateNestedManyWithoutNoteInput = {
-    create?: XOR<AttachmentCreateWithoutNoteInput, AttachmentUncheckedCreateWithoutNoteInput> | AttachmentCreateWithoutNoteInput[] | AttachmentUncheckedCreateWithoutNoteInput[]
-    connectOrCreate?: AttachmentCreateOrConnectWithoutNoteInput | AttachmentCreateOrConnectWithoutNoteInput[]
-    createMany?: AttachmentCreateManyNoteInputEnvelope
-    connect?: AttachmentWhereUniqueInput | AttachmentWhereUniqueInput[]
-  }
-
-  export type NoteHistoryCreateNestedManyWithoutNoteInput = {
-    create?: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput> | NoteHistoryCreateWithoutNoteInput[] | NoteHistoryUncheckedCreateWithoutNoteInput[]
-    connectOrCreate?: NoteHistoryCreateOrConnectWithoutNoteInput | NoteHistoryCreateOrConnectWithoutNoteInput[]
-    createMany?: NoteHistoryCreateManyNoteInputEnvelope
-    connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+  export type CompanyCreateNestedOneWithoutNotesInput = {
+    create?: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutNotesInput
+    connect?: CompanyWhereUniqueInput
   }
 
   export type NoteCreateNestedOneWithoutFollowUpsInput = {
@@ -14964,16 +14945,23 @@ export namespace Prisma {
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
-  export type ServiceUncheckedCreateNestedManyWithoutNotesInput = {
-    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
-    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+  export type NoteHistoryCreateNestedManyWithoutNoteInput = {
+    create?: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput> | NoteHistoryCreateWithoutNoteInput[] | NoteHistoryUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: NoteHistoryCreateOrConnectWithoutNoteInput | NoteHistoryCreateOrConnectWithoutNoteInput[]
+    createMany?: NoteHistoryCreateManyNoteInputEnvelope
+    connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
   }
 
-  export type InteractionTypeUncheckedCreateNestedManyWithoutNotesInput = {
+  export type InteractionTypeCreateNestedManyWithoutNotesInput = {
     create?: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput> | InteractionTypeCreateWithoutNotesInput[] | InteractionTypeUncheckedCreateWithoutNotesInput[]
     connectOrCreate?: InteractionTypeCreateOrConnectWithoutNotesInput | InteractionTypeCreateOrConnectWithoutNotesInput[]
     connect?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
+  }
+
+  export type ServiceCreateNestedManyWithoutNotesInput = {
+    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
   export type AttachmentUncheckedCreateNestedManyWithoutNoteInput = {
@@ -14983,6 +14971,13 @@ export namespace Prisma {
     connect?: AttachmentWhereUniqueInput | AttachmentWhereUniqueInput[]
   }
 
+  export type NoteUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<NoteCreateWithoutParentInput, NoteUncheckedCreateWithoutParentInput> | NoteCreateWithoutParentInput[] | NoteUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: NoteCreateOrConnectWithoutParentInput | NoteCreateOrConnectWithoutParentInput[]
+    createMany?: NoteCreateManyParentInputEnvelope
+    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+  }
+
   export type NoteHistoryUncheckedCreateNestedManyWithoutNoteInput = {
     create?: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput> | NoteHistoryCreateWithoutNoteInput[] | NoteHistoryUncheckedCreateWithoutNoteInput[]
     connectOrCreate?: NoteHistoryCreateOrConnectWithoutNoteInput | NoteHistoryCreateOrConnectWithoutNoteInput[]
@@ -14990,11 +14985,16 @@ export namespace Prisma {
     connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
   }
 
-  export type NoteUncheckedCreateNestedManyWithoutParentInput = {
-    create?: XOR<NoteCreateWithoutParentInput, NoteUncheckedCreateWithoutParentInput> | NoteCreateWithoutParentInput[] | NoteUncheckedCreateWithoutParentInput[]
-    connectOrCreate?: NoteCreateOrConnectWithoutParentInput | NoteCreateOrConnectWithoutParentInput[]
-    createMany?: NoteCreateManyParentInputEnvelope
-    connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+  export type InteractionTypeUncheckedCreateNestedManyWithoutNotesInput = {
+    create?: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput> | InteractionTypeCreateWithoutNotesInput[] | InteractionTypeUncheckedCreateWithoutNotesInput[]
+    connectOrCreate?: InteractionTypeCreateOrConnectWithoutNotesInput | InteractionTypeCreateOrConnectWithoutNotesInput[]
+    connect?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
+  }
+
+  export type ServiceUncheckedCreateNestedManyWithoutNotesInput = {
+    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -15003,50 +15003,6 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-  }
-
-  export type ServiceUpdateManyWithoutNotesNestedInput = {
-    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
-    upsert?: ServiceUpsertWithWhereUniqueWithoutNotesInput | ServiceUpsertWithWhereUniqueWithoutNotesInput[]
-    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    update?: ServiceUpdateWithWhereUniqueWithoutNotesInput | ServiceUpdateWithWhereUniqueWithoutNotesInput[]
-    updateMany?: ServiceUpdateManyWithWhereWithoutNotesInput | ServiceUpdateManyWithWhereWithoutNotesInput[]
-    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
-  }
-
-  export type InteractionTypeUpdateManyWithoutNotesNestedInput = {
-    create?: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput> | InteractionTypeCreateWithoutNotesInput[] | InteractionTypeUncheckedCreateWithoutNotesInput[]
-    connectOrCreate?: InteractionTypeCreateOrConnectWithoutNotesInput | InteractionTypeCreateOrConnectWithoutNotesInput[]
-    upsert?: InteractionTypeUpsertWithWhereUniqueWithoutNotesInput | InteractionTypeUpsertWithWhereUniqueWithoutNotesInput[]
-    set?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
-    disconnect?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
-    delete?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
-    connect?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
-    update?: InteractionTypeUpdateWithWhereUniqueWithoutNotesInput | InteractionTypeUpdateWithWhereUniqueWithoutNotesInput[]
-    updateMany?: InteractionTypeUpdateManyWithWhereWithoutNotesInput | InteractionTypeUpdateManyWithWhereWithoutNotesInput[]
-    deleteMany?: InteractionTypeScalarWhereInput | InteractionTypeScalarWhereInput[]
-  }
-
-  export type CompanyUpdateOneRequiredWithoutNotesNestedInput = {
-    create?: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
-    connectOrCreate?: CompanyCreateOrConnectWithoutNotesInput
-    upsert?: CompanyUpsertWithoutNotesInput
-    connect?: CompanyWhereUniqueInput
-    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutNotesInput, CompanyUpdateWithoutNotesInput>, CompanyUncheckedUpdateWithoutNotesInput>
-  }
-
-  export type UserUpdateOneWithoutNotesNestedInput = {
-    create?: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNotesInput
-    upsert?: UserUpsertWithoutNotesInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotesInput, UserUpdateWithoutNotesInput>, UserUncheckedUpdateWithoutNotesInput>
   }
 
   export type AttachmentUpdateManyWithoutNoteNestedInput = {
@@ -15063,18 +15019,22 @@ export namespace Prisma {
     deleteMany?: AttachmentScalarWhereInput | AttachmentScalarWhereInput[]
   }
 
-  export type NoteHistoryUpdateManyWithoutNoteNestedInput = {
-    create?: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput> | NoteHistoryCreateWithoutNoteInput[] | NoteHistoryUncheckedCreateWithoutNoteInput[]
-    connectOrCreate?: NoteHistoryCreateOrConnectWithoutNoteInput | NoteHistoryCreateOrConnectWithoutNoteInput[]
-    upsert?: NoteHistoryUpsertWithWhereUniqueWithoutNoteInput | NoteHistoryUpsertWithWhereUniqueWithoutNoteInput[]
-    createMany?: NoteHistoryCreateManyNoteInputEnvelope
-    set?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    disconnect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    delete?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    update?: NoteHistoryUpdateWithWhereUniqueWithoutNoteInput | NoteHistoryUpdateWithWhereUniqueWithoutNoteInput[]
-    updateMany?: NoteHistoryUpdateManyWithWhereWithoutNoteInput | NoteHistoryUpdateManyWithWhereWithoutNoteInput[]
-    deleteMany?: NoteHistoryScalarWhereInput | NoteHistoryScalarWhereInput[]
+  export type UserUpdateOneWithoutNotesNestedInput = {
+    create?: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotesInput
+    upsert?: UserUpsertWithoutNotesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotesInput, UserUpdateWithoutNotesInput>, UserUncheckedUpdateWithoutNotesInput>
+  }
+
+  export type CompanyUpdateOneRequiredWithoutNotesNestedInput = {
+    create?: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutNotesInput
+    upsert?: CompanyUpsertWithoutNotesInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutNotesInput, CompanyUpdateWithoutNotesInput>, CompanyUncheckedUpdateWithoutNotesInput>
   }
 
   export type NoteUpdateOneWithoutFollowUpsNestedInput = {
@@ -15101,20 +15061,21 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
-  export type ServiceUncheckedUpdateManyWithoutNotesNestedInput = {
-    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
-    upsert?: ServiceUpsertWithWhereUniqueWithoutNotesInput | ServiceUpsertWithWhereUniqueWithoutNotesInput[]
-    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    update?: ServiceUpdateWithWhereUniqueWithoutNotesInput | ServiceUpdateWithWhereUniqueWithoutNotesInput[]
-    updateMany?: ServiceUpdateManyWithWhereWithoutNotesInput | ServiceUpdateManyWithWhereWithoutNotesInput[]
-    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+  export type NoteHistoryUpdateManyWithoutNoteNestedInput = {
+    create?: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput> | NoteHistoryCreateWithoutNoteInput[] | NoteHistoryUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: NoteHistoryCreateOrConnectWithoutNoteInput | NoteHistoryCreateOrConnectWithoutNoteInput[]
+    upsert?: NoteHistoryUpsertWithWhereUniqueWithoutNoteInput | NoteHistoryUpsertWithWhereUniqueWithoutNoteInput[]
+    createMany?: NoteHistoryCreateManyNoteInputEnvelope
+    set?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    disconnect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    delete?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    update?: NoteHistoryUpdateWithWhereUniqueWithoutNoteInput | NoteHistoryUpdateWithWhereUniqueWithoutNoteInput[]
+    updateMany?: NoteHistoryUpdateManyWithWhereWithoutNoteInput | NoteHistoryUpdateManyWithWhereWithoutNoteInput[]
+    deleteMany?: NoteHistoryScalarWhereInput | NoteHistoryScalarWhereInput[]
   }
 
-  export type InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput = {
+  export type InteractionTypeUpdateManyWithoutNotesNestedInput = {
     create?: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput> | InteractionTypeCreateWithoutNotesInput[] | InteractionTypeUncheckedCreateWithoutNotesInput[]
     connectOrCreate?: InteractionTypeCreateOrConnectWithoutNotesInput | InteractionTypeCreateOrConnectWithoutNotesInput[]
     upsert?: InteractionTypeUpsertWithWhereUniqueWithoutNotesInput | InteractionTypeUpsertWithWhereUniqueWithoutNotesInput[]
@@ -15125,6 +15086,19 @@ export namespace Prisma {
     update?: InteractionTypeUpdateWithWhereUniqueWithoutNotesInput | InteractionTypeUpdateWithWhereUniqueWithoutNotesInput[]
     updateMany?: InteractionTypeUpdateManyWithWhereWithoutNotesInput | InteractionTypeUpdateManyWithWhereWithoutNotesInput[]
     deleteMany?: InteractionTypeScalarWhereInput | InteractionTypeScalarWhereInput[]
+  }
+
+  export type ServiceUpdateManyWithoutNotesNestedInput = {
+    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutNotesInput | ServiceUpsertWithWhereUniqueWithoutNotesInput[]
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutNotesInput | ServiceUpdateWithWhereUniqueWithoutNotesInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutNotesInput | ServiceUpdateManyWithWhereWithoutNotesInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
   export type AttachmentUncheckedUpdateManyWithoutNoteNestedInput = {
@@ -15141,20 +15115,6 @@ export namespace Prisma {
     deleteMany?: AttachmentScalarWhereInput | AttachmentScalarWhereInput[]
   }
 
-  export type NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput = {
-    create?: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput> | NoteHistoryCreateWithoutNoteInput[] | NoteHistoryUncheckedCreateWithoutNoteInput[]
-    connectOrCreate?: NoteHistoryCreateOrConnectWithoutNoteInput | NoteHistoryCreateOrConnectWithoutNoteInput[]
-    upsert?: NoteHistoryUpsertWithWhereUniqueWithoutNoteInput | NoteHistoryUpsertWithWhereUniqueWithoutNoteInput[]
-    createMany?: NoteHistoryCreateManyNoteInputEnvelope
-    set?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    disconnect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    delete?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
-    update?: NoteHistoryUpdateWithWhereUniqueWithoutNoteInput | NoteHistoryUpdateWithWhereUniqueWithoutNoteInput[]
-    updateMany?: NoteHistoryUpdateManyWithWhereWithoutNoteInput | NoteHistoryUpdateManyWithWhereWithoutNoteInput[]
-    deleteMany?: NoteHistoryScalarWhereInput | NoteHistoryScalarWhereInput[]
-  }
-
   export type NoteUncheckedUpdateManyWithoutParentNestedInput = {
     create?: XOR<NoteCreateWithoutParentInput, NoteUncheckedCreateWithoutParentInput> | NoteCreateWithoutParentInput[] | NoteUncheckedCreateWithoutParentInput[]
     connectOrCreate?: NoteCreateOrConnectWithoutParentInput | NoteCreateOrConnectWithoutParentInput[]
@@ -15169,10 +15129,44 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
-  export type NoteCreateNestedOneWithoutHistoryInput = {
-    create?: XOR<NoteCreateWithoutHistoryInput, NoteUncheckedCreateWithoutHistoryInput>
-    connectOrCreate?: NoteCreateOrConnectWithoutHistoryInput
-    connect?: NoteWhereUniqueInput
+  export type NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput = {
+    create?: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput> | NoteHistoryCreateWithoutNoteInput[] | NoteHistoryUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: NoteHistoryCreateOrConnectWithoutNoteInput | NoteHistoryCreateOrConnectWithoutNoteInput[]
+    upsert?: NoteHistoryUpsertWithWhereUniqueWithoutNoteInput | NoteHistoryUpsertWithWhereUniqueWithoutNoteInput[]
+    createMany?: NoteHistoryCreateManyNoteInputEnvelope
+    set?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    disconnect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    delete?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
+    update?: NoteHistoryUpdateWithWhereUniqueWithoutNoteInput | NoteHistoryUpdateWithWhereUniqueWithoutNoteInput[]
+    updateMany?: NoteHistoryUpdateManyWithWhereWithoutNoteInput | NoteHistoryUpdateManyWithWhereWithoutNoteInput[]
+    deleteMany?: NoteHistoryScalarWhereInput | NoteHistoryScalarWhereInput[]
+  }
+
+  export type InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput = {
+    create?: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput> | InteractionTypeCreateWithoutNotesInput[] | InteractionTypeUncheckedCreateWithoutNotesInput[]
+    connectOrCreate?: InteractionTypeCreateOrConnectWithoutNotesInput | InteractionTypeCreateOrConnectWithoutNotesInput[]
+    upsert?: InteractionTypeUpsertWithWhereUniqueWithoutNotesInput | InteractionTypeUpsertWithWhereUniqueWithoutNotesInput[]
+    set?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
+    disconnect?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
+    delete?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
+    connect?: InteractionTypeWhereUniqueInput | InteractionTypeWhereUniqueInput[]
+    update?: InteractionTypeUpdateWithWhereUniqueWithoutNotesInput | InteractionTypeUpdateWithWhereUniqueWithoutNotesInput[]
+    updateMany?: InteractionTypeUpdateManyWithWhereWithoutNotesInput | InteractionTypeUpdateManyWithWhereWithoutNotesInput[]
+    deleteMany?: InteractionTypeScalarWhereInput | InteractionTypeScalarWhereInput[]
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutNotesNestedInput = {
+    create?: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput> | ServiceCreateWithoutNotesInput[] | ServiceUncheckedCreateWithoutNotesInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutNotesInput | ServiceCreateOrConnectWithoutNotesInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutNotesInput | ServiceUpsertWithWhereUniqueWithoutNotesInput[]
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutNotesInput | ServiceUpdateWithWhereUniqueWithoutNotesInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutNotesInput | ServiceUpdateManyWithWhereWithoutNotesInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutNoteHistoriesInput = {
@@ -15181,16 +15175,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
-  }
-
-  export type NoteUpdateOneRequiredWithoutHistoryNestedInput = {
+  export type NoteCreateNestedOneWithoutHistoryInput = {
     create?: XOR<NoteCreateWithoutHistoryInput, NoteUncheckedCreateWithoutHistoryInput>
     connectOrCreate?: NoteCreateOrConnectWithoutHistoryInput
-    upsert?: NoteUpsertWithoutHistoryInput
     connect?: NoteWhereUniqueInput
-    update?: XOR<XOR<NoteUpdateToOneWithWhereWithoutHistoryInput, NoteUpdateWithoutHistoryInput>, NoteUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type UserUpdateOneRequiredWithoutNoteHistoriesNestedInput = {
@@ -15199,6 +15191,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutNoteHistoriesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNoteHistoriesInput, UserUpdateWithoutNoteHistoriesInput>, UserUncheckedUpdateWithoutNoteHistoriesInput>
+  }
+
+  export type NoteUpdateOneRequiredWithoutHistoryNestedInput = {
+    create?: XOR<NoteCreateWithoutHistoryInput, NoteUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: NoteCreateOrConnectWithoutHistoryInput
+    upsert?: NoteUpsertWithoutHistoryInput
+    connect?: NoteWhereUniqueInput
+    update?: XOR<XOR<NoteUpdateToOneWithWhereWithoutHistoryInput, NoteUpdateWithoutHistoryInput>, NoteUncheckedUpdateWithoutHistoryInput>
   }
 
   export type NoteCreateNestedOneWithoutDocumentsInput = {
@@ -15315,13 +15315,6 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
-  export type RefreshTokenCreateNestedManyWithoutUserInput = {
-    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
-    createMany?: RefreshTokenCreateManyUserInputEnvelope
-    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-  }
-
   export type CompanyCreateNestedManyWithoutUserInput = {
     create?: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput> | CompanyCreateWithoutUserInput[] | CompanyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CompanyCreateOrConnectWithoutUserInput | CompanyCreateOrConnectWithoutUserInput[]
@@ -15343,7 +15336,7 @@ export namespace Prisma {
     connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
   }
 
-  export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
+  export type RefreshTokenCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
     createMany?: RefreshTokenCreateManyUserInputEnvelope
@@ -15371,6 +15364,13 @@ export namespace Prisma {
     connect?: NoteHistoryWhereUniqueInput | NoteHistoryWhereUniqueInput[]
   }
 
+  export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+  }
+
   export type EnumUserRoleFieldUpdateOperationsInput = {
     set?: $Enums.UserRole
   }
@@ -15385,20 +15385,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type RefreshTokenUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
-    upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RefreshTokenCreateManyUserInputEnvelope
-    set?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    disconnect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    delete?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
-    update?: RefreshTokenUpdateWithWhereUniqueWithoutUserInput | RefreshTokenUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RefreshTokenUpdateManyWithWhereWithoutUserInput | RefreshTokenUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
   export type CompanyUpdateManyWithoutUserNestedInput = {
@@ -15443,7 +15429,7 @@ export namespace Prisma {
     deleteMany?: NoteHistoryScalarWhereInput | NoteHistoryScalarWhereInput[]
   }
 
-  export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
+  export type RefreshTokenUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
     upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
@@ -15497,6 +15483,20 @@ export namespace Prisma {
     update?: NoteHistoryUpdateWithWhereUniqueWithoutChangedByInput | NoteHistoryUpdateWithWhereUniqueWithoutChangedByInput[]
     updateMany?: NoteHistoryUpdateManyWithWhereWithoutChangedByInput | NoteHistoryUpdateManyWithWhereWithoutChangedByInput[]
     deleteMany?: NoteHistoryScalarWhereInput | NoteHistoryScalarWhereInput[]
+  }
+
+  export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    set?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    disconnect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    delete?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    update?: RefreshTokenUpdateWithWhereUniqueWithoutUserInput | RefreshTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RefreshTokenUpdateManyWithWhereWithoutUserInput | RefreshTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -15787,54 +15787,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NoteCreateWithoutCompanyInput = {
-    id?: string
-    title?: string | null
-    content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    author?: UserCreateNestedOneWithoutNotesInput
-    documents?: AttachmentCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
-    parent?: NoteCreateNestedOneWithoutFollowUpsInput
-    followUps?: NoteCreateNestedManyWithoutParentInput
-  }
-
-  export type NoteUncheckedCreateWithoutCompanyInput = {
-    id?: string
-    title?: string | null
-    content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    authorId?: string | null
-    parentId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
-    documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
-    followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
-  }
-
-  export type NoteCreateOrConnectWithoutCompanyInput = {
-    where: NoteWhereUniqueInput
-    create: XOR<NoteCreateWithoutCompanyInput, NoteUncheckedCreateWithoutCompanyInput>
-  }
-
-  export type NoteCreateManyCompanyInputEnvelope = {
-    data: NoteCreateManyCompanyInput | NoteCreateManyCompanyInput[]
-    skipDuplicates?: boolean
-  }
-
   export type UserCreateWithoutCompanyInput = {
     id?: string
     email: string
@@ -15850,9 +15802,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     notes?: NoteCreateNestedManyWithoutAuthorInput
     noteHistories?: NoteHistoryCreateNestedManyWithoutChangedByInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanyInput = {
@@ -15870,9 +15822,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     notes?: NoteUncheckedCreateNestedManyWithoutAuthorInput
     noteHistories?: NoteHistoryUncheckedCreateNestedManyWithoutChangedByInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanyInput = {
@@ -15880,38 +15832,52 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCompanyInput, UserUncheckedCreateWithoutCompanyInput>
   }
 
-  export type NoteUpsertWithWhereUniqueWithoutCompanyInput = {
+  export type NoteCreateWithoutCompanyInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
+    deletedAt?: Date | string | null
+    contactName?: string | null
+    documents?: AttachmentCreateNestedManyWithoutNoteInput
+    author?: UserCreateNestedOneWithoutNotesInput
+    parent?: NoteCreateNestedOneWithoutFollowUpsInput
+    followUps?: NoteCreateNestedManyWithoutParentInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
+  }
+
+  export type NoteUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
+    deletedAt?: Date | string | null
+    parentId?: string | null
+    contactName?: string | null
+    documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
+    followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
+  }
+
+  export type NoteCreateOrConnectWithoutCompanyInput = {
     where: NoteWhereUniqueInput
-    update: XOR<NoteUpdateWithoutCompanyInput, NoteUncheckedUpdateWithoutCompanyInput>
     create: XOR<NoteCreateWithoutCompanyInput, NoteUncheckedCreateWithoutCompanyInput>
   }
 
-  export type NoteUpdateWithWhereUniqueWithoutCompanyInput = {
-    where: NoteWhereUniqueInput
-    data: XOR<NoteUpdateWithoutCompanyInput, NoteUncheckedUpdateWithoutCompanyInput>
-  }
-
-  export type NoteUpdateManyWithWhereWithoutCompanyInput = {
-    where: NoteScalarWhereInput
-    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutCompanyInput>
-  }
-
-  export type NoteScalarWhereInput = {
-    AND?: NoteScalarWhereInput | NoteScalarWhereInput[]
-    OR?: NoteScalarWhereInput[]
-    NOT?: NoteScalarWhereInput | NoteScalarWhereInput[]
-    id?: StringFilter<"Note"> | string
-    title?: StringNullableFilter<"Note"> | string | null
-    content?: StringNullableFilter<"Note"> | string | null
-    contactName?: StringNullableFilter<"Note"> | string | null
-    isPinned?: BoolFilter<"Note"> | boolean
-    type?: StringNullableFilter<"Note"> | string | null
-    companyId?: StringFilter<"Note"> | string
-    authorId?: StringNullableFilter<"Note"> | string | null
-    parentId?: StringNullableFilter<"Note"> | string | null
-    createdAt?: DateTimeFilter<"Note"> | Date | string
-    updatedAt?: DateTimeFilter<"Note"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Note"> | Date | string | null
+  export type NoteCreateManyCompanyInputEnvelope = {
+    data: NoteCreateManyCompanyInput | NoteCreateManyCompanyInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutCompanyInput = {
@@ -15940,9 +15906,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     notes?: NoteUpdateManyWithoutAuthorNestedInput
     noteHistories?: NoteHistoryUpdateManyWithoutChangedByNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -15960,119 +15926,43 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     notes?: NoteUncheckedUpdateManyWithoutAuthorNestedInput
     noteHistories?: NoteHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ServiceCreateWithoutNotesInput = {
-    id?: string
-    name: string
+  export type NoteUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: NoteWhereUniqueInput
+    update: XOR<NoteUpdateWithoutCompanyInput, NoteUncheckedUpdateWithoutCompanyInput>
+    create: XOR<NoteCreateWithoutCompanyInput, NoteUncheckedCreateWithoutCompanyInput>
   }
 
-  export type ServiceUncheckedCreateWithoutNotesInput = {
-    id?: string
-    name: string
+  export type NoteUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: NoteWhereUniqueInput
+    data: XOR<NoteUpdateWithoutCompanyInput, NoteUncheckedUpdateWithoutCompanyInput>
   }
 
-  export type ServiceCreateOrConnectWithoutNotesInput = {
-    where: ServiceWhereUniqueInput
-    create: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput>
+  export type NoteUpdateManyWithWhereWithoutCompanyInput = {
+    where: NoteScalarWhereInput
+    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutCompanyInput>
   }
 
-  export type InteractionTypeCreateWithoutNotesInput = {
-    id?: string
-    name: string
-  }
-
-  export type InteractionTypeUncheckedCreateWithoutNotesInput = {
-    id?: string
-    name: string
-  }
-
-  export type InteractionTypeCreateOrConnectWithoutNotesInput = {
-    where: InteractionTypeWhereUniqueInput
-    create: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput>
-  }
-
-  export type CompanyCreateWithoutNotesInput = {
-    id?: string
-    name: string
-    email: string
-    PhoneNumber: string
-    contactName?: string | null
-    logo?: string | null
-    tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
-    status?: $Enums.CompanyStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutCompanyInput
-  }
-
-  export type CompanyUncheckedCreateWithoutNotesInput = {
-    id?: string
-    name: string
-    email: string
-    PhoneNumber: string
-    contactName?: string | null
-    logo?: string | null
-    tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
-    status?: $Enums.CompanyStatus
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type CompanyCreateOrConnectWithoutNotesInput = {
-    where: CompanyWhereUniqueInput
-    create: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
-  }
-
-  export type UserCreateWithoutNotesInput = {
-    id?: string
-    email: string
-    name: string
-    password: string
-    mobile?: string | null
-    profile?: string | null
-    role: $Enums.UserRole
-    status?: $Enums.UserStatus
-    failedLoginAttempts?: number
-    lastFailedAttempt?: Date | string | null
-    lockUntil?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
-    company?: CompanyCreateNestedManyWithoutUserInput
-    noteHistories?: NoteHistoryCreateNestedManyWithoutChangedByInput
-  }
-
-  export type UserUncheckedCreateWithoutNotesInput = {
-    id?: string
-    email: string
-    name: string
-    password: string
-    mobile?: string | null
-    profile?: string | null
-    role: $Enums.UserRole
-    status?: $Enums.UserStatus
-    failedLoginAttempts?: number
-    lastFailedAttempt?: Date | string | null
-    lockUntil?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-    company?: CompanyUncheckedCreateNestedManyWithoutUserInput
-    noteHistories?: NoteHistoryUncheckedCreateNestedManyWithoutChangedByInput
-  }
-
-  export type UserCreateOrConnectWithoutNotesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
+  export type NoteScalarWhereInput = {
+    AND?: NoteScalarWhereInput | NoteScalarWhereInput[]
+    OR?: NoteScalarWhereInput[]
+    NOT?: NoteScalarWhereInput | NoteScalarWhereInput[]
+    id?: StringFilter<"Note"> | string
+    title?: StringNullableFilter<"Note"> | string | null
+    content?: StringNullableFilter<"Note"> | string | null
+    companyId?: StringFilter<"Note"> | string
+    createdAt?: DateTimeFilter<"Note"> | Date | string
+    updatedAt?: DateTimeFilter<"Note"> | Date | string
+    isPinned?: BoolFilter<"Note"> | boolean
+    authorId?: StringNullableFilter<"Note"> | string | null
+    type?: StringNullableFilter<"Note"> | string | null
+    deletedAt?: DateTimeNullableFilter<"Note"> | Date | string | null
+    parentId?: StringNullableFilter<"Note"> | string | null
+    contactName?: StringNullableFilter<"Note"> | string | null
   }
 
   export type AttachmentCreateWithoutNoteInput = {
@@ -16105,98 +15995,122 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type NoteHistoryCreateWithoutNoteInput = {
+  export type UserCreateWithoutNotesInput = {
     id?: string
-    oldTitle?: string | null
-    oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: boolean | null
-    oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    action: string
+    email: string
+    name: string
+    password: string
+    mobile?: string | null
+    profile?: string | null
+    role: $Enums.UserRole
+    status?: $Enums.UserStatus
+    failedLoginAttempts?: number
+    lastFailedAttempt?: Date | string | null
+    lockUntil?: Date | string | null
     createdAt?: Date | string
-    changedBy: UserCreateNestedOneWithoutNoteHistoriesInput
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    company?: CompanyCreateNestedManyWithoutUserInput
+    noteHistories?: NoteHistoryCreateNestedManyWithoutChangedByInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
-  export type NoteHistoryUncheckedCreateWithoutNoteInput = {
+  export type UserUncheckedCreateWithoutNotesInput = {
     id?: string
-    oldTitle?: string | null
-    oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: boolean | null
-    oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    changedById: string
-    action: string
+    email: string
+    name: string
+    password: string
+    mobile?: string | null
+    profile?: string | null
+    role: $Enums.UserRole
+    status?: $Enums.UserStatus
+    failedLoginAttempts?: number
+    lastFailedAttempt?: Date | string | null
+    lockUntil?: Date | string | null
     createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    company?: CompanyUncheckedCreateNestedManyWithoutUserInput
+    noteHistories?: NoteHistoryUncheckedCreateNestedManyWithoutChangedByInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type NoteHistoryCreateOrConnectWithoutNoteInput = {
-    where: NoteHistoryWhereUniqueInput
-    create: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput>
+  export type UserCreateOrConnectWithoutNotesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
   }
 
-  export type NoteHistoryCreateManyNoteInputEnvelope = {
-    data: NoteHistoryCreateManyNoteInput | NoteHistoryCreateManyNoteInput[]
-    skipDuplicates?: boolean
+  export type CompanyCreateWithoutNotesInput = {
+    id?: string
+    name: string
+    email: string
+    PhoneNumber: string
+    logo?: string | null
+    tags?: CompanyCreatetagsInput | string[]
+    status?: $Enums.CompanyStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignUsername?: string | null
+    contactName?: string | null
+    user: UserCreateNestedOneWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutNotesInput = {
+    id?: string
+    name: string
+    email: string
+    PhoneNumber: string
+    logo?: string | null
+    tags?: CompanyCreatetagsInput | string[]
+    status?: $Enums.CompanyStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignUsername?: string | null
+    userId: string
+    contactName?: string | null
+  }
+
+  export type CompanyCreateOrConnectWithoutNotesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
   }
 
   export type NoteCreateWithoutFollowUpsInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
-    author?: UserCreateNestedOneWithoutNotesInput
+    contactName?: string | null
     documents?: AttachmentCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    author?: UserCreateNestedOneWithoutNotesInput
+    company: CompanyCreateNestedOneWithoutNotesInput
     parent?: NoteCreateNestedOneWithoutFollowUpsInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
   }
 
   export type NoteUncheckedCreateWithoutFollowUpsInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
-    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    parentId?: string | null
+    contactName?: string | null
     documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
     history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
   }
 
   export type NoteCreateOrConnectWithoutFollowUpsInput = {
@@ -16208,38 +16122,38 @@ export namespace Prisma {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
-    author?: UserCreateNestedOneWithoutNotesInput
+    contactName?: string | null
     documents?: AttachmentCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    author?: UserCreateNestedOneWithoutNotesInput
+    company: CompanyCreateNestedOneWithoutNotesInput
     followUps?: NoteCreateNestedManyWithoutParentInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
   }
 
   export type NoteUncheckedCreateWithoutParentInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    contactName?: string | null
     documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
     followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
   }
 
   export type NoteCreateOrConnectWithoutParentInput = {
@@ -16252,144 +16166,90 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ServiceUpsertWithWhereUniqueWithoutNotesInput = {
-    where: ServiceWhereUniqueInput
-    update: XOR<ServiceUpdateWithoutNotesInput, ServiceUncheckedUpdateWithoutNotesInput>
-    create: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput>
+  export type NoteHistoryCreateWithoutNoteInput = {
+    id?: string
+    oldTitle?: string | null
+    oldContent?: string | null
+    createdAt?: Date | string
+    action: string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
+    oldIsPinned?: boolean | null
+    oldType?: string | null
+    changedBy: UserCreateNestedOneWithoutNoteHistoriesInput
   }
 
-  export type ServiceUpdateWithWhereUniqueWithoutNotesInput = {
-    where: ServiceWhereUniqueInput
-    data: XOR<ServiceUpdateWithoutNotesInput, ServiceUncheckedUpdateWithoutNotesInput>
+  export type NoteHistoryUncheckedCreateWithoutNoteInput = {
+    id?: string
+    oldTitle?: string | null
+    oldContent?: string | null
+    changedById: string
+    createdAt?: Date | string
+    action: string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
+    oldIsPinned?: boolean | null
+    oldType?: string | null
   }
 
-  export type ServiceUpdateManyWithWhereWithoutNotesInput = {
-    where: ServiceScalarWhereInput
-    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutNotesInput>
+  export type NoteHistoryCreateOrConnectWithoutNoteInput = {
+    where: NoteHistoryWhereUniqueInput
+    create: XOR<NoteHistoryCreateWithoutNoteInput, NoteHistoryUncheckedCreateWithoutNoteInput>
   }
 
-  export type ServiceScalarWhereInput = {
-    AND?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
-    OR?: ServiceScalarWhereInput[]
-    NOT?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
-    id?: StringFilter<"Service"> | string
-    name?: StringFilter<"Service"> | string
+  export type NoteHistoryCreateManyNoteInputEnvelope = {
+    data: NoteHistoryCreateManyNoteInput | NoteHistoryCreateManyNoteInput[]
+    skipDuplicates?: boolean
   }
 
-  export type InteractionTypeUpsertWithWhereUniqueWithoutNotesInput = {
+  export type InteractionTypeCreateWithoutNotesInput = {
+    id?: string
+    name: string
+  }
+
+  export type InteractionTypeUncheckedCreateWithoutNotesInput = {
+    id?: string
+    name: string
+  }
+
+  export type InteractionTypeCreateOrConnectWithoutNotesInput = {
     where: InteractionTypeWhereUniqueInput
-    update: XOR<InteractionTypeUpdateWithoutNotesInput, InteractionTypeUncheckedUpdateWithoutNotesInput>
     create: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput>
   }
 
-  export type InteractionTypeUpdateWithWhereUniqueWithoutNotesInput = {
-    where: InteractionTypeWhereUniqueInput
-    data: XOR<InteractionTypeUpdateWithoutNotesInput, InteractionTypeUncheckedUpdateWithoutNotesInput>
+  export type ServiceCreateWithoutNotesInput = {
+    id?: string
+    name: string
   }
 
-  export type InteractionTypeUpdateManyWithWhereWithoutNotesInput = {
-    where: InteractionTypeScalarWhereInput
-    data: XOR<InteractionTypeUpdateManyMutationInput, InteractionTypeUncheckedUpdateManyWithoutNotesInput>
+  export type ServiceUncheckedCreateWithoutNotesInput = {
+    id?: string
+    name: string
   }
 
-  export type InteractionTypeScalarWhereInput = {
-    AND?: InteractionTypeScalarWhereInput | InteractionTypeScalarWhereInput[]
-    OR?: InteractionTypeScalarWhereInput[]
-    NOT?: InteractionTypeScalarWhereInput | InteractionTypeScalarWhereInput[]
-    id?: StringFilter<"InteractionType"> | string
-    name?: StringFilter<"InteractionType"> | string
-  }
-
-  export type CompanyUpsertWithoutNotesInput = {
-    update: XOR<CompanyUpdateWithoutNotesInput, CompanyUncheckedUpdateWithoutNotesInput>
-    create: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
-    where?: CompanyWhereInput
-  }
-
-  export type CompanyUpdateToOneWithWhereWithoutNotesInput = {
-    where?: CompanyWhereInput
-    data: XOR<CompanyUpdateWithoutNotesInput, CompanyUncheckedUpdateWithoutNotesInput>
-  }
-
-  export type CompanyUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutCompanyNestedInput
-  }
-
-  export type CompanyUncheckedUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserUpsertWithoutNotesInput = {
-    update: XOR<UserUpdateWithoutNotesInput, UserUncheckedUpdateWithoutNotesInput>
-    create: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutNotesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutNotesInput, UserUncheckedUpdateWithoutNotesInput>
-  }
-
-  export type UserUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    profile?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
-    lastFailedAttempt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lockUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
-    company?: CompanyUpdateManyWithoutUserNestedInput
-    noteHistories?: NoteHistoryUpdateManyWithoutChangedByNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    profile?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
-    lastFailedAttempt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lockUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-    company?: CompanyUncheckedUpdateManyWithoutUserNestedInput
-    noteHistories?: NoteHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  export type ServiceCreateOrConnectWithoutNotesInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput>
   }
 
   export type AttachmentUpsertWithWhereUniqueWithoutNoteInput = {
@@ -16422,6 +16282,163 @@ export namespace Prisma {
     noteId?: StringNullableFilter<"Attachment"> | string | null
   }
 
+  export type UserUpsertWithoutNotesInput = {
+    update: XOR<UserUpdateWithoutNotesInput, UserUncheckedUpdateWithoutNotesInput>
+    create: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotesInput, UserUncheckedUpdateWithoutNotesInput>
+  }
+
+  export type UserUpdateWithoutNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    profile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lastFailedAttempt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    company?: CompanyUpdateManyWithoutUserNestedInput
+    noteHistories?: NoteHistoryUpdateManyWithoutChangedByNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    profile?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    failedLoginAttempts?: IntFieldUpdateOperationsInput | number
+    lastFailedAttempt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lockUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    company?: CompanyUncheckedUpdateManyWithoutUserNestedInput
+    noteHistories?: NoteHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CompanyUpsertWithoutNotesInput = {
+    update: XOR<CompanyUpdateWithoutNotesInput, CompanyUncheckedUpdateWithoutNotesInput>
+    create: XOR<CompanyCreateWithoutNotesInput, CompanyUncheckedCreateWithoutNotesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutNotesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutNotesInput, CompanyUncheckedUpdateWithoutNotesInput>
+  }
+
+  export type CompanyUpdateWithoutNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    PhoneNumber?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: CompanyUpdatetagsInput | string[]
+    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    PhoneNumber?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: CompanyUpdatetagsInput | string[]
+    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NoteUpsertWithoutFollowUpsInput = {
+    update: XOR<NoteUpdateWithoutFollowUpsInput, NoteUncheckedUpdateWithoutFollowUpsInput>
+    create: XOR<NoteCreateWithoutFollowUpsInput, NoteUncheckedCreateWithoutFollowUpsInput>
+    where?: NoteWhereInput
+  }
+
+  export type NoteUpdateToOneWithWhereWithoutFollowUpsInput = {
+    where?: NoteWhereInput
+    data: XOR<NoteUpdateWithoutFollowUpsInput, NoteUncheckedUpdateWithoutFollowUpsInput>
+  }
+
+  export type NoteUpdateWithoutFollowUpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUpdateManyWithoutNoteNestedInput
+    author?: UserUpdateOneWithoutNotesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
+    parent?: NoteUpdateOneWithoutFollowUpsNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateWithoutFollowUpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUpsertWithWhereUniqueWithoutParentInput = {
+    where: NoteWhereUniqueInput
+    update: XOR<NoteUpdateWithoutParentInput, NoteUncheckedUpdateWithoutParentInput>
+    create: XOR<NoteCreateWithoutParentInput, NoteUncheckedCreateWithoutParentInput>
+  }
+
+  export type NoteUpdateWithWhereUniqueWithoutParentInput = {
+    where: NoteWhereUniqueInput
+    data: XOR<NoteUpdateWithoutParentInput, NoteUncheckedUpdateWithoutParentInput>
+  }
+
+  export type NoteUpdateManyWithWhereWithoutParentInput = {
+    where: NoteScalarWhereInput
+    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutParentInput>
+  }
+
   export type NoteHistoryUpsertWithWhereUniqueWithoutNoteInput = {
     where: NoteHistoryWhereUniqueInput
     update: XOR<NoteHistoryUpdateWithoutNoteInput, NoteHistoryUncheckedUpdateWithoutNoteInput>
@@ -16446,131 +16463,71 @@ export namespace Prisma {
     noteId?: StringFilter<"NoteHistory"> | string
     oldTitle?: StringNullableFilter<"NoteHistory"> | string | null
     oldContent?: StringNullableFilter<"NoteHistory"> | string | null
-    oldContactName?: StringNullableFilter<"NoteHistory"> | string | null
-    oldServices?: JsonNullableFilter<"NoteHistory">
-    oldInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    changedById?: StringFilter<"NoteHistory"> | string
+    createdAt?: DateTimeFilter<"NoteHistory"> | Date | string
+    action?: StringFilter<"NoteHistory"> | string
     oldDocuments?: JsonNullableFilter<"NoteHistory">
+    oldInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    oldServices?: JsonNullableFilter<"NoteHistory">
+    newContactName?: StringNullableFilter<"NoteHistory"> | string | null
+    newContent?: StringNullableFilter<"NoteHistory"> | string | null
+    newDocuments?: JsonNullableFilter<"NoteHistory">
+    newInteractionTypes?: JsonNullableFilter<"NoteHistory">
+    newIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
+    newServices?: JsonNullableFilter<"NoteHistory">
+    newTitle?: StringNullableFilter<"NoteHistory"> | string | null
+    newType?: StringNullableFilter<"NoteHistory"> | string | null
+    oldContactName?: StringNullableFilter<"NoteHistory"> | string | null
     oldIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
     oldType?: StringNullableFilter<"NoteHistory"> | string | null
-    newTitle?: StringNullableFilter<"NoteHistory"> | string | null
-    newContent?: StringNullableFilter<"NoteHistory"> | string | null
-    newContactName?: StringNullableFilter<"NoteHistory"> | string | null
-    newServices?: JsonNullableFilter<"NoteHistory">
-    newInteractionTypes?: JsonNullableFilter<"NoteHistory">
-    newDocuments?: JsonNullableFilter<"NoteHistory">
-    newIsPinned?: BoolNullableFilter<"NoteHistory"> | boolean | null
-    newType?: StringNullableFilter<"NoteHistory"> | string | null
-    changedById?: StringFilter<"NoteHistory"> | string
-    action?: StringFilter<"NoteHistory"> | string
-    createdAt?: DateTimeFilter<"NoteHistory"> | Date | string
   }
 
-  export type NoteUpsertWithoutFollowUpsInput = {
-    update: XOR<NoteUpdateWithoutFollowUpsInput, NoteUncheckedUpdateWithoutFollowUpsInput>
-    create: XOR<NoteCreateWithoutFollowUpsInput, NoteUncheckedCreateWithoutFollowUpsInput>
-    where?: NoteWhereInput
+  export type InteractionTypeUpsertWithWhereUniqueWithoutNotesInput = {
+    where: InteractionTypeWhereUniqueInput
+    update: XOR<InteractionTypeUpdateWithoutNotesInput, InteractionTypeUncheckedUpdateWithoutNotesInput>
+    create: XOR<InteractionTypeCreateWithoutNotesInput, InteractionTypeUncheckedCreateWithoutNotesInput>
   }
 
-  export type NoteUpdateToOneWithWhereWithoutFollowUpsInput = {
-    where?: NoteWhereInput
-    data: XOR<NoteUpdateWithoutFollowUpsInput, NoteUncheckedUpdateWithoutFollowUpsInput>
+  export type InteractionTypeUpdateWithWhereUniqueWithoutNotesInput = {
+    where: InteractionTypeWhereUniqueInput
+    data: XOR<InteractionTypeUpdateWithoutNotesInput, InteractionTypeUncheckedUpdateWithoutNotesInput>
   }
 
-  export type NoteUpdateWithoutFollowUpsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
-    author?: UserUpdateOneWithoutNotesNestedInput
-    documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
-    parent?: NoteUpdateOneWithoutFollowUpsNestedInput
+  export type InteractionTypeUpdateManyWithWhereWithoutNotesInput = {
+    where: InteractionTypeScalarWhereInput
+    data: XOR<InteractionTypeUpdateManyMutationInput, InteractionTypeUncheckedUpdateManyWithoutNotesInput>
   }
 
-  export type NoteUncheckedUpdateWithoutFollowUpsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
-    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+  export type InteractionTypeScalarWhereInput = {
+    AND?: InteractionTypeScalarWhereInput | InteractionTypeScalarWhereInput[]
+    OR?: InteractionTypeScalarWhereInput[]
+    NOT?: InteractionTypeScalarWhereInput | InteractionTypeScalarWhereInput[]
+    id?: StringFilter<"InteractionType"> | string
+    name?: StringFilter<"InteractionType"> | string
   }
 
-  export type NoteUpsertWithWhereUniqueWithoutParentInput = {
-    where: NoteWhereUniqueInput
-    update: XOR<NoteUpdateWithoutParentInput, NoteUncheckedUpdateWithoutParentInput>
-    create: XOR<NoteCreateWithoutParentInput, NoteUncheckedCreateWithoutParentInput>
+  export type ServiceUpsertWithWhereUniqueWithoutNotesInput = {
+    where: ServiceWhereUniqueInput
+    update: XOR<ServiceUpdateWithoutNotesInput, ServiceUncheckedUpdateWithoutNotesInput>
+    create: XOR<ServiceCreateWithoutNotesInput, ServiceUncheckedCreateWithoutNotesInput>
   }
 
-  export type NoteUpdateWithWhereUniqueWithoutParentInput = {
-    where: NoteWhereUniqueInput
-    data: XOR<NoteUpdateWithoutParentInput, NoteUncheckedUpdateWithoutParentInput>
+  export type ServiceUpdateWithWhereUniqueWithoutNotesInput = {
+    where: ServiceWhereUniqueInput
+    data: XOR<ServiceUpdateWithoutNotesInput, ServiceUncheckedUpdateWithoutNotesInput>
   }
 
-  export type NoteUpdateManyWithWhereWithoutParentInput = {
-    where: NoteScalarWhereInput
-    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutParentInput>
+  export type ServiceUpdateManyWithWhereWithoutNotesInput = {
+    where: ServiceScalarWhereInput
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutNotesInput>
   }
 
-  export type NoteCreateWithoutHistoryInput = {
-    id?: string
-    title?: string | null
-    content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
-    author?: UserCreateNestedOneWithoutNotesInput
-    documents?: AttachmentCreateNestedManyWithoutNoteInput
-    parent?: NoteCreateNestedOneWithoutFollowUpsInput
-    followUps?: NoteCreateNestedManyWithoutParentInput
-  }
-
-  export type NoteUncheckedCreateWithoutHistoryInput = {
-    id?: string
-    title?: string | null
-    content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    companyId: string
-    authorId?: string | null
-    parentId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
-    documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
-    followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
-  }
-
-  export type NoteCreateOrConnectWithoutHistoryInput = {
-    where: NoteWhereUniqueInput
-    create: XOR<NoteCreateWithoutHistoryInput, NoteUncheckedCreateWithoutHistoryInput>
+  export type ServiceScalarWhereInput = {
+    AND?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    OR?: ServiceScalarWhereInput[]
+    NOT?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    id?: StringFilter<"Service"> | string
+    name?: StringFilter<"Service"> | string
   }
 
   export type UserCreateWithoutNoteHistoriesInput = {
@@ -16588,9 +16545,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     company?: CompanyCreateNestedManyWithoutUserInput
     notes?: NoteCreateNestedManyWithoutAuthorInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNoteHistoriesInput = {
@@ -16608,9 +16565,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     company?: CompanyUncheckedCreateNestedManyWithoutUserInput
     notes?: NoteUncheckedCreateNestedManyWithoutAuthorInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNoteHistoriesInput = {
@@ -16618,53 +16575,47 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutNoteHistoriesInput, UserUncheckedCreateWithoutNoteHistoriesInput>
   }
 
-  export type NoteUpsertWithoutHistoryInput = {
-    update: XOR<NoteUpdateWithoutHistoryInput, NoteUncheckedUpdateWithoutHistoryInput>
+  export type NoteCreateWithoutHistoryInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
+    deletedAt?: Date | string | null
+    contactName?: string | null
+    documents?: AttachmentCreateNestedManyWithoutNoteInput
+    author?: UserCreateNestedOneWithoutNotesInput
+    company: CompanyCreateNestedOneWithoutNotesInput
+    parent?: NoteCreateNestedOneWithoutFollowUpsInput
+    followUps?: NoteCreateNestedManyWithoutParentInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
+  }
+
+  export type NoteUncheckedCreateWithoutHistoryInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    companyId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
+    deletedAt?: Date | string | null
+    parentId?: string | null
+    contactName?: string | null
+    documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
+    followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
+  }
+
+  export type NoteCreateOrConnectWithoutHistoryInput = {
+    where: NoteWhereUniqueInput
     create: XOR<NoteCreateWithoutHistoryInput, NoteUncheckedCreateWithoutHistoryInput>
-    where?: NoteWhereInput
-  }
-
-  export type NoteUpdateToOneWithWhereWithoutHistoryInput = {
-    where?: NoteWhereInput
-    data: XOR<NoteUpdateWithoutHistoryInput, NoteUncheckedUpdateWithoutHistoryInput>
-  }
-
-  export type NoteUpdateWithoutHistoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
-    author?: UserUpdateOneWithoutNotesNestedInput
-    documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    parent?: NoteUpdateOneWithoutFollowUpsNestedInput
-    followUps?: NoteUpdateManyWithoutParentNestedInput
-  }
-
-  export type NoteUncheckedUpdateWithoutHistoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
-    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type UserUpsertWithoutNoteHistoriesInput = {
@@ -16693,9 +16644,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     company?: CompanyUpdateManyWithoutUserNestedInput
     notes?: NoteUpdateManyWithoutAuthorNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNoteHistoriesInput = {
@@ -16713,47 +16664,96 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     company?: CompanyUncheckedUpdateManyWithoutUserNestedInput
     notes?: NoteUncheckedUpdateManyWithoutAuthorNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type NoteUpsertWithoutHistoryInput = {
+    update: XOR<NoteUpdateWithoutHistoryInput, NoteUncheckedUpdateWithoutHistoryInput>
+    create: XOR<NoteCreateWithoutHistoryInput, NoteUncheckedCreateWithoutHistoryInput>
+    where?: NoteWhereInput
+  }
+
+  export type NoteUpdateToOneWithWhereWithoutHistoryInput = {
+    where?: NoteWhereInput
+    data: XOR<NoteUpdateWithoutHistoryInput, NoteUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type NoteUpdateWithoutHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUpdateManyWithoutNoteNestedInput
+    author?: UserUpdateOneWithoutNotesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
+    parent?: NoteUpdateOneWithoutFollowUpsNestedInput
+    followUps?: NoteUpdateManyWithoutParentNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateWithoutHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
+    followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteCreateWithoutDocumentsInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
+    contactName?: string | null
     author?: UserCreateNestedOneWithoutNotesInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    company: CompanyCreateNestedOneWithoutNotesInput
     parent?: NoteCreateNestedOneWithoutFollowUpsInput
     followUps?: NoteCreateNestedManyWithoutParentInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
   }
 
   export type NoteUncheckedCreateWithoutDocumentsInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
-    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
-    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    parentId?: string | null
+    contactName?: string | null
     followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
   }
 
   export type NoteCreateOrConnectWithoutDocumentsInput = {
@@ -16776,38 +16776,38 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     author?: UserUpdateOneWithoutNotesNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
     parent?: NoteUpdateOneWithoutFollowUpsNestedInput
     followUps?: NoteUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutDocumentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
   }
 
   export type UserCreateWithoutRefreshTokensInput = {
@@ -16910,38 +16910,38 @@ export namespace Prisma {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
     deletedAt?: Date | string | null
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
-    author?: UserCreateNestedOneWithoutNotesInput
+    contactName?: string | null
     documents?: AttachmentCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    author?: UserCreateNestedOneWithoutNotesInput
+    company: CompanyCreateNestedOneWithoutNotesInput
     parent?: NoteCreateNestedOneWithoutFollowUpsInput
     followUps?: NoteCreateNestedManyWithoutParentInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
   }
 
   export type NoteUncheckedCreateWithoutServicesInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
-    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    parentId?: string | null
+    contactName?: string | null
     documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
     followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
   }
 
   export type NoteCreateOrConnectWithoutServicesInput = {
@@ -16969,38 +16969,38 @@ export namespace Prisma {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
-    author?: UserCreateNestedOneWithoutNotesInput
+    contactName?: string | null
     documents?: AttachmentCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    author?: UserCreateNestedOneWithoutNotesInput
+    company: CompanyCreateNestedOneWithoutNotesInput
     parent?: NoteCreateNestedOneWithoutFollowUpsInput
     followUps?: NoteCreateNestedManyWithoutParentInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
   }
 
   export type NoteUncheckedCreateWithoutInteractionTypesInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
-    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
+    parentId?: string | null
+    contactName?: string | null
     documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
     followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
   }
 
   export type NoteCreateOrConnectWithoutInteractionTypesInput = {
@@ -17022,6 +17022,150 @@ export namespace Prisma {
   export type NoteUpdateManyWithWhereWithoutInteractionTypesInput = {
     where: NoteScalarWhereInput
     data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutInteractionTypesInput>
+  }
+
+  export type CompanyCreateWithoutUserInput = {
+    id?: string
+    name: string
+    email: string
+    PhoneNumber: string
+    logo?: string | null
+    tags?: CompanyCreatetagsInput | string[]
+    status?: $Enums.CompanyStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignUsername?: string | null
+    contactName?: string | null
+    notes?: NoteCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    email: string
+    PhoneNumber: string
+    logo?: string | null
+    tags?: CompanyCreatetagsInput | string[]
+    status?: $Enums.CompanyStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignUsername?: string | null
+    contactName?: string | null
+    notes?: NoteUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutUserInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
+  }
+
+  export type CompanyCreateManyUserInputEnvelope = {
+    data: CompanyCreateManyUserInput | CompanyCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NoteCreateWithoutAuthorInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
+    deletedAt?: Date | string | null
+    contactName?: string | null
+    documents?: AttachmentCreateNestedManyWithoutNoteInput
+    company: CompanyCreateNestedOneWithoutNotesInput
+    parent?: NoteCreateNestedOneWithoutFollowUpsInput
+    followUps?: NoteCreateNestedManyWithoutParentInput
+    history?: NoteHistoryCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
+    services?: ServiceCreateNestedManyWithoutNotesInput
+  }
+
+  export type NoteUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    companyId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
+    deletedAt?: Date | string | null
+    parentId?: string | null
+    contactName?: string | null
+    documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
+    followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
+    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
+  }
+
+  export type NoteCreateOrConnectWithoutAuthorInput = {
+    where: NoteWhereUniqueInput
+    create: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type NoteCreateManyAuthorInputEnvelope = {
+    data: NoteCreateManyAuthorInput | NoteCreateManyAuthorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NoteHistoryCreateWithoutChangedByInput = {
+    id?: string
+    oldTitle?: string | null
+    oldContent?: string | null
+    createdAt?: Date | string
+    action: string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
+    oldIsPinned?: boolean | null
+    oldType?: string | null
+    note: NoteCreateNestedOneWithoutHistoryInput
+  }
+
+  export type NoteHistoryUncheckedCreateWithoutChangedByInput = {
+    id?: string
+    noteId: string
+    oldTitle?: string | null
+    oldContent?: string | null
+    createdAt?: Date | string
+    action: string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
+    oldIsPinned?: boolean | null
+    oldType?: string | null
+  }
+
+  export type NoteHistoryCreateOrConnectWithoutChangedByInput = {
+    where: NoteHistoryWhereUniqueInput
+    create: XOR<NoteHistoryCreateWithoutChangedByInput, NoteHistoryUncheckedCreateWithoutChangedByInput>
+  }
+
+  export type NoteHistoryCreateManyChangedByInputEnvelope = {
+    data: NoteHistoryCreateManyChangedByInput | NoteHistoryCreateManyChangedByInput[]
+    skipDuplicates?: boolean
   }
 
   export type RefreshTokenCreateWithoutUserInput = {
@@ -17060,148 +17204,70 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CompanyCreateWithoutUserInput = {
-    id?: string
-    name: string
-    email: string
-    PhoneNumber: string
-    contactName?: string | null
-    logo?: string | null
-    tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
-    status?: $Enums.CompanyStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    notes?: NoteCreateNestedManyWithoutCompanyInput
-  }
-
-  export type CompanyUncheckedCreateWithoutUserInput = {
-    id?: string
-    name: string
-    email: string
-    PhoneNumber: string
-    contactName?: string | null
-    logo?: string | null
-    tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
-    status?: $Enums.CompanyStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    notes?: NoteUncheckedCreateNestedManyWithoutCompanyInput
-  }
-
-  export type CompanyCreateOrConnectWithoutUserInput = {
+  export type CompanyUpsertWithWhereUniqueWithoutUserInput = {
     where: CompanyWhereUniqueInput
+    update: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
     create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
   }
 
-  export type CompanyCreateManyUserInputEnvelope = {
-    data: CompanyCreateManyUserInput | CompanyCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type CompanyUpdateWithWhereUniqueWithoutUserInput = {
+    where: CompanyWhereUniqueInput
+    data: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
   }
 
-  export type NoteCreateWithoutAuthorInput = {
-    id?: string
-    title?: string | null
-    content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    services?: ServiceCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeCreateNestedManyWithoutNotesInput
-    company: CompanyCreateNestedOneWithoutNotesInput
-    documents?: AttachmentCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryCreateNestedManyWithoutNoteInput
-    parent?: NoteCreateNestedOneWithoutFollowUpsInput
-    followUps?: NoteCreateNestedManyWithoutParentInput
+  export type CompanyUpdateManyWithWhereWithoutUserInput = {
+    where: CompanyScalarWhereInput
+    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type NoteUncheckedCreateWithoutAuthorInput = {
-    id?: string
-    title?: string | null
-    content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    companyId: string
-    parentId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    services?: ServiceUncheckedCreateNestedManyWithoutNotesInput
-    interactionTypes?: InteractionTypeUncheckedCreateNestedManyWithoutNotesInput
-    documents?: AttachmentUncheckedCreateNestedManyWithoutNoteInput
-    history?: NoteHistoryUncheckedCreateNestedManyWithoutNoteInput
-    followUps?: NoteUncheckedCreateNestedManyWithoutParentInput
+  export type CompanyScalarWhereInput = {
+    AND?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
+    OR?: CompanyScalarWhereInput[]
+    NOT?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
+    id?: StringFilter<"Company"> | string
+    name?: StringFilter<"Company"> | string
+    email?: StringFilter<"Company"> | string
+    PhoneNumber?: StringFilter<"Company"> | string
+    logo?: StringNullableFilter<"Company"> | string | null
+    tags?: StringNullableListFilter<"Company">
+    status?: EnumCompanyStatusFilter<"Company"> | $Enums.CompanyStatus
+    createdAt?: DateTimeFilter<"Company"> | Date | string
+    updatedAt?: DateTimeFilter<"Company"> | Date | string
+    assignUsername?: StringNullableFilter<"Company"> | string | null
+    userId?: StringFilter<"Company"> | string
+    contactName?: StringNullableFilter<"Company"> | string | null
   }
 
-  export type NoteCreateOrConnectWithoutAuthorInput = {
+  export type NoteUpsertWithWhereUniqueWithoutAuthorInput = {
     where: NoteWhereUniqueInput
+    update: XOR<NoteUpdateWithoutAuthorInput, NoteUncheckedUpdateWithoutAuthorInput>
     create: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput>
   }
 
-  export type NoteCreateManyAuthorInputEnvelope = {
-    data: NoteCreateManyAuthorInput | NoteCreateManyAuthorInput[]
-    skipDuplicates?: boolean
+  export type NoteUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: NoteWhereUniqueInput
+    data: XOR<NoteUpdateWithoutAuthorInput, NoteUncheckedUpdateWithoutAuthorInput>
   }
 
-  export type NoteHistoryCreateWithoutChangedByInput = {
-    id?: string
-    oldTitle?: string | null
-    oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: boolean | null
-    oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    action: string
-    createdAt?: Date | string
-    note: NoteCreateNestedOneWithoutHistoryInput
+  export type NoteUpdateManyWithWhereWithoutAuthorInput = {
+    where: NoteScalarWhereInput
+    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutAuthorInput>
   }
 
-  export type NoteHistoryUncheckedCreateWithoutChangedByInput = {
-    id?: string
-    noteId: string
-    oldTitle?: string | null
-    oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: boolean | null
-    oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    action: string
-    createdAt?: Date | string
-  }
-
-  export type NoteHistoryCreateOrConnectWithoutChangedByInput = {
+  export type NoteHistoryUpsertWithWhereUniqueWithoutChangedByInput = {
     where: NoteHistoryWhereUniqueInput
+    update: XOR<NoteHistoryUpdateWithoutChangedByInput, NoteHistoryUncheckedUpdateWithoutChangedByInput>
     create: XOR<NoteHistoryCreateWithoutChangedByInput, NoteHistoryUncheckedCreateWithoutChangedByInput>
   }
 
-  export type NoteHistoryCreateManyChangedByInputEnvelope = {
-    data: NoteHistoryCreateManyChangedByInput | NoteHistoryCreateManyChangedByInput[]
-    skipDuplicates?: boolean
+  export type NoteHistoryUpdateWithWhereUniqueWithoutChangedByInput = {
+    where: NoteHistoryWhereUniqueInput
+    data: XOR<NoteHistoryUpdateWithoutChangedByInput, NoteHistoryUncheckedUpdateWithoutChangedByInput>
+  }
+
+  export type NoteHistoryUpdateManyWithWhereWithoutChangedByInput = {
+    where: NoteHistoryScalarWhereInput
+    data: XOR<NoteHistoryUpdateManyMutationInput, NoteHistoryUncheckedUpdateManyWithoutChangedByInput>
   }
 
   export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -17237,136 +17303,70 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
   }
 
-  export type CompanyUpsertWithWhereUniqueWithoutUserInput = {
-    where: CompanyWhereUniqueInput
-    update: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
-    create: XOR<CompanyCreateWithoutUserInput, CompanyUncheckedCreateWithoutUserInput>
-  }
-
-  export type CompanyUpdateWithWhereUniqueWithoutUserInput = {
-    where: CompanyWhereUniqueInput
-    data: XOR<CompanyUpdateWithoutUserInput, CompanyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CompanyUpdateManyWithWhereWithoutUserInput = {
-    where: CompanyScalarWhereInput
-    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type CompanyScalarWhereInput = {
-    AND?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
-    OR?: CompanyScalarWhereInput[]
-    NOT?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
-    id?: StringFilter<"Company"> | string
-    name?: StringFilter<"Company"> | string
-    email?: StringFilter<"Company"> | string
-    PhoneNumber?: StringFilter<"Company"> | string
-    contactName?: StringNullableFilter<"Company"> | string | null
-    logo?: StringNullableFilter<"Company"> | string | null
-    tags?: StringNullableListFilter<"Company">
-    assignUsername?: StringNullableFilter<"Company"> | string | null
-    status?: EnumCompanyStatusFilter<"Company"> | $Enums.CompanyStatus
-    userId?: StringFilter<"Company"> | string
-    createdAt?: DateTimeFilter<"Company"> | Date | string
-    updatedAt?: DateTimeFilter<"Company"> | Date | string
-  }
-
-  export type NoteUpsertWithWhereUniqueWithoutAuthorInput = {
-    where: NoteWhereUniqueInput
-    update: XOR<NoteUpdateWithoutAuthorInput, NoteUncheckedUpdateWithoutAuthorInput>
-    create: XOR<NoteCreateWithoutAuthorInput, NoteUncheckedCreateWithoutAuthorInput>
-  }
-
-  export type NoteUpdateWithWhereUniqueWithoutAuthorInput = {
-    where: NoteWhereUniqueInput
-    data: XOR<NoteUpdateWithoutAuthorInput, NoteUncheckedUpdateWithoutAuthorInput>
-  }
-
-  export type NoteUpdateManyWithWhereWithoutAuthorInput = {
-    where: NoteScalarWhereInput
-    data: XOR<NoteUpdateManyMutationInput, NoteUncheckedUpdateManyWithoutAuthorInput>
-  }
-
-  export type NoteHistoryUpsertWithWhereUniqueWithoutChangedByInput = {
-    where: NoteHistoryWhereUniqueInput
-    update: XOR<NoteHistoryUpdateWithoutChangedByInput, NoteHistoryUncheckedUpdateWithoutChangedByInput>
-    create: XOR<NoteHistoryCreateWithoutChangedByInput, NoteHistoryUncheckedCreateWithoutChangedByInput>
-  }
-
-  export type NoteHistoryUpdateWithWhereUniqueWithoutChangedByInput = {
-    where: NoteHistoryWhereUniqueInput
-    data: XOR<NoteHistoryUpdateWithoutChangedByInput, NoteHistoryUncheckedUpdateWithoutChangedByInput>
-  }
-
-  export type NoteHistoryUpdateManyWithWhereWithoutChangedByInput = {
-    where: NoteHistoryScalarWhereInput
-    data: XOR<NoteHistoryUpdateManyMutationInput, NoteHistoryUncheckedUpdateManyWithoutChangedByInput>
-  }
-
   export type NoteCreateManyCompanyInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    authorId?: string | null
-    parentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
+    parentId?: string | null
+    contactName?: string | null
   }
 
   export type NoteUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    author?: UserUpdateOneWithoutNotesNestedInput
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    author?: UserUpdateOneWithoutNotesNestedInput
     parent?: NoteUpdateOneWithoutFollowUpsNestedInput
     followUps?: NoteUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
     followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateManyWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AttachmentCreateManyNoteInput = {
@@ -17379,71 +17379,41 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type NoteHistoryCreateManyNoteInput = {
-    id?: string
-    oldTitle?: string | null
-    oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: boolean | null
-    oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    changedById: string
-    action: string
-    createdAt?: Date | string
-  }
-
   export type NoteCreateManyParentInput = {
     id?: string
     title?: string | null
     content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
     companyId: string
-    authorId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isPinned?: boolean
+    authorId?: string | null
+    type?: string | null
     deletedAt?: Date | string | null
+    contactName?: string | null
   }
 
-  export type ServiceUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ServiceUncheckedUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ServiceUncheckedUpdateManyWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type InteractionTypeUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type InteractionTypeUncheckedUpdateWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type InteractionTypeUncheckedUpdateManyWithoutNotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+  export type NoteHistoryCreateManyNoteInput = {
+    id?: string
+    oldTitle?: string | null
+    oldContent?: string | null
+    changedById: string
+    createdAt?: Date | string
+    action: string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
+    oldIsPinned?: boolean | null
+    oldType?: string | null
   }
 
   export type AttachmentUpdateWithoutNoteInput = {
@@ -17476,26 +17446,78 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NoteUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUpdateManyWithoutNoteNestedInput
+    author?: UserUpdateOneWithoutNotesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
+    followUps?: NoteUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
+    followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type NoteHistoryUpdateWithoutNoteInput = {
     id?: StringFieldUpdateOperationsInput | string
     oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
     oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
     oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     changedBy?: UserUpdateOneRequiredWithoutNoteHistoriesNestedInput
   }
 
@@ -17503,204 +17525,233 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
     oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    changedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
     oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    changedById?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NoteHistoryUncheckedUpdateManyWithoutNoteInput = {
     id?: StringFieldUpdateOperationsInput | string
     oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
     oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    changedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
     oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    changedById?: StringFieldUpdateOperationsInput | string
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NoteUpdateWithoutParentInput = {
+  export type InteractionTypeUpdateWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
-    author?: UserUpdateOneWithoutNotesNestedInput
-    documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
-    followUps?: NoteUpdateManyWithoutParentNestedInput
+    name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type NoteUncheckedUpdateWithoutParentInput = {
+  export type InteractionTypeUncheckedUpdateWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
-    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
-    followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type NoteUncheckedUpdateManyWithoutParentInput = {
+  export type InteractionTypeUncheckedUpdateManyWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ServiceUpdateWithoutNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ServiceUncheckedUpdateWithoutNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type NoteUpdateWithoutServicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
-    author?: UserUpdateOneWithoutNotesNestedInput
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    author?: UserUpdateOneWithoutNotesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
     parent?: NoteUpdateOneWithoutFollowUpsNestedInput
     followUps?: NoteUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutServicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
     followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateManyWithoutServicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NoteUpdateWithoutInteractionTypesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
-    author?: UserUpdateOneWithoutNotesNestedInput
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    author?: UserUpdateOneWithoutNotesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
     parent?: NoteUpdateOneWithoutFollowUpsNestedInput
     followUps?: NoteUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutInteractionTypesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
     followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
   }
 
   export type NoteUncheckedUpdateManyWithoutInteractionTypesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
     companyId?: StringFieldUpdateOperationsInput | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyCreateManyUserInput = {
+    id?: string
+    name: string
+    email: string
+    PhoneNumber: string
+    logo?: string | null
+    tags?: CompanyCreatetagsInput | string[]
+    status?: $Enums.CompanyStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignUsername?: string | null
+    contactName?: string | null
+  }
+
+  export type NoteCreateManyAuthorInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    companyId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isPinned?: boolean
+    type?: string | null
+    deletedAt?: Date | string | null
+    parentId?: string | null
+    contactName?: string | null
+  }
+
+  export type NoteHistoryCreateManyChangedByInput = {
+    id?: string
+    noteId: string
+    oldTitle?: string | null
+    oldContent?: string | null
+    createdAt?: Date | string
+    action: string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: string | null
+    newContent?: string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: string | null
+    newType?: string | null
+    oldContactName?: string | null
+    oldIsPinned?: boolean | null
+    oldType?: string | null
   }
 
   export type RefreshTokenCreateManyUserInput = {
@@ -17716,55 +17767,169 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type CompanyCreateManyUserInput = {
-    id?: string
-    name: string
-    email: string
-    PhoneNumber: string
-    contactName?: string | null
-    logo?: string | null
-    tags?: CompanyCreatetagsInput | string[]
-    assignUsername?: string | null
-    status?: $Enums.CompanyStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type CompanyUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    PhoneNumber?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: CompanyUpdatetagsInput | string[]
+    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NoteUpdateManyWithoutCompanyNestedInput
   }
 
-  export type NoteCreateManyAuthorInput = {
-    id?: string
-    title?: string | null
-    content?: string | null
-    contactName?: string | null
-    isPinned?: boolean
-    type?: string | null
-    companyId: string
-    parentId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
+  export type CompanyUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    PhoneNumber?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: CompanyUpdatetagsInput | string[]
+    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NoteUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
-  export type NoteHistoryCreateManyChangedByInput = {
-    id?: string
-    noteId: string
-    oldTitle?: string | null
-    oldContent?: string | null
-    oldContactName?: string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+  export type CompanyUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    PhoneNumber?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: CompanyUpdatetagsInput | string[]
+    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NoteUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUpdateManyWithoutNoteNestedInput
+    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
+    parent?: NoteUpdateOneWithoutFollowUpsNestedInput
+    followUps?: NoteUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
+    services?: ServiceUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
+    followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
+    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
+    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
+  }
+
+  export type NoteUncheckedUpdateManyWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isPinned?: BoolFieldUpdateOperationsInput | boolean
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NoteHistoryUpdateWithoutChangedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
     oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: boolean | null
-    oldType?: string | null
-    newTitle?: string | null
-    newContent?: string | null
-    newContactName?: string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
     newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: boolean | null
-    newType?: string | null
-    action: string
-    createdAt?: Date | string
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    oldType?: NullableStringFieldUpdateOperationsInput | string | null
+    note?: NoteUpdateOneRequiredWithoutHistoryNestedInput
+  }
+
+  export type NoteHistoryUncheckedUpdateWithoutChangedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    noteId?: StringFieldUpdateOperationsInput | string
+    oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    oldType?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type NoteHistoryUncheckedUpdateManyWithoutChangedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    noteId?: StringFieldUpdateOperationsInput | string
+    oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    action?: StringFieldUpdateOperationsInput | string
+    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
+    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    oldServices?: NullableJsonNullValueInput | InputJsonValue
+    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    newContent?: NullableStringFieldUpdateOperationsInput | string | null
+    newDocuments?: NullableJsonNullValueInput | InputJsonValue
+    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
+    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    newServices?: NullableJsonNullValueInput | InputJsonValue
+    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    newType?: NullableStringFieldUpdateOperationsInput | string | null
+    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
+    oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    oldType?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RefreshTokenUpdateWithoutUserInput = {
@@ -17803,171 +17968,6 @@ export namespace Prisma {
     lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isRevoked?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CompanyUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NoteUpdateManyWithoutCompanyNestedInput
-  }
-
-  export type CompanyUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    notes?: NoteUncheckedUpdateManyWithoutCompanyNestedInput
-  }
-
-  export type CompanyUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    PhoneNumber?: StringFieldUpdateOperationsInput | string
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    logo?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: CompanyUpdatetagsInput | string[]
-    assignUsername?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumCompanyStatusFieldUpdateOperationsInput | $Enums.CompanyStatus
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NoteUpdateWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUpdateManyWithoutNotesNestedInput
-    company?: CompanyUpdateOneRequiredWithoutNotesNestedInput
-    documents?: AttachmentUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUpdateManyWithoutNoteNestedInput
-    parent?: NoteUpdateOneWithoutFollowUpsNestedInput
-    followUps?: NoteUpdateManyWithoutParentNestedInput
-  }
-
-  export type NoteUncheckedUpdateWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: StringFieldUpdateOperationsInput | string
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    services?: ServiceUncheckedUpdateManyWithoutNotesNestedInput
-    interactionTypes?: InteractionTypeUncheckedUpdateManyWithoutNotesNestedInput
-    documents?: AttachmentUncheckedUpdateManyWithoutNoteNestedInput
-    history?: NoteHistoryUncheckedUpdateManyWithoutNoteNestedInput
-    followUps?: NoteUncheckedUpdateManyWithoutParentNestedInput
-  }
-
-  export type NoteUncheckedUpdateManyWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    contactName?: NullableStringFieldUpdateOperationsInput | string | null
-    isPinned?: BoolFieldUpdateOperationsInput | boolean
-    type?: NullableStringFieldUpdateOperationsInput | string | null
-    companyId?: StringFieldUpdateOperationsInput | string
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type NoteHistoryUpdateWithoutChangedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: NoteUpdateOneRequiredWithoutHistoryNestedInput
-  }
-
-  export type NoteHistoryUncheckedUpdateWithoutChangedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    noteId?: StringFieldUpdateOperationsInput | string
-    oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NoteHistoryUncheckedUpdateManyWithoutChangedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    noteId?: StringFieldUpdateOperationsInput | string
-    oldTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContent?: NullableStringFieldUpdateOperationsInput | string | null
-    oldContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    oldServices?: NullableJsonNullValueInput | InputJsonValue
-    oldInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    oldDocuments?: NullableJsonNullValueInput | InputJsonValue
-    oldIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    oldType?: NullableStringFieldUpdateOperationsInput | string | null
-    newTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    newContent?: NullableStringFieldUpdateOperationsInput | string | null
-    newContactName?: NullableStringFieldUpdateOperationsInput | string | null
-    newServices?: NullableJsonNullValueInput | InputJsonValue
-    newInteractionTypes?: NullableJsonNullValueInput | InputJsonValue
-    newDocuments?: NullableJsonNullValueInput | InputJsonValue
-    newIsPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    newType?: NullableStringFieldUpdateOperationsInput | string | null
-    action?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
