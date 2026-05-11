@@ -32,8 +32,10 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     this.logger.log(`PrismaService initialized (Mode: ${isLocal ? 'Local' : 'Remote'})`);
     
     if (!isLocal && dbUrl) {
+      const maskedUrl = dbUrl.substring(0, 20) + '...';
+      this.logger.log(`Connecting to remote database: ${maskedUrl}`);
       const host = dbUrl.split('@')[1]?.split('/')[0] || 'unknown';
-      this.logger.log(`Connecting to remote database at: ${host}`);
+      this.logger.log(`Target Host: ${host}`);
     }
   }
 
